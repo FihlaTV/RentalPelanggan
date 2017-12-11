@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="2">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.4"
+                    android:text="Biodata Pemesan"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:padding="5dp"
+                    android:background="@color/abu_muda"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_text_input"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_identitas"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:background="@null"
+                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nomor Identitas"
+                            android:textSize="13dp" />
+                        <TextView
+                            android:id="@+id/textViewIdentitasPelanggan"
+                            android:background="@null"
+                            android:paddingTop="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nomor Identitas Pelanggan"
+                            android:textSize="16dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_text_input"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_name"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:background="@null"
+                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Lengkap"
+                            android:textSize="13dp" />
+                        <TextView
+                            android:id="@+id/textViewNamaLengkap"
+                            android:background="@null"
+                            android:paddingTop="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Lengkap Pelanggan"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_text_input"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_lokasi"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:background="@null"
+                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Alamat"
+                            android:textSize="13dp" />
+                        <TextView
+                            android:id="@+id/textViewAlamatLengkap"
+                            android:background="@null"
+                            android:paddingTop="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Alamat Lengkap"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_text_input"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_phone"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:background="@null"
+                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nomor Telepon"
+                            android:inputType="textEmailAddress"
+                            android:textSize="13dp"
+                            android:maxLines="1" />
+                        <TextView
+                            android:id="@+id/textViewNomorTelpon"
+                            android:background="@null"
+                            android:paddingTop="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nomor Telepon Pelanggan"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_text_input"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_email"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:background="@null"
+                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:textSize="13dp"/>
+                        <TextView
+                            android:id="@+id/textViewEmail"
+                            android:background="@null"
+                            android:paddingTop="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Email Pelanggan"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.4"
+                    android:text="Informasi Pemesanan"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:padding="5dp"
+                    android:background="@color/abu_muda"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_text_input"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="45dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_time"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:background="@null"
+                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Waktu Pengambilan Kendaraan"
+                            android:textSize="13dp" />
+                        <Spinner
+                            android:id="@+id/spinnerWaktuPengambilan"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"></Spinner>
+                    </LinearLayout>
+                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_text_input"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_rents"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp">
+                        <TextView
+                            android:background="@null"
+                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Permintaan Khusus"/>
+                        <EditText
+                            android:id="@+id/editTextKeteranganKhusus"
+                            android:background="@drawable/border_text_input"
+                            android:layout_marginTop="7dp"
+                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:hint="Permintaan Khusus"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_weight="2"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
+                <Button
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:text="Buat Pesanan"
+                    android:id="@+id/btnBuatPesanan"
+                    android:background="@drawable/round_button"/>
+            </LinearLayout>
+        </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+
+
+</RelativeLayout>
+
+<!--<LinearLayout-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:orientation="vertical"-->
+<!--android:weightSum="2">-->
+<!--<LinearLayout-->
+    <!--android:id="@+id/linearLayout1"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1.5">-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:text="Biodata Pemesan"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"-->
+        <!--android:background="@color/abu_muda"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:text="Nomor Identitas"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:text="Nama Lengkap"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:text="Alamat"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:text="Nomor Telpon"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:text="Email"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"/>-->
+
+<!--</LinearLayout>-->
+<!--<LinearLayout-->
+    <!--android:id="@+id/linearLayout1"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1.5">-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:text="Biodata Pemesan"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"-->
+        <!--android:background="@color/abu_muda"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:text="Nomor Identitas"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:text="Nama Lengkap"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:text="Alamat"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:text="Nomor Telpon"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"/>-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.4"-->
+        <!--android:text="Email"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"/>-->
+    <!--<EditText-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.5"-->
+        <!--android:text="Informasi Pengambilan Kendaraan"-->
+        <!--android:hint="test"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:padding="5dp"-->
+        <!--android:background="@color/abu_muda"/>-->
+<!--</LinearLayout>-->
+
+<!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+<!--&lt;!&ndash;android:id="@+id/linearLayout2"&ndash;&gt;-->
+<!--&lt;!&ndash;android:orientation="vertical"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_height="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_weight="1.5"&ndash;&gt;-->
+<!--&lt;!&ndash;android:weightSum="3">&ndash;&gt;-->
+<!--&lt;!&ndash;<TextView&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_height="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_weight="0.5"&ndash;&gt;-->
+<!--&lt;!&ndash;android:text="Informasi Pengambilan Kendaraan"&ndash;&gt;-->
+<!--&lt;!&ndash;android:textSize="18dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;android:padding="5dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:background="@color/abu_muda"/>&ndash;&gt;-->
+<!--&lt;!&ndash;<TextView&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_height="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_weight="0.5"&ndash;&gt;-->
+<!--&lt;!&ndash;android:text="Informasi Pengambilan Kendaraan"&ndash;&gt;-->
+<!--&lt;!&ndash;android:textSize="18dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;android:padding="5dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:background="@color/abu_muda"/>&ndash;&gt;-->
+<!--&lt;!&ndash;<EditText&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_height="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_weight="0.5"&ndash;&gt;-->
+<!--&lt;!&ndash;android:text="Informasi Pengambilan Kendaraan"&ndash;&gt;-->
+<!--&lt;!&ndash;android:hint="test"&ndash;&gt;-->
+<!--&lt;!&ndash;android:textSize="18dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;android:padding="5dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:background="@color/abu_muda"/>&ndash;&gt;-->
+<!--&lt;!&ndash;<Spinner&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_height="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_weight="0.5"&ndash;&gt;-->
+<!--&lt;!&ndash;android:id="@+id/spinnerWaktuPenjemputan"&ndash;&gt;-->
+<!--&lt;!&ndash;android:text="Waktu Pengambilan"&ndash;&gt;-->
+<!--&lt;!&ndash;android:textSize="15dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;android:padding="5dp"/>&ndash;&gt;-->
+<!--&lt;!&ndash;<EditText&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_height="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_weight="1.4"&ndash;&gt;-->
+<!--&lt;!&ndash;android:id="@+id/editTextPermintaanKhusus"&ndash;&gt;-->
+<!--&lt;!&ndash;android:hint="Permintaan Khusus (optional)"&ndash;&gt;-->
+<!--&lt;!&ndash;android:textSize="18dp"&ndash;&gt;-->
+<!--&lt;!&ndash;android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;android:padding="5dp"/>&ndash;&gt;-->
+<!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+
+<!--<LinearLayout-->
+    <!--android:id="@+id/buttonLanjutkan"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:gravity="center"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_weight="0.5">-->
+    <!--<Button-->
+        <!--android:layout_width="330dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Lanjutkan"-->
+        <!--android:id="@+id/btnLanjutkan"-->
+        <!--android:background="@drawable/round_button"/>-->
+<!--</LinearLayout>-->
+<!--</LinearLayout>-->

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mlg4"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.meita.rental_pelanggan.com.example.meita.rental_pelanggan.Autentifikasi.Login">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="45dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <ImageView android:src="@drawable/logo_login"
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center_horizontal" />
+
+
+            <EditText android:id="@+id/email"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_marginBottom="3dp"
+                android:layout_gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/round_top_transparant"
+                android:hint="Email"
+                android:textColor="@color/putih"
+                android:textColorHint="@color/putih"
+                android:paddingLeft="15dp"/>
+
+            <EditText android:id="@+id/password"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="3dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:background="@drawable/round_bottom_transparant"
+                android:textColorHint="@color/putih"
+                android:textColor="@color/putih"
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:paddingLeft="15dp"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_login"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_button"
+            android:padding="12dp"
+            android:textColor="@color/hitam"
+            android:text="Login"/>
+
+        <Button android:id="@+id/btn_reset_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="2dp"
+            android:background="@null"
+            android:textColor="@color/putih"
+            android:text="Lupa password?"
+            android:layout_gravity="center"
+            android:textSize="16dip"/>
+
+        <Button android:id="@+id/btn_registrasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="24dp"
+            android:background="@null"
+            android:textColor="@color/putih"
+            android:text="Belum punya akun? Daftar Disini"
+            android:layout_gravity="center"
+            android:textSize="16dip"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</LinearLayout>

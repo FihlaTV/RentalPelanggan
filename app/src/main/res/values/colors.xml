@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="orange">#FEBD3D</color>
+    <color name="colorAccent">#FEBD3D</color>
+    <color name="putih">#ffff</color>
+    <color name="hitam">#030200</color>
+    <color name="traslucent_background">#64000000</color>
+    <color name="abu_tua">#9A9797</color>
+    <color name="abu_muda">#CCD1D1</color>
+    <color name="grey">#bfbfbf</color>
+    <color name="hijau_tua">#0FC728</color>
+    <color name="ratingBarActived">#ffbf41</color>
+    <color name="ratingBarNotActived">#ffde9d</color>
+</resources>

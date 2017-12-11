@@ -1,0 +1,187 @@
+{
+  "project_info": {
+    "project_number": "53181721773",
+    "firebase_url": "https://bismillahskripsi-44a73.firebaseio.com",
+    "project_id": "bismillahskripsi-44a73",
+    "storage_bucket": "bismillahskripsi-44a73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53181721773:android:2385d55252959903",
+        "android_client_info": {
+          "package_name": "com.example.meita.belajar_fragment2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53181721773-p4kpgmp7iaug4gobfr61qgh5khvs8gpb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meita.belajar_fragment2",
+            "certificate_hash": "ce2c1d73def44614c917e19db695081119faf925"
+          }
+        },
+        {
+          "client_id": "53181721773-aqevppb15lvfdh1rtod26cj2bn8ntdcf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDabTvpbCYUI2g7jfPtrArf0zSLDuAGba4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53181721773-aqevppb15lvfdh1rtod26cj2bn8ntdcf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53181721773:android:5eff72a8b1cc4033",
+        "android_client_info": {
+          "package_name": "com.example.meita.rental_pemilik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53181721773-96pgl8asr4h2e2p13k1gfa5kti3uq05j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meita.rental_pemilik",
+            "certificate_hash": "ce2c1d73def44614c917e19db695081119faf925"
+          }
+        },
+        {
+          "client_id": "53181721773-aqevppb15lvfdh1rtod26cj2bn8ntdcf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDabTvpbCYUI2g7jfPtrArf0zSLDuAGba4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53181721773-aqevppb15lvfdh1rtod26cj2bn8ntdcf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53181721773:android:79f38c6c13ad9788",
+        "android_client_info": {
+          "package_name": "com.example.meita.rentalpemilik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53181721773-u3416e45kagql3svna47bssp383k1c1t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meita.rentalpemilik",
+            "certificate_hash": "ce2c1d73def44614c917e19db695081119faf925"
+          }
+        },
+        {
+          "client_id": "53181721773-aqevppb15lvfdh1rtod26cj2bn8ntdcf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDabTvpbCYUI2g7jfPtrArf0zSLDuAGba4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53181721773-aqevppb15lvfdh1rtod26cj2bn8ntdcf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53181721773:android:a5fa0c0854668af5",
+        "android_client_info": {
+          "package_name": "com.example.meita.rentalpelanggan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53181721773-no1lp18fnknc8lpak8j89pive5q8r1jv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meita.rentalpelanggan",
+            "certificate_hash": "ce2c1d73def44614c917e19db695081119faf925"
+          }
+        },
+        {
+          "client_id": "53181721773-aqevppb15lvfdh1rtod26cj2bn8ntdcf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDabTvpbCYUI2g7jfPtrArf0zSLDuAGba4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53181721773-aqevppb15lvfdh1rtod26cj2bn8ntdcf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

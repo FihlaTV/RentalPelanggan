@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status Pemesanan Kendaraan :"
+                android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/textViewStatusPemesanan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="Status"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/hitam"
+                android:gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:background="@drawable/rectangle_border">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tanggal Sewa"
+                android:textSize="15dp"
+                android:background="@color/orange"/>
+            <TextView
+                android:id="@+id/textViewTipeKendaraan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tipe Kendaraan"
+                android:textSize="13dp"
+                android:textColor="@color/orange"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"></TextView>
+            <TextView
+                android:id="@+id/textViewNamaRentalKendaraan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rental Kendaraan"
+                android:textSize="13dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"></TextView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/icCheckListDenganSupir"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_checklist"/>
+                <TextView
+                    android:text="Dengan Supir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/abu_tua"
+                    android:id="@+id/textViewDenganSupir"/>
+                <ImageView
+                    android:id="@+id/icCheckListTanpaSupir"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_checklist_false"/>
+                <TextView
+                    android:text="Tanpa Supir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/abu_tua"
+                    android:id="@+id/textViewTanpaSupir"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/icCheckListDenganBBM"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_checklist"/>
+                <TextView
+                    android:text="Dengan Bahan Bakar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/abu_tua"
+                    android:id="@+id/textViewDenganBBM"/>
+                <ImageView
+                    android:id="@+id/icCheckListTanpaBBM"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_checklist_false"/>
+                <TextView
+                    android:text="Tanpa Bahan Bakar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/abu_tua"
+                    android:id="@+id/textViewTanpaBBM"/>
+            </LinearLayout>
+            <View
+                android:id="@+id/pembatas1"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_below="@id/txtViewBBMFalse"
+                android:layout_marginTop="5dp"
+                android:background="@color/orange" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cakupan Pemakaian Kendaraan"
+                android:textSize="15dp"
+                android:textColor="@color/orange"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"></TextView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_geofence"/>
+                <TextView
+                    android:text="Area Pemakaian"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="13dp"
+                    android:textColor="@color/abu_tua"
+                    android:id="@+id/textViewAreaPemakaian"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textViewWaktuPenjemputan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Waktu Penjemputan"
+                    android:textSize="15dp"
+                    android:textColor="@color/orange"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"></TextView>
+                <TextView
+                    android:id="@+id/textViewWaktuPengambilan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Waktu Pengambilan"
+                    android:textSize="15dp"
+                    android:textColor="@color/orange"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/linearLayoutWaktuPenjemputan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_time"/>
+                    <TextView
+                        android:text="Waktu Penjemputan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="13dp"
+                        android:textColor="@color/abu_tua"
+                        android:id="@+id/textViewWaktuPenjemputanValue"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayoutWaktuPengambilan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:text="Waktu Pengambilan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="13dp"
+                        android:textColor="@color/abu_tua"
+                        android:id="@+id/textViewWaktuPengambilanValue"/>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/textViewLokasiPenjemputan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lokasi Penjemputan"
+                android:textSize="15dp"
+                android:textColor="@color/orange"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"></TextView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/icLokasiPenjemputan"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_lokasijemput"/>
+                <TextView
+                    android:text="Lokasi Penjemputan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="13dp"
+                    android:textColor="@color/abu_tua"
+                    android:id="@+id/textViewLokasiPenjemputanValue"/>
+            </LinearLayout>
+            <View
+                android:id="@+id/pembatas2"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_below="@id/txtViewAreaPemakaian"
+                android:layout_marginTop="5dp"
+                android:background="@color/orange" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Biodata Pemesan"
+                    android:textSize="15dp"
+                    android:textStyle=""
+                    android:textColor="@color/orange"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"></TextView>
+                <TextView
+                    android:id="@+id/textViewNamaPemesan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Pemesan"
+                    android:textSize="13dp"
+                    android:layout_marginLeft="15dp"></TextView>
+                <TextView
+                    android:id="@+id/textViewAlamatPemesan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat Pemesan"
+                    android:textSize="13dp"
+                    android:layout_marginLeft="15dp"></TextView>
+                <TextView
+                    android:id="@+id/textViewTelponPemesan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Telepon Pemesan"
+                    android:textSize="13dp"
+                    android:layout_marginLeft="15dp"></TextView>
+                <TextView
+                    android:id="@+id/textViewEmailPemesan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email Pemesan"
+                    android:textSize="13dp"
+                    android:layout_marginLeft="15dp"></TextView>
+            </LinearLayout>
+            <View
+                android:id="@+id/pembatas3"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_below="@id/txtViewAreaPemakaian"
+                android:layout_marginTop="5dp"
+                android:background="@color/orange" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Informasi Pembayaran"
+                    android:textSize="15dp"
+                    android:textStyle=""
+                    android:textColor="@color/orange"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="5dp"></TextView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Dari :"
+                        android:textSize="15dp"
+                        android:textStyle=""
+                        android:textColor="@color/hitam"
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginBottom="5dp"></TextView>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="35dp">
+                        <TextView
+                            android:id="@+id/textViewNamaRekeningPelanggan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Rekening Pelanggan"
+                            android:textSize="13dp"
+                            android:layout_marginLeft="15dp"></TextView>
+                        <TextView
+                            android:id="@+id/textViewNomorRekeningPelanggan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nomor Rekening Pelanggan"
+                            android:textSize="13dp"
+                            android:layout_marginLeft="15dp"></TextView>
+                        <TextView
+                            android:id="@+id/textViewNamaBankPelanggan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Bank Pelanggan"
+                            android:textSize="13dp"
+                            android:layout_marginLeft="15dp"></TextView>
+                        <TextView
+                            android:id="@+id/textViewJumlahTransfer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Jumlah Transfer Pembayaran"
+                            android:textSize="13dp"
+                            android:layout_marginLeft="15dp"></TextView>
+                        <TextView
+                            android:id="@+id/textViewWaktuTransfer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Waktu Transfer Pembayaran"
+                            android:textSize="13dp"
+                            android:layout_marginLeft="15dp"></TextView>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Kepada :"
+                        android:textSize="15dp"
+                        android:textStyle=""
+                        android:textColor="@color/hitam"
+                        android:layout_marginLeft="35dp"></TextView>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="35dp">
+                        <TextView
+                            android:id="@+id/textViewNamaRekeningRental"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Rekening Rental"
+                            android:textSize="13dp"
+                            android:layout_marginLeft="15dp"></TextView>
+                        <TextView
+                            android:id="@+id/textViewNomorRekeningRental"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nomor Rekening Rekening"
+                            android:textSize="13dp"
+                            android:layout_marginLeft="15dp"></TextView>
+                        <TextView
+                            android:id="@+id/textViewNamaBankRental"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Bank Rental"
+                            android:textSize="13dp"
+                            android:layout_marginLeft="15dp"></TextView>
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/btnLihatBuktiPembayaran"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lihat Bukti Pembayaran"
+                        android:background="@null"
+                        android:textColor="@color/hitam"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="15dp"></Button>
+
+
+            </LinearLayout>
+            <View
+                android:id="@+id/pembatas4"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/orange" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2.4"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.4"
+                        android:text="Total Pembayaran"
+                        android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/textViewTotalPembayaran"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="total"
+                        android:textColor="@color/abu_tua"
+                        android:textSize="20dp"/>
+                </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
+

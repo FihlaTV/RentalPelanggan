@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/putih">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:weightSum="8">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:layout_weight="7">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:weightSum="10">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_date_penyewaan" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_date_pengembalian" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_kategorikendaraan" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_jumlahkendaraan" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:weightSum="10">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.2">
+                    <EditText
+                        android:id="@+id/editTextTglSewa"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:background="@drawable/stroke_rounded"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:fontFamily="sans-serif"
+                        android:hint="Tanggal Sewa"
+                        android:padding="15dp"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.2">
+                    <EditText
+                        android:id="@+id/editTextTglKembali"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:background="@drawable/stroke_rounded"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:fontFamily="sans-serif"
+                        android:hint="Tanggal Kembali"
+                        android:padding="15dp"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.2">
+                    <Spinner
+                        android:id="@+id/spinnerKategori"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_below="@+id/editTextTglKembali"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/stroke_rounded"
+                        android:fontFamily="sans-serif"
+                        android:hint="Kategori Kendaraan"
+                        android:spinnerMode="dialog"
+                        android:textSize="13sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.2">
+                    <Spinner
+                        android:id="@+id/spinnerJumlahKendaraan"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_below="@+id/spinnerKategori"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/stroke_rounded"
+                        android:fontFamily="sans-serif"
+                        android:hint="Jumlah Kendaraan"
+                        android:spinnerMode="dialog"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:text="Cari Kendaraan"
+        android:id="@+id/buttonCari"
+        android:background="@drawable/round_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
+</RelativeLayout>
+
+
+<!--batasnyaaaa-->
+<!--<LinearLayout-->
+        <!--android:id="@+id/txtPencarian"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:layout_below="@+id/txtPencarian"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="0dp"-->
+            <!--android:layout_marginRight="20dp">-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/editTextTglSewa"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="55dp"-->
+                <!--android:layout_marginBottom="20dp"-->
+                <!--android:background="@drawable/stroke_rounded"-->
+                <!--android:clickable="true"-->
+                <!--android:focusable="false"-->
+                <!--android:fontFamily="sans-serif"-->
+                <!--android:hint="Tanggal Sewa"-->
+                <!--android:padding="15dp"-->
+                <!--android:textSize="13sp" />-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/editTextTglKembali"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="55dp"-->
+                <!--android:layout_below="@+id/editTextTglSewa"-->
+                <!--android:layout_marginBottom="20dp"-->
+                <!--android:background="@drawable/stroke_rounded"-->
+                <!--android:clickable="true"-->
+                <!--android:focusable="false"-->
+                <!--android:fontFamily="sans-serif"-->
+                <!--android:hint="Tanggal Kembali"-->
+                <!--android:padding="15dp"-->
+                <!--android:textSize="13sp" />-->
+
+            <!--<Spinner-->
+                <!--android:id="@+id/spinnerKategori"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="55dp"-->
+                <!--android:layout_below="@+id/editTextTglKembali"-->
+                <!--android:layout_marginBottom="20dp"-->
+                <!--android:background="@drawable/stroke_rounded"-->
+                <!--android:fontFamily="sans-serif"-->
+                <!--android:hint="Kategori Kendaraan"-->
+                <!--android:spinnerMode="dialog"-->
+                <!--android:textSize="13sp" />-->
+
+            <!--<Spinner-->
+                <!--android:id="@+id/spinnerJumlahKendaraan"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="55dp"-->
+                <!--android:layout_below="@+id/spinnerKategori"-->
+                <!--android:layout_marginBottom="20dp"-->
+                <!--android:background="@drawable/stroke_rounded"-->
+                <!--android:fontFamily="sans-serif"-->
+                <!--android:hint="Jumlah Kendaraan"-->
+                <!--android:spinnerMode="dialog"-->
+                <!--android:textSize="13sp" />-->
+        <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/lay1"-->
+        <!--android:layout_width="35dp"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_below="@+id/txtPencarian"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginLeft="25dp"-->
+        <!--android:layout_marginTop="40dp">-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_date_penyewaan" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="35dp"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_below="@+id/lay1"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginLeft="25dp"-->
+        <!--android:layout_marginTop="42dp">-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_date_pengembalian" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="37dp"-->
+        <!--android:layout_height="37dp"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_below="@+id/lay1"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginLeft="25dp"-->
+        <!--android:layout_marginTop="112dp">-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_kategorikendaraan" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="48dp"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_below="@+id/lay1"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginLeft="25dp"-->
+        <!--android:layout_marginTop="182dp">-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_jumlahkendaraan" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--<Button-->
+        <!--android:layout_width="330dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Cari Kendaraan"-->
+        <!--android:id="@+id/buttonCari"-->
+        <!--android:background="@drawable/round_button"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="10dp" />-->
+<!--</RelativeLayout>-->
+
+   <!-- <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_date_penyewaan"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Tanggal Sewa"
+                    android:textSize="17dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/putih"
+                    android:textSize="20dp"
+                    android:id="@+id/editTextTglSewa"/>
+                 <View
+                     android:layout_width="wrap_content"
+                     android:layout_height="0.3dp"
+                     android:layout_marginTop="10dp"
+                     android:layout_marginLeft="10dp"
+                     android:layout_marginRight="20dp"
+                     android:background="@color/orange"  />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout2"
+        android:layout_below="@+id/relativeLayout">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_date_pengembalian"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/linearLayout">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/textView"
+                    android:text="Tanggal Pengembalian"
+                    android:textSize="17dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/putih"
+                    android:textSize="20dp"
+                    android:id="@+id/editTextTglPengembalian"/>
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="0.3dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/orange" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout3"
+        android:layout_below="@+id/relativeLayout2">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_kategori4"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/textView"
+                android:text="Kategori Kendaraan"
+                android:textSize="17dp"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/spinnerKategori"
+                android:entries="@array/kategori_kendaraan"></Spinner>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.3dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/orange"  />
+        </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Cari Kendaraan"
+        android:id="@+id/buttonCari"
+        android:background="@drawable/round_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp" />
+
+</RelativeLayout>
+
+
+    <LinearLayout
+           android:layout_width="120dp"
+           android:layout_height="wrap_content"
+           android:id="@+id/layoutTglSewa"
+           android:orientation="horizontal"
+           android:layout_below="@+id/textView2"
+           android:background="@color/colorAccent">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/textViewTanggal"
+               android:text="30"
+               android:textSize="40dp"
+               android:layout_marginLeft="10dp"/>
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:padding="5dp">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/textViewBulan"
+                   android:text="Bulan"
+                   android:textSize="17dp"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/textViewTahun"
+                   android:text="Tahun"
+                   android:textSize="17dp"/>
+
+
+           </LinearLayout>
+       </LinearLayout> -->
