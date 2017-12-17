@@ -1,0 +1,238 @@
+{
+  "cekKetersediaanKendaraan" : {
+    "-L0HNS5zgWFknvUFz9Z6" : {
+      "batasWaktuPembayaran" : "Dec 14, 2017 08:17:07 AM",
+      "idKendaraan" : "-L-DFYEhr26JUuA2PKkY",
+      "idPelanggan" : "mSnwZGVzg4Y8bRmhGg6DK6eLwOx2",
+      "idPemesanan" : "-L0HNS5zgWFknvUFz9Z6",
+      "idRekeningRental" : "",
+      "idRental" : "AEepNcXDejbMwVJNVyPajEeHdk72",
+      "jamPengambilan" : "06.00",
+      "jumlahHariPenyewaan" : 1,
+      "jumlahKendaraan" : 3,
+      "kategoriKendaraan" : "Mobil",
+      "keteranganKhusus" : "oalalala",
+      "latitude_penjemputan" : 0,
+      "longitude_penjemputan" : 0,
+      "statusPemesanan" : "Belum Bayar",
+      "statusUlasan" : false,
+      "tglKembali" : "18/12/2017",
+      "tglPembuatanPesanan" : "Dec 14, 2017 7:17:07 AM",
+      "tglSewa" : "17/12/2017",
+      "totalBiayaPembayaran" : 840000
+    }
+  },
+  "kendaraan" : {
+    "Mobil" : {
+      "-L-DFYEhr26JUuA2PKkY" : {
+        "areaPemakaian" : "Malang Raya",
+        "bahanBakar" : false,
+        "fasilitasKendaraan" : "tissue. tempat sampah",
+        "hargaSewa" : 280000,
+        "idKendaraan" : "-L-DFYEhr26JUuA2PKkY",
+        "idRental" : "AEepNcXDejbMwVJNVyPajEeHdk72",
+        "jumlahKendaraan" : 4,
+        "jumlahPenumpang" : "4",
+        "kategoriKendaraan" : "Mobil",
+        "lamaPenyewaan" : "24 Jam",
+        "supir" : false,
+        "tipeKendaraan" : "Agya",
+        "uriFotoKendaraan" : [ "https://firebasestorage.googleapis.com/v0/b/bismillahskripsi-44a73.appspot.com/o/fotoKendaraan%2F-L-DFYEhr26JUuA2PKkY%2F1512067707167_0.jpg?alt=media&token=f089d92a-51b1-480a-890e-033217effb43", "https://firebasestorage.googleapis.com/v0/b/bismillahskripsi-44a73.appspot.com/o/fotoKendaraan%2F-L-DFYEhr26JUuA2PKkY%2F1512067707167_1.jpg?alt=media&token=68e9826d-2106-40da-a3e3-9d1295e09e0d" ]
+      },
+      "-L-DFkg_BUtCxKBGYdec" : {
+        "areaPemakaian" : "Malang Raya",
+        "bahanBakar" : true,
+        "fasilitasKendaraan" : "tissue, aqua, tempat sampah.",
+        "hargaSewa" : 500000,
+        "idKendaraan" : "-L-DFkg_BUtCxKBGYdec",
+        "idRental" : "AEepNcXDejbMwVJNVyPajEeHdk72",
+        "jumlahKendaraan" : 4,
+        "jumlahPenumpang" : "7",
+        "kategoriKendaraan" : "Mobil",
+        "lamaPenyewaan" : "12 Jam",
+        "supir" : true,
+        "tipeKendaraan" : "innova",
+        "uriFotoKendaraan" : [ "https://firebasestorage.googleapis.com/v0/b/bismillahskripsi-44a73.appspot.com/o/fotoKendaraan%2F-L-DFkg_BUtCxKBGYdec%2F1512067762262_0.jpg?alt=media&token=e46e8634-b2fa-4e6e-9a0e-5389153d1d42", "https://firebasestorage.googleapis.com/v0/b/bismillahskripsi-44a73.appspot.com/o/fotoKendaraan%2F-L-DFkg_BUtCxKBGYdec%2F1512067762262_1.jpg?alt=media&token=eeda2737-a7a2-411a-bb83-170e7dc313f5" ]
+      },
+      "-L-DGuYBxBvDyRTh2hya" : {
+        "areaPemakaian" : "Malang Raya dan Luar Kota",
+        "bahanBakar" : false,
+        "fasilitasKendaraan" : "Tissue",
+        "hargaSewa" : 400000,
+        "idKendaraan" : "-L-DGuYBxBvDyRTh2hya",
+        "idRental" : "AEepNcXDejbMwVJNVyPajEeHdk72",
+        "jumlahKendaraan" : 5,
+        "jumlahPenumpang" : "8",
+        "kategoriKendaraan" : "Mobil",
+        "lamaPenyewaaan" : "12 Jam",
+        "lamaPenyewaan" : "24 Jam",
+        "supir" : true,
+        "tipeKendaraan" : "Avanza",
+        "uriFotoKendaraan" : [ "https://firebasestorage.googleapis.com/v0/b/bismillahskripsi-44a73.appspot.com/o/fotoKendaraan%2F-L-DGuYBxBvDyRTh2hya%2F1512068064774_0.jpg?alt=media&token=6cce139c-38a5-4196-ae89-b0e088625c2d" ]
+      }
+    }
+  },
+  "pelanggan" : {
+    "59HjESBwu4g24IJ98OBuO12JLEB2" : {
+      "alamat" : "hhu",
+      "deviceToken" : "dRSmrQ-FJHI:APA91bGVExwv6NVGX10YqpUNBzY0SngjqDUO69XZP23lOyGE45WLgK_Ppyb2VX7K6TUIE8AzI6H-7wW_ubdnOU3xav-QPGlzfAEYpA_B9B5oYV9wQzfv6wB4z_DVJq8w4vXUmsxnhvbx",
+      "namaLengkap" : "yyuh",
+      "noIdentitas" : "5555",
+      "noTelp" : "5555"
+    },
+    "h0fmSiilNYPn3H3ge17h4JDwlgn1" : {
+      "deviceToken" : "dRSmrQ-FJHI:APA91bGVExwv6NVGX10YqpUNBzY0SngjqDUO69XZP23lOyGE45WLgK_Ppyb2VX7K6TUIE8AzI6H-7wW_ubdnOU3xav-QPGlzfAEYpA_B9B5oYV9wQzfv6wB4z_DVJq8w4vXUmsxnhvbx"
+    },
+    "mSnwZGVzg4Y8bRmhGg6DK6eLwOx2" : {
+      "alamat" : "akaoala",
+      "createdAt" : "Dec 11, 2017, 4:00:31 AM",
+      "deviceToken" : "cxsncSB6H_Y:APA91bH1Em1mW3HDUVaBYBf9x6O9h4HHU2Gdzca1kWAD4I9V_ZO_1yXJoTUk17_F2kgUWgtiz-ZcjT9zkj6z2b-PsZG3xNnDDs4xgL8BDvUc_F6-BclWIrREqKAz43txqZjIFBdqjRQr",
+      "email" : "pelanggaan@gmail.com",
+      "idPelanggan" : "mSnwZGVzg4Y8bRmhGg6DK6eLwOx2",
+      "namaLengkap" : "meitaahah",
+      "noIdentitas" : "019817226262292",
+      "noTelp" : "0927292020",
+      "uriFotoPelanggan" : "https://firebasestorage.googleapis.com/v0/b/bismillahskripsi-44a73.appspot.com/o/uploads%2F1512939629618.jpg?alt=media&token=900a66b7-1de0-458a-b5b2-a43bfc73641d"
+    }
+  },
+  "pemesananKendaraan" : {
+    "belumBayar" : {
+      "-L0HNS5zgWFknvUFz9Z6" : {
+        "batasWaktuPembayaran" : "Dec 14, 2017 08:17:07 AM",
+        "idKendaraan" : "-L-DFYEhr26JUuA2PKkY",
+        "idPelanggan" : "mSnwZGVzg4Y8bRmhGg6DK6eLwOx2",
+        "idPemesanan" : "-L0HNS5zgWFknvUFz9Z6",
+        "idRekeningRental" : "",
+        "idRental" : "AEepNcXDejbMwVJNVyPajEeHdk72",
+        "jamPengambilan" : "06.00",
+        "jumlahHariPenyewaan" : 1,
+        "jumlahKendaraan" : 3,
+        "kategoriKendaraan" : "Mobil",
+        "keteranganKhusus" : "oalalala",
+        "latitude_penjemputan" : 0,
+        "longitude_penjemputan" : 0,
+        "statusPemesanan" : "Belum Bayar",
+        "statusUlasan" : false,
+        "tglKembali" : "18/12/2017",
+        "tglPembuatanPesanan" : "Dec 14, 2017 7:17:07 AM",
+        "tglSewa" : "17/12/2017",
+        "totalBiayaPembayaran" : 840000
+      },
+      "-L0HNlGzpItuqGpCcuyJ" : {
+        "batasWaktuPembayaran" : "Dec 14, 2017 08:18:30 AM",
+        "idKendaraan" : "-L-DFYEhr26JUuA2PKkY",
+        "idPelanggan" : "mSnwZGVzg4Y8bRmhGg6DK6eLwOx2",
+        "idPemesanan" : "-L0HNlGzpItuqGpCcuyJ",
+        "idRekeningRental" : "",
+        "idRental" : "AEepNcXDejbMwVJNVyPajEeHdk72",
+        "jamPengambilan" : "07.00",
+        "jumlahHariPenyewaan" : 1,
+        "jumlahKendaraan" : 1,
+        "kategoriKendaraan" : "Mobil",
+        "keteranganKhusus" : "aaaa",
+        "latitude_penjemputan" : 0,
+        "longitude_penjemputan" : 0,
+        "statusPemesanan" : "Belum Bayar",
+        "statusUlasan" : false,
+        "tglKembali" : "18/12/2017",
+        "tglPembuatanPesanan" : "Dec 14, 2017 7:18:30 AM",
+        "tglSewa" : "17/12/2017",
+        "totalBiayaPembayaran" : 280000
+      },
+      "-L0HOl502kb7phwr5WE1" : {
+        "batasWaktuPembayaran" : "Dec 14, 2017 08:22:51 AM",
+        "idKendaraan" : "-L-DFYEhr26JUuA2PKkY",
+        "idPelanggan" : "mSnwZGVzg4Y8bRmhGg6DK6eLwOx2",
+        "idPemesanan" : "-L0HOl502kb7phwr5WE1",
+        "idRekeningRental" : "",
+        "idRental" : "AEepNcXDejbMwVJNVyPajEeHdk72",
+        "jamPengambilan" : "06.00",
+        "jumlahHariPenyewaan" : 1,
+        "jumlahKendaraan" : 1,
+        "kategoriKendaraan" : "Mobil",
+        "keteranganKhusus" : "oalalala",
+        "latitude_penjemputan" : 0,
+        "longitude_penjemputan" : 0,
+        "statusPemesanan" : "Belum Bayar",
+        "statusUlasan" : false,
+        "tglKembali" : "18/12/2017",
+        "tglPembuatanPesanan" : "Dec 14, 2017 7:22:51 AM",
+        "tglSewa" : "17/12/2017",
+        "totalBiayaPembayaran" : 280000
+      },
+      "-L0HPGg3tCb_D-gqxZLp" : {
+        "batasWaktuPembayaran" : "Dec 14, 2017 08:25:05 AM",
+        "idKendaraan" : "-L-DFYEhr26JUuA2PKkY",
+        "idPelanggan" : "mSnwZGVzg4Y8bRmhGg6DK6eLwOx2",
+        "idPemesanan" : "-L0HPGg3tCb_D-gqxZLp",
+        "idRekeningRental" : "",
+        "idRental" : "AEepNcXDejbMwVJNVyPajEeHdk72",
+        "jamPengambilan" : "06.00",
+        "jumlahHariPenyewaan" : 1,
+        "jumlahKendaraan" : 1,
+        "kategoriKendaraan" : "Mobil",
+        "keteranganKhusus" : "oalala",
+        "latitude_penjemputan" : 0,
+        "longitude_penjemputan" : 0,
+        "statusPemesanan" : "Belum Bayar",
+        "statusUlasan" : false,
+        "tglKembali" : "15/12/2017",
+        "tglPembuatanPesanan" : "Dec 14, 2017 7:25:05 AM",
+        "tglSewa" : "14/12/2017",
+        "totalBiayaPembayaran" : 280000
+      }
+    }
+  },
+  "rentalKendaraan" : {
+    "AEepNcXDejbMwVJNVyPajEeHdk72" : {
+      "alamat_rental" : "Jl. Bunga Kumis Kucing no.08",
+      "deviceToken" : "c5dsffGTn7M:APA91bFDIGU-oDMxh4X44t6gHI-tOq1t6BppLJNafBom7ZhX9WoX2xSz_G3kuC2vW87vPXwPYa20ykxGcE4o6z7hmH52cFnNkzRcL62rVbo7HbSU98HcvVkvu1OhXK7DimLqpeV4MguS",
+      "idRental" : "AEepNcXDejbMwVJNVyPajEeHdk72",
+      "kebijakan_pembatalan_rental" : "ccc",
+      "kebijakan_pemesanan_rental" : "bbb",
+      "kebijakan_sewa_rental" : "aaa",
+      "kendaraan" : {
+        "-L-DFYEhr26JUuA2PKkY" : {
+          "bahanBakar" : false,
+          "hargaSewa" : 0,
+          "idKendaraan" : "-L-DFYEhr26JUuA2PKkY",
+          "jumlahKendaraan" : 0,
+          "kategoriKendaraan" : "Mobil",
+          "supir" : false
+        },
+        "-L-DFkg_BUtCxKBGYdec" : {
+          "bahanBakar" : false,
+          "hargaSewa" : 0,
+          "idKendaraan" : "-L-DFkg_BUtCxKBGYdec",
+          "jumlahKendaraan" : 0,
+          "kategoriKendaraan" : "Mobil",
+          "supir" : false
+        },
+        "-L-DGuYBxBvDyRTh2hya" : {
+          "bahanBakar" : false,
+          "hargaSewa" : 0,
+          "idKendaraan" : "-L-DGuYBxBvDyRTh2hya",
+          "jumlahKendaraan" : 0,
+          "kategoriKendaraan" : "Mobil",
+          "supir" : false
+        }
+      },
+      "latitude" : -7.9498801,
+      "longitude" : 112.6156832,
+      "nama_pemilik" : "aidha",
+      "nama_rental" : "aida rent",
+      "notelfon_rental" : "09827899901",
+      "rekeningPembayaran" : {
+        "-L-DF4U_1vzPY420J84N" : {
+          "idRekening" : "-L-DF4U_1vzPY420J84N",
+          "latitude" : 0,
+          "longitude" : 0,
+          "namaBank" : "BCA",
+          "namaPemilikBank" : "aidha bca",
+          "nomorRekeningBank" : "90009827890"
+        }
+      },
+      "uriFotoProfil" : "https://firebasestorage.googleapis.com/v0/b/bismillahskripsi-44a73.appspot.com/o/fotoProfilRental%2F1512067583320.jpg?alt=media&token=3718d03f-8c76-41de-93a1-ab2e88435713"
+    }
+  }
+}
