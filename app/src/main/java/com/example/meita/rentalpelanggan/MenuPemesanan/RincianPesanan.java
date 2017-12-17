@@ -1,11 +1,16 @@
 package com.example.meita.rentalpelanggan.MenuPemesanan;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.meita.rentalpelanggan.Base.BaseActivity;
@@ -33,6 +38,7 @@ public class RincianPesanan extends AppCompatActivity {
     boolean valueSupir;
     int jumlahHariPenyewaan;
     double totalBiayaPembayaran;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +62,19 @@ public class RincianPesanan extends AppCompatActivity {
         imageCheckListBBMTrue = (ImageView)findViewById(R.id.icCheckListDenganBBM);
         imageCheckListBBMFalse = (ImageView)findViewById(R.id.icCheckListTanpaBBM);
 
+        progressBar = (ProgressBar) findViewById(R.id.progress_circle);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FEBD3D"), PorterDuff.Mode.SRC_ATOP);
+        progressBar.setVisibility(View.VISIBLE);
+
         buttonLanjutkan = (Button)findViewById(R.id.btnLanjutkan);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
 
         final String idRental = getIntent().getStringExtra("idRental");
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
@@ -154,6 +172,7 @@ public class RincianPesanan extends AppCompatActivity {
 
             }
         });
+        progressBar.setVisibility(View.GONE);
     }
 
     public void infoRentalKendaraan() {
@@ -242,6 +261,13 @@ public class RincianPesanan extends AppCompatActivity {
             });
         }
 
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

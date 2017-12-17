@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +49,9 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
     Button buttonBuatPesanan;
     boolean statusUlasan;
     private boolean isSpinnerTouched = false;
-    int jmlKendaraan, jmlKendaraanPencarian, jmlKendaraanReserved, sum, hargaAwal, hargaAkhir;
-    String idKendaraanChecking;
-    Date tanggalSewaPencarian, tanggalKembaliPencarian, tglSewaReserved, tglKembaliReserved;
+    int jmlKendaraan, jmlKendaraanPencarian, jmlKendaraanDipesan, sum, hargaAwal, hargaAkhir;
+    String idKendaraanDiEksekusi;
+    Date tanggalSewaPencarian, tanggalKembaliPencarian, tglSewaDipesan, tglKembaliDipesan;
     boolean kendaraanTersedia = true;
 
     DatabaseReference mDatabase;
@@ -72,6 +74,13 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         idPelanggan = user.getUid();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         //list dialog spinner jam penjemputan
         ArrayList<String> listJam = new ArrayList<>();
@@ -224,9 +233,7 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
         final String jumlahKendaraanPencarian = getIntent().getStringExtra("jumlahKendaraanPencarian");
         final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
         final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
-
         jmlKendaraanPencarian = Integer.parseInt(jumlahKendaraanPencarian);
-
         final ArrayList<Integer> listJumlah = new ArrayList<>();
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -242,32 +249,31 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 KendaraanModel dataKendaraan = dataSnapshot.getValue(KendaraanModel.class);
                 jmlKendaraan = dataKendaraan.getJumlahKendaraan();
-                idKendaraanChecking = dataKendaraan.getIdKendaraan();
                 final int jmlKendaraanModel = jmlKendaraan;
 
-                mDatabase.child("cekKetersediaanKendaraan").orderByChild("idKendaraan").equalTo(idKendaraanChecking).addValueEventListener(new ValueEventListener() {
+                mDatabase.child("cekKetersediaanKendaraan").orderByChild("idKendaraan").equalTo(dataKendaraan.getIdKendaraan()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             PemesananModel pemesanan = postSnapshot.getValue(PemesananModel.class);
                             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                            jmlKendaraanReserved = pemesanan.getJumlahKendaraan();
+                            jmlKendaraanDipesan = pemesanan.getJumlahKendaraan();
 
                             try {
-                                tglSewaReserved = format.parse(pemesanan.getTglSewa());
-                                tglKembaliReserved = format.parse(pemesanan.getTglKembali());
+                                tglSewaDipesan = format.parse(pemesanan.getTglSewa());
+                                tglKembaliDipesan = format.parse(pemesanan.getTglKembali());
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            if ((tanggalSewaPencarian.before(tglKembaliReserved) || tanggalSewaPencarian.equals(tglKembaliReserved)) && (tanggalKembaliPencarian.after(tglSewaReserved) || tanggalKembaliPencarian.equals(tglSewaReserved))
-                                    || tanggalSewaPencarian.equals(tglSewaReserved) && tanggalKembaliPencarian.equals(tglKembaliReserved)){
-                                listJumlah.add(jmlKendaraanReserved);
+                            if ((tanggalSewaPencarian.before(tglKembaliDipesan) || tanggalSewaPencarian.equals(tglKembaliDipesan)) && (tanggalKembaliPencarian.after(tglSewaDipesan) || tanggalKembaliPencarian.equals(tglSewaDipesan))
+                                    || tanggalSewaPencarian.equals(tglSewaDipesan) && tanggalKembaliPencarian.equals(tglKembaliDipesan)){
+                                listJumlah.add(jmlKendaraanDipesan);
                                 sum = 0;
                                 for (int i = 0; i < listJumlah.size(); i++) {
                                     sum += listJumlah.get(i);
-                                    jmlKendaraanReserved = sum;
+                                    jmlKendaraanDipesan = sum;
                                 }
-                                int a = jmlKendaraanPencarian + jmlKendaraanReserved;
+                                int a = jmlKendaraanPencarian + jmlKendaraanDipesan;
                                 if (jmlKendaraanModel < a) {
                                     Toast.makeText(getApplicationContext(), "Kendaraan yang anda pilih sudah tidak tersedia", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(BuatPesanan2_tanpaSupir.this, MainActivity.class);
@@ -303,5 +309,13 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
             ShowAlertDialog.showAlert("Lengkapi Seluruh Kolom Isian", this);
         }
         return sukses;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

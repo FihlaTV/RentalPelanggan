@@ -4,16 +4,21 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +52,7 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
     DatabaseReference mDatabase;
     private StorageReference mStorageRef;
     private Uri imgUri;
+    ProgressBar progressBar;
     public static final int PICK_IMAGE_REQUEST = 234;
 
     @Override
@@ -68,6 +74,17 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
         imageBuktiPembayaran = (ImageView)findViewById(R.id.imageViewBuktiPembayaran);
         buttonCariGambar = (Button)findViewById(R.id.btn_cari);
         buttonUnggahBuktiPembayaran = (Button)findViewById(R.id.buttonUnggahBuktiPembayaran);
+
+        progressBar = (ProgressBar) findViewById(R.id.progress_circle);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FEBD3D"), PorterDuff.Mode.SRC_ATOP);
+        progressBar.setVisibility(View.VISIBLE);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
 
         infoPembayaran();
@@ -91,6 +108,7 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
     }
 
     public void infoPembayaran() {
+        progressBar.setVisibility(View.GONE);
         final String idRental = getIntent().getStringExtra("idRental");
         final String idRekening = getIntent().getStringExtra("idRekening");
         final String idPemesanan = getIntent().getStringExtra("idPemesanan");
@@ -232,6 +250,14 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

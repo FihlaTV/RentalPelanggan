@@ -60,12 +60,18 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".MenuProfilRental.ProfilRental" />
-        <activity android:name=".MenuPemesanan.RincianPesanan" />
-        <activity android:name=".MenuPemesanan.BuatPesanan2_denganSupir" />
-        <activity android:name=".MenuPemesanan.BuatPesanan2_tanpaSupir" />
-        <activity android:name=".MenuPembayaran.DaftarRekeningPembayaran" />
-        <activity android:name=".MenuPembayaran.DetailPembayaran" />
-        <activity android:name=".MenuPembayaran.UnggahBuktiPembayaran" />
+        <activity android:name=".MenuPemesanan.RincianPesanan"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MenuPemesanan.BuatPesanan2_denganSupir"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MenuPemesanan.BuatPesanan2_tanpaSupir"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MenuPembayaran.DaftarRekeningPembayaran"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MenuPembayaran.DetailPembayaran"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MenuPembayaran.UnggahBuktiPembayaran"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".MenuStatusPemesanan.GambarBuktiPembayaran" />
         <activity android:name=".MenuStatusPemesanan.DetailPemesananStatus1" />
         <activity android:name=".MenuStatusPemesanan.DetailPemesananStatus2" />
@@ -84,7 +90,6 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".CobaIntentKeFragment.IniActivity"></activity>
     </application>
 
 </manifest>

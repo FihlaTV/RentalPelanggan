@@ -38,10 +38,10 @@ public class LihatUlasanPelanggan extends AppCompatActivity {
 //        idRental = getIntent().getStringExtra("idRental");
 //        idPelanggan = getIntent().getStringExtra("idPelanggan");
 //        kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
-        loadUlasan();
+        tampilUlasan();
     }
 
-    private void loadUlasan(){
+    private void tampilUlasan(){
         final String idPemesanan = getIntent().getStringExtra("idPemesanan");
         mDatabase.child("ulasan").child(idPemesanan).addValueEventListener(new ValueEventListener() {
             @Override

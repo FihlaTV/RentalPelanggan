@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -25,6 +26,7 @@ public class ProfilRental extends AppCompatActivity {
     TextView textViewNamaRental, textViewAlamatRental, textViewTelpRental, textViewEmailRental;
     DatabaseReference mDatabase;
     Button buttonLihatPenilaian;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class ProfilRental extends AppCompatActivity {
         textViewTelpRental = (TextView)findViewById(R.id.textViewTelpRental);
         textViewEmailRental = (TextView)findViewById(R.id.textViewEmailRental);
         buttonLihatPenilaian = (Button)findViewById(R.id.btnLihatPenilaian);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
         buttonLihatPenilaian.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,10 +50,6 @@ public class ProfilRental extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 Intent intent = new Intent(ProfilRental.this, DaftarUlasan.class);
                 bundle.putString("idRental", idRental);
-//                bundle.putString("idPemesanan", dataPemesanan.getIdPemesanan());
-//                bundle.putString("idKendaraan", idKendaraan);
-//                bundle.putString("idPelanggan", idPelanggan);
-//                bundle.putString("kategoriKendaraan", kategoriKendaraan);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -64,6 +64,7 @@ public class ProfilRental extends AppCompatActivity {
         mDatabase.child("rentalKendaraan").child(idRental).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                progressBar.setVisibility(View.GONE);
                 RentalModel dataRental = dataSnapshot.getValue(RentalModel.class);
                 textViewNamaRental.setText(dataRental.getNama_rental());
                 textViewAlamatRental.setText(dataRental.getAlamat_rental());

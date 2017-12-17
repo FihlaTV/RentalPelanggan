@@ -11,13 +11,14 @@ public class RentalModel {
             kebijakan_pembatalan_rental, idRekening, namaBank,
             namaPemilikBank, nomorRekeningBank;
     public double latitude, longitude;
+    String email;
 
     public RentalModel() {}
 
 
     public RentalModel(String uriFotoProfil, String nama_pemilik, String nama_rental, String alamat_rental, String notelfon_rental,
                       String kebijakan_sewa_rental, String kebijakan_pemesanan_rental, String kebijakan_pembatalan_rental,
-                      double latitude, double longitude) {
+                      double latitude, double longitude, String email) {
         this.uriFotoProfil = uriFotoProfil;
         this.nama_pemilik = nama_pemilik;
         this.nama_rental = nama_rental;
@@ -28,6 +29,7 @@ public class RentalModel {
         this.kebijakan_pembatalan_rental = kebijakan_pembatalan_rental;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.email = email;
     }
 
     public RentalModel(String idRekening, String namaPemilikBank, String nomorRekeningBank, String namaBank) {

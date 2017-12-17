@@ -1,5 +1,6 @@
 package com.example.meita.rentalpelanggan.MenuPencarian;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,8 +9,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.R;
 
 import java.util.ArrayList;
@@ -31,7 +34,10 @@ public class MenuDetailKendaraan extends AppCompatActivity {
         setContentView(R.layout.activity_menu_detail_kendaraan);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         Bundle bundle = getIntent().getExtras();
 
@@ -82,6 +88,14 @@ public class MenuDetailKendaraan extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

@@ -7,7 +7,8 @@ import java.io.Serializable;
  */
 
 public class UlasanModel implements Serializable{
-    public String idKategori, idPelanggan, idRental, idUlasan, idPemesanan, idKendaraan, ulasan;
+    public String idKategori, idPelanggan, idRental, idUlasan, idPemesanan,
+            idKendaraan, ulasan;
     public float ratingKendaraan, ratingPelayanan;
     public String waktuUlasan;
 

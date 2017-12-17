@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -44,6 +46,14 @@ public class DaftarRekeningPembayaran extends AppCompatActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.progress_circle);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FEBD3D"), PorterDuff.Mode.SRC_ATOP);
+        progressBar.setVisibility(View.VISIBLE);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         getDaftarRekeningPembayaran();
 
@@ -55,26 +65,37 @@ public class DaftarRekeningPembayaran extends AppCompatActivity {
         final String idPemesanan = getIntent().getStringExtra("idPemesanan");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("rentalKendaraan").child(idRental).child("rekeningPembayaran").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    RentalModel dataRental = postSnapshot.getValue(RentalModel.class);
-                    rentalModel.add(dataRental);
+        try {
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.child("rentalKendaraan").child(idRental).child("rekeningPembayaran").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        RentalModel dataRental = postSnapshot.getValue(RentalModel.class);
+                        rentalModel.add(dataRental);
+                    }
+                    adapter = new DaftarRekeningPembayaranAdapter(rentalModel, DaftarRekeningPembayaran.this, idRental, idKendaraan, idPemesanan, kategoriKendaraan);
+                    //adding adapter to recyclerview
+                    recyclerView.setAdapter(adapter);
+                    progressBar.setVisibility(View.GONE);
                 }
-                adapter = new DaftarRekeningPembayaranAdapter(rentalModel, DaftarRekeningPembayaran.this, idRental, idKendaraan, idPemesanan, kategoriKendaraan);
-                //adding adapter to recyclerview
-                recyclerView.setAdapter(adapter);
-                progressBar.setVisibility(View.GONE);
 
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        } catch (Exception e) {
+            progressBar.setVisibility(View.GONE);
+        }
 
-            }
-        });
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
