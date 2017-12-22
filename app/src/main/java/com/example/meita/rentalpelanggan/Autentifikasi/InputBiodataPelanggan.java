@@ -112,22 +112,18 @@ public class InputBiodataPelanggan extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Masukkan Nomor KTP anda", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-
                                 if (TextUtils.isEmpty(nama_pelanggan)) {
                                     Toast.makeText(getApplicationContext(), "Masukkan Nama Lengkap anda", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-
                                 if (TextUtils.isEmpty(alamat_pelanggan)) {
                                     Toast.makeText(getApplicationContext(), "Masukkan Alamat anda", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-
                                 if (TextUtils.isEmpty(no_telefon_pelanggan)) {
                                     Toast.makeText(getApplicationContext(), "Masukkan Nomor Telefon anda", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-
 //                                progressBarSimpan.setVisibility(View.VISIBLE);
                                 String currentDate = null;
                                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
