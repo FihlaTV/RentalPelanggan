@@ -50,7 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                app:min_value="0"/>
+                app:min_value="0"
+                app:max_value="1000000"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"

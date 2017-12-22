@@ -75,6 +75,7 @@ public class TabStatus2 extends Fragment {
                 @Override
                 public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
+                        progressBar.setVisibility(View.GONE);
                         for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             PemesananModel dataPemesanan = postSnapshot.getValue(PemesananModel.class);
                             pemesananModel.add(dataPemesanan);

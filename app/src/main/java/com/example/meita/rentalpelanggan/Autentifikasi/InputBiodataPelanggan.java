@@ -56,6 +56,7 @@ public class InputBiodataPelanggan extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_data_pengguna);
+        setTitle("Biodata Pelanggan");
 
         editTextNoIdentitas = (EditText) findViewById(R.id.editTextNoIdentitas);
         editTextNamaLengkap = (EditText) findViewById(R.id.editTextNamaLengkap);
