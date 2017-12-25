@@ -126,7 +126,7 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
             }
         });
 
-        mDatabase.child("cekKetersediaanKendaraan").child(idPemesanan).addValueEventListener(new ValueEventListener() {
+        mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);

@@ -78,6 +78,7 @@ public class TabStatus5 extends Fragment {
                             //adding adapter to recyclerview
                             recyclerView.setAdapter(adapter);
                             ic_noOrder.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
                         }
                     } else {
                         progressBar.setVisibility(View.GONE);

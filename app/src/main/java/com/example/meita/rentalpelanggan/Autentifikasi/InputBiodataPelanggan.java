@@ -86,6 +86,8 @@ public class InputBiodataPelanggan extends AppCompatActivity {
                 simpanDataPelanggan();
             }
         });
+        progressBar.setVisibility(View.GONE);
+
     }
 
     private void simpanDataPelanggan() {
@@ -124,7 +126,6 @@ public class InputBiodataPelanggan extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Masukkan Nomor Telefon anda", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-//                                progressBarSimpan.setVisibility(View.VISIBLE);
                                 String currentDate = null;
                                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                                     currentDate = DateFormat.getDateTimeInstance().format(new Date());
@@ -134,7 +135,6 @@ public class InputBiodataPelanggan extends AppCompatActivity {
                                 mDatabase.child("pelanggan").child(userID).setValue(dataProfil).addOnCompleteListener(InputBiodataPelanggan.this, new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-//                                        progressBarSimpan.setVisibility(View.GONE);
                                         if (!task.isSuccessful()) {
                                             Toast.makeText(getApplicationContext(), "Biodata Anda Gagal Disimpan", Toast.LENGTH_SHORT).show();
                                         } else {

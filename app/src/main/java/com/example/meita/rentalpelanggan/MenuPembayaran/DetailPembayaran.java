@@ -199,19 +199,24 @@ public class DetailPembayaran extends AppCompatActivity {
 
     public void infoPemesanan() {
         final String idPemesanan = getIntent().getStringExtra("idPemesanan");
-        mDatabase.child("cekKetersediaanKendaraan").child(idPemesanan).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
-                textViewWaktuBatasTransfer.setText(dataPemesanan.getBatasWaktuPembayaran());
-                textViewTotalPembayaran.setText("Rp."+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
-            }
+        try {
+            mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
+                    textViewWaktuBatasTransfer.setText(dataPemesanan.getBatasWaktuPembayaran());
+                    textViewTotalPembayaran.setText("Rp."+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        } catch (Exception e) {
+
+        }
+
     }
 
     @Override
