@@ -144,20 +144,11 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
             }
         });
 
-//        buttonBuatPesanan.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (cekKolomIsian()) {
-//                    cekSisa();
-//                }
-//            }
-//        });
-
         buttonBuatPesanan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (cekKolomIsian()) {
-                    if (cekSisa2()) {
+                    if (cekSisa()) {
                         buatPesanan();
                         kelolaSisa();
                     }
@@ -186,7 +177,7 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
         });
     }
 
-    public  boolean cekSisa2() {
+    public  boolean cekSisa() {
         sisa = true;
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
@@ -202,7 +193,6 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         mDatabase.child("cekSisaKendaraan").orderByChild("idKendaraan").equalTo(idKendaraan).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -256,76 +246,6 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
         return sisa;
     }
 
-    // ini coding yang kalo dibuat pesanan jadi looping
-//    public void cekSisa() {
-//            final String idKendaraan = getIntent().getStringExtra("idKendaraan");
-//            final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
-//            final String jumlahKendaraanPencarian = getIntent().getStringExtra("jumlahKendaraanPencarian");
-//            final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
-//            final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
-//            jmlKendaraanPencarian = Integer.parseInt(jumlahKendaraanPencarian);
-//
-//            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-//            try {
-//                tanggalSewaPencarian = format.parse(tglSewaPencarian);
-//                tanggalKembaliPencarian = format.parse(tglKembaliPencarian);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//
-//        mDatabase.child("cekSisaKendaraan").orderByChild("idKendaraan").equalTo(idKendaraan).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                        String idCek = idKendaraan;
-//                        SisaKendaraanModel sisaModel = postSnapshot.getValue(SisaKendaraanModel.class);
-//                        int sisaKendaraan = sisaModel.getSisaKendaraan();
-//
-//                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-//
-//                        try {
-//                            tglSewaDipesan = format.parse(sisaModel.getTglSewa());
-//                            tglKembaliDipesan = format.parse(sisaModel.getTglKembali());
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                        if ((tanggalSewaPencarian.before(tglKembaliDipesan) || tanggalSewaPencarian.equals(tglKembaliDipesan)) && (tanggalKembaliPencarian.after(tglSewaDipesan) || tanggalKembaliPencarian.equals(tglSewaDipesan))
-//                                || tanggalSewaPencarian.equals(tglSewaDipesan) && tanggalKembaliPencarian.equals(tglKembaliDipesan)) {
-//                            String id = sisaModel.getIdCekSisa();
-//                            idCekSisa = id;
-//                            if (sisaKendaraan > jmlKendaraanPencarian || sisaKendaraan == jmlKendaraanPencarian) {
-//                                buatPesanan();
-//                                String idCekSisa = sisaModel.getIdCekSisa();
-//                                int sisaModelKendaraan = sisaModel.getSisaKendaraan();
-//                                updateSisa(jmlKendaraanPencarian, idCekSisa, sisaModelKendaraan);
-//                                Toast.makeText(getApplicationContext(), "di update oiii", Toast.LENGTH_LONG).show();
-//                            }
-//                            else {
-//                                Toast.makeText(getApplicationContext(), "kendaraan udah abis alias ga cukup", Toast.LENGTH_LONG).show();
-//                            }
-//                        } else {
-//                            buatPesanan();
-//                            buatSisaKendaraan(jmlKendaraanPencarian);
-//                            Toast.makeText(getApplicationContext(), "Buat sisa karena tanggalnya ga sama", Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//
-//                } else {
-//                    buatPesanan();
-//                    buatSisaKendaraan(jmlKendaraanPencarian);
-//                    Toast.makeText(getApplicationContext(), "Buat sisa karena ga ada sama sekali di tabel cek sisa", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
-
     // di oprek oprek
     public  void buatPesanan() {
         final String idRental = getIntent().getStringExtra("idRental");
@@ -365,7 +285,6 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Pemesanan Gagal", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Pemesanan berhasil", Toast.LENGTH_SHORT).show();
-                    mDatabase.child("cekKetersediaanKendaraan").child(id).setValue(dataPemesanan);
                     Bundle bundle = new Bundle();
                     Intent intent = new Intent(BuatPesanan2_tanpaSupir.this, DaftarRekeningPembayaran.class);
                     bundle.putString("idKendaraan", idKendaraan);
@@ -422,15 +341,14 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
                         if ((tanggalSewaPencarian.before(tglKembaliDipesan) || tanggalSewaPencarian.equals(tglKembaliDipesan)) && (tanggalKembaliPencarian.after(tglSewaDipesan) || tanggalKembaliPencarian.equals(tglSewaDipesan))
                                 || tanggalSewaPencarian.equals(tglSewaDipesan) && tanggalKembaliPencarian.equals(tglKembaliDipesan)) {
                             if (sisaKendaraan > jmlKendaraanPencarian || sisaKendaraan == jmlKendaraanPencarian) {
-
-                                int sisaModelKendaraan = sisaModel.getSisaKendaraan();
-                                updateSisa(jmlKendaraanPencarian, a, sisaKendaraan);
+                                perbaruiSisa(jmlKendaraanPencarian, a, sisaKendaraan);
                                 Toast.makeText(getApplicationContext(), "di update oiii", Toast.LENGTH_LONG).show();
                             }
                             else {
                                 Toast.makeText(getApplicationContext(), "kendaraan udah abis alias ga cukup", Toast.LENGTH_LONG).show();
                             }
-                        } else {
+                        }
+                        else {
                             buatSisaKendaraan(jmlKendaraanPencarian);
                             Toast.makeText(getApplicationContext(), "Buat sisa karena tanggalnya ga sama", Toast.LENGTH_LONG).show();
                         }
@@ -444,12 +362,11 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
 
-    public void updateSisa(final int jmlKendaraanPesanan, String idCek, int sisaModelKendaraan) {
+    public void perbaruiSisa(final int jmlKendaraanPesanan, String idCek, int sisaModelKendaraan) {
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
         final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
@@ -492,81 +409,82 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
 
     }
 
-    public boolean cekKetersediaan() {
-        kendaraanTersedia = true;
-        final String idKendaraan = getIntent().getStringExtra("idKendaraan");
-        final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
-        final String jumlahKendaraanPencarian = getIntent().getStringExtra("jumlahKendaraanPencarian");
-        final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
-        final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
-        jmlKendaraanPencarian = Integer.parseInt(jumlahKendaraanPencarian);
-        final ArrayList<Integer> listJumlah = new ArrayList<>();
 
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            tanggalSewaPencarian = format.parse(tglSewaPencarian);
-            tanggalKembaliPencarian = format.parse(tglKembaliPencarian);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                KendaraanModel dataKendaraan = dataSnapshot.getValue(KendaraanModel.class);
-                jmlKendaraan = dataKendaraan.getJumlahKendaraan();
-                final int jmlKendaraanModel = jmlKendaraan;
-
-                mDatabase.child("cekKetersediaanKendaraan").orderByChild("idKendaraan").equalTo(dataKendaraan.getIdKendaraan()).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            PemesananModel pemesanan = postSnapshot.getValue(PemesananModel.class);
-                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                            jmlKendaraanDipesan = pemesanan.getJumlahKendaraan();
-
-                            try {
-                                tglSewaDipesan = format.parse(pemesanan.getTglSewa());
-                                tglKembaliDipesan = format.parse(pemesanan.getTglKembali());
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            if ((tanggalSewaPencarian.before(tglKembaliDipesan) || tanggalSewaPencarian.equals(tglKembaliDipesan)) && (tanggalKembaliPencarian.after(tglSewaDipesan) || tanggalKembaliPencarian.equals(tglSewaDipesan))
-                                    || tanggalSewaPencarian.equals(tglSewaDipesan) && tanggalKembaliPencarian.equals(tglKembaliDipesan)){
-                                listJumlah.add(jmlKendaraanDipesan);
-                                sum = 0;
-                                for (int i = 0; i < listJumlah.size(); i++) {
-                                    sum += listJumlah.get(i);
-                                    jmlKendaraanDipesan = sum;
-                                }
-                                int a = jmlKendaraanPencarian + jmlKendaraanDipesan;
-                                if (jmlKendaraanModel < a) {
-                                    Toast.makeText(getApplicationContext(), "Kendaraan yang anda pilih sudah tidak tersedia", Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(BuatPesanan2_tanpaSupir.this, MainActivity.class);
-                                    startActivity(intent);
-                                    kendaraanTersedia = false;
-                                }
-                            }
-                            break;
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        return kendaraanTersedia;
-
-    }
+//    public boolean cekKetersediaan() {
+//        kendaraanTersedia = true;
+//        final String idKendaraan = getIntent().getStringExtra("idKendaraan");
+//        final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
+//        final String jumlahKendaraanPencarian = getIntent().getStringExtra("jumlahKendaraanPencarian");
+//        final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
+//        final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
+//        jmlKendaraanPencarian = Integer.parseInt(jumlahKendaraanPencarian);
+//        final ArrayList<Integer> listJumlah = new ArrayList<>();
+//
+//        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//        try {
+//            tanggalSewaPencarian = format.parse(tglSewaPencarian);
+//            tanggalKembaliPencarian = format.parse(tglKembaliPencarian);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                KendaraanModel dataKendaraan = dataSnapshot.getValue(KendaraanModel.class);
+//                jmlKendaraan = dataKendaraan.getJumlahKendaraan();
+//                final int jmlKendaraanModel = jmlKendaraan;
+//
+//                mDatabase.child("cekKetersediaanKendaraan").orderByChild("idKendaraan").equalTo(dataKendaraan.getIdKendaraan()).addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//                            PemesananModel pemesanan = postSnapshot.getValue(PemesananModel.class);
+//                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//                            jmlKendaraanDipesan = pemesanan.getJumlahKendaraan();
+//
+//                            try {
+//                                tglSewaDipesan = format.parse(pemesanan.getTglSewa());
+//                                tglKembaliDipesan = format.parse(pemesanan.getTglKembali());
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                            }
+//                            if ((tanggalSewaPencarian.before(tglKembaliDipesan) || tanggalSewaPencarian.equals(tglKembaliDipesan)) && (tanggalKembaliPencarian.after(tglSewaDipesan) || tanggalKembaliPencarian.equals(tglSewaDipesan))
+//                                    || tanggalSewaPencarian.equals(tglSewaDipesan) && tanggalKembaliPencarian.equals(tglKembaliDipesan)){
+//                                listJumlah.add(jmlKendaraanDipesan);
+//                                sum = 0;
+//                                for (int i = 0; i < listJumlah.size(); i++) {
+//                                    sum += listJumlah.get(i);
+//                                    jmlKendaraanDipesan = sum;
+//                                }
+//                                int a = jmlKendaraanPencarian + jmlKendaraanDipesan;
+//                                if (jmlKendaraanModel < a) {
+//                                    Toast.makeText(getApplicationContext(), "Kendaraan yang anda pilih sudah tidak tersedia", Toast.LENGTH_LONG).show();
+//                                    Intent intent = new Intent(BuatPesanan2_tanpaSupir.this, MainActivity.class);
+//                                    startActivity(intent);
+//                                    kendaraanTersedia = false;
+//                                }
+//                            }
+//                            break;
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//        return kendaraanTersedia;
+//
+//    }
 
     //belom di oprek oprek
 //    public  void buatPesanan() {
