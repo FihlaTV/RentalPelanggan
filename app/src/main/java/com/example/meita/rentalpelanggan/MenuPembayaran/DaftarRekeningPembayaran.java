@@ -1,5 +1,6 @@
 package com.example.meita.rentalpelanggan.MenuPembayaran;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
 import com.example.meita.rentalpelanggan.R;
 import com.firebase.client.Firebase;
@@ -94,7 +96,8 @@ public class DaftarRekeningPembayaran extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==android.R.id.home) {
-            finish();
+            Intent intent = new Intent(DaftarRekeningPembayaran.this, MainActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

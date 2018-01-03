@@ -91,6 +91,7 @@ public class UbahProfilPelanggan extends AppCompatActivity {
         mDatabase.child("pelanggan").child(idPelanggan).child("alamat").setValue(editTextAlamat.getText().toString());
         mDatabase.child("pelanggan").child(idPelanggan).child("noTelp").setValue(editTextNotelp.getText().toString());
         Intent intent = new Intent(UbahProfilPelanggan.this, MainActivity.class);
+        intent.putExtra("halamanEditProfil", 11);
         startActivity(intent);
     }
 

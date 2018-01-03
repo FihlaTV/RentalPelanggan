@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,6 +44,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
     private FirebaseAuth auth;
@@ -298,6 +300,7 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
                     bundle.putDouble("totalBiayaPembayaran", totalBiayaPembayaran);
                     intent.putExtras(bundle);
                     startActivity(intent);
+                    buatPemberitahuan();
                 }
             }
         });
@@ -404,10 +407,48 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
 
             }
         });
-
-
-
     }
+
+    private void buatPemberitahuan() {
+        String idPemberitahuan = mDatabase.push().getKey();
+        final String idRental = getIntent().getStringExtra("idRental");
+        final String idKendaraan = getIntent().getStringExtra("idKendaraan");
+        final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
+        final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
+        String valueHalaman = "belumBayar";
+        //int valueHalaman = 0;
+        String statusPemesanan1 = "Belum Bayar";
+        HashMap<String, Object> dataNotif = new HashMap<>();
+        dataNotif.put("idPemberitahuan", idPemberitahuan);
+        dataNotif.put("idRental", idRental);
+        dataNotif.put("idKendaraan", idKendaraan);
+        dataNotif.put("tglSewa", tglSewaPencarian);
+        dataNotif.put("tglKembalian", tglKembaliPencarian);
+        dataNotif.put("nilaiHalaman", valueHalaman);
+        dataNotif.put("statusPemesanan", statusPemesanan1);
+        dataNotif.put("idPelanggan", idPelanggan);
+        dataNotif.put("idPemesanan", idPemesanan);
+        mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).setValue(dataNotif);
+        //mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).child("nilaiHalaman").setValue(valueHalaman);
+    }
+
+    public boolean cekKolomIsian() {
+        boolean sukses = true;
+        if ( editTextKeteranganKhusus.getText().toString() == null || jamPengambilan == null){
+            sukses = false;
+            ShowAlertDialog.showAlert("Lengkapi Seluruh Kolom Isian", this);
+        }
+        return sukses;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
 //    public boolean cekKetersediaan() {
@@ -543,21 +584,4 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
 //                    }
 //                });
 //    }
-
-    public boolean cekKolomIsian() {
-        boolean sukses = true;
-        if ( editTextKeteranganKhusus.getText().toString() == null || jamPengambilan == null){
-            sukses = false;
-            ShowAlertDialog.showAlert("Lengkapi Seluruh Kolom Isian", this);
-        }
-        return sukses;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

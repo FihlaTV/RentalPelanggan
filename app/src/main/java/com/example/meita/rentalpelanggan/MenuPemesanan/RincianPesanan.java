@@ -32,13 +32,16 @@ public class RincianPesanan extends AppCompatActivity {
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
     TextView textViewTipeKendaraan, textViewNamaRental, textViewDenganSupir, textViewTanpaSupir,
-    textViewDenganBBM, textViewTanpaBBM, textViewAreaPemakaian, textViewLamaSewaPelanggan, textViewTotalPembayaran, textViewLamaSewaKendaraan;
+    textViewDenganBBM, textViewTanpaBBM, textViewAreaPemakaian, textViewTotalPembayaran, textViewLamaSewaKendaraan;
     Button buttonLanjutkan;
     ImageView imageChecklistSupirTrue, imageCheckListSupirFalse, imageCheckListBBMTrue, imageCheckListBBMFalse;
     boolean valueSupir;
-    int jumlahHariPenyewaan;
     double totalBiayaPembayaran;
     ProgressBar progressBar;
+    TextView textViewTglSewa, textViewTglKembali, textViewJumlahSewaKendaraan, textViewJmlHariPenyewaan;
+    TextView textViewHargaSewaKendaraan, textViewLamaPenyewaan, textViewJumlahKendaraan, textViewLamaSewaPemesanan;
+    public int jumlahHariPenyewaan;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +56,6 @@ public class RincianPesanan extends AppCompatActivity {
         textViewDenganBBM = (TextView)findViewById(R.id.txtViewBBMTrue);
         textViewTanpaBBM = (TextView)findViewById(R.id.txtViewBBMFalse);
         textViewAreaPemakaian = (TextView)findViewById(R.id.txtViewAreaPemakaian);
-        textViewLamaSewaPelanggan = (TextView)findViewById(R.id.txtViewLamaSewaPemesanan);
-        textViewLamaSewaKendaraan = (TextView)findViewById(R.id.txtViewLamaSewaKendaraan);
         textViewTotalPembayaran = (TextView)findViewById(R.id.txtViewTotalPembayaran);
 
         imageChecklistSupirTrue = (ImageView)findViewById(R.id.icCheckListDenganSupir);
@@ -62,9 +63,18 @@ public class RincianPesanan extends AppCompatActivity {
         imageCheckListBBMTrue = (ImageView)findViewById(R.id.icCheckListDenganBBM);
         imageCheckListBBMFalse = (ImageView)findViewById(R.id.icCheckListTanpaBBM);
 
-        progressBar = (ProgressBar) findViewById(R.id.progress_circle);
-        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FEBD3D"), PorterDuff.Mode.SRC_ATOP);
-        progressBar.setVisibility(View.VISIBLE);
+        textViewTglSewa = (TextView)findViewById(R.id.textViewTglSewa);
+        textViewTglKembali = (TextView)findViewById(R.id.textViewTglKembali);
+
+        textViewHargaSewaKendaraan = (TextView)findViewById(R.id.textViewHargaSewaKendaraan);
+        textViewLamaPenyewaan = (TextView)findViewById(R.id.textViewLamaPenyewaan);
+        textViewJumlahKendaraan = (TextView)findViewById(R.id.textViewJumlahKendaraan);
+        textViewLamaSewaPemesanan = (TextView)findViewById(R.id.textViewLamaSewaPemesanan);
+
+
+//        progressBar = (ProgressBar) findViewById(R.id.progress_circle);
+//        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FEBD3D"), PorterDuff.Mode.SRC_ATOP);
+//        progressBar.setVisibility(View.VISIBLE);
 
         buttonLanjutkan = (Button)findViewById(R.id.btnLanjutkan);
 
@@ -82,6 +92,9 @@ public class RincianPesanan extends AppCompatActivity {
         final String jumlahKendaraanPencarian = getIntent().getStringExtra("jumlahKendaraanPencarian");
         final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
         final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
+        textViewJumlahKendaraan.setText(jumlahKendaraanPencarian);
+        textViewTglSewa.setText(tglSewaPencarian);
+        textViewTglKembali.setText(tglKembaliPencarian);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -126,7 +139,15 @@ public class RincianPesanan extends AppCompatActivity {
 
         infoKendaraan();
         infoRentalKendaraan();
+
+//        try {
+//            getJumlahHariPenyewaan();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
     }
+
+
 
     public void infoKendaraan() {
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
@@ -137,7 +158,8 @@ public class RincianPesanan extends AppCompatActivity {
                 KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
                 textViewTipeKendaraan.setText(kendaraan.getTipeKendaraan());
                 textViewAreaPemakaian.setText(kendaraan.getAreaPemakaian());
-                textViewLamaSewaKendaraan.setText(kendaraan.getLamaPenyewaan());
+                textViewHargaSewaKendaraan.setText(String.valueOf(kendaraan.getHargaSewa()));
+                textViewLamaPenyewaan.setText(kendaraan.getLamaPenyewaan());
 
                 if (kendaraan.isSupir() == true ) {
                     textViewDenganSupir.setVisibility(View.VISIBLE);
@@ -172,7 +194,7 @@ public class RincianPesanan extends AppCompatActivity {
 
             }
         });
-        progressBar.setVisibility(View.GONE);
+//        progressBar.setVisibility(View.GONE);
     }
 
     public void infoRentalKendaraan() {
@@ -191,78 +213,182 @@ public class RincianPesanan extends AppCompatActivity {
         });
     }
 
-    public void totalBiayaSewa() throws ParseException {
+    public void totalBiayaSewa() throws ParseException  {
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
         final String jumlahKendaraanPencarian = getIntent().getStringExtra("jumlahKendaraanPencarian");
+        final int jmlKendaraan = Integer.parseInt(jumlahKendaraanPencarian);
+
+        // stub
+        final int stubJumlahHariPenyewaan = 1;
+
+        mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
+                String lamaPenyewaan = kendaraan.getLamaPenyewaan();
+                double hargaSewa = kendaraan.getHargaSewa();
+                String status = "24 Jam";
+                if (lamaPenyewaan.equals(status)) {
+                    double total = 0;
+                    total = (stubJumlahHariPenyewaan * hargaSewa) * jmlKendaraan;
+                    totalBiayaPembayaran = total;
+                    textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+                } else {
+                    double total = 0;
+                    total = (stubJumlahHariPenyewaan * (hargaSewa*2)) * jmlKendaraan;
+                    totalBiayaPembayaran = total;
+                    textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
+                String lamaPenyewaan = kendaraan.getLamaPenyewaan();
+                double hargaSewa = kendaraan.getHargaSewa();
+                String status = "24 Jam";
+                try {
+                    int cekJumlahHariPenyewaan = getJumlahHariPenyewaan();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (lamaPenyewaan.equals(status)) {
+                    double total = 0;
+                    try {
+                        total = (getJumlahHariPenyewaan() * hargaSewa) * jmlKendaraan;
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    totalBiayaPembayaran = total;
+                    textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+                } else {
+                    double total = 0;
+                    try {
+                        total = (getJumlahHariPenyewaan() * (hargaSewa*2)) * jmlKendaraan;
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    totalBiayaPembayaran = total;
+                    textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+
+    public int getJumlahHariPenyewaan() throws ParseException {
+        jumlahHariPenyewaan = 0;
         final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
         final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
-        final int jmlKendaraan = Integer.parseInt(jumlahKendaraanPencarian);
-        SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        //membuat driver
+//        String driverTglSewaPencarian = "27/12/2017";
+//        String driverTglKembaliPencarian = "29/12/2017";
 
         if (tglSewaPencarian.equals(tglKembaliPencarian)) {
             jumlahHariPenyewaan = 1;
-            textViewLamaSewaPelanggan.setText(String.valueOf(jumlahHariPenyewaan));
-            mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
-                    String lamaPenyewaan = kendaraan.getLamaPenyewaan();
-                    double hargaSewa = kendaraan.getHargaSewa();
-                    String status = "24 Jam";
-                    if (lamaPenyewaan.equals(status)) {
-                        double total = (jumlahHariPenyewaan * hargaSewa) * jmlKendaraan;
-                        totalBiayaPembayaran = total;
-                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
-                    } else {
-                        double total = (jumlahHariPenyewaan * (hargaSewa*2)) * jmlKendaraan;
-                        totalBiayaPembayaran = total;
-                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+            textViewLamaSewaPemesanan.setText(String.valueOf(jumlahHariPenyewaan));
         } else {
+            SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date date1 = myFormat.parse(tglSewaPencarian);
             Date date2 = myFormat.parse(tglKembaliPencarian);
             long diff = date2.getTime() - date1.getTime();
             int dayCount = (int) diff / (24 * 60 * 60 * 1000);
-            jumlahHariPenyewaan = dayCount;
-            String lamaSewaPelanggan = String.valueOf(dayCount);
-            textViewLamaSewaPelanggan.setText(lamaSewaPelanggan);
-            mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
-                    String lamaPenyewaan = kendaraan.getLamaPenyewaan();
-                    double hargaSewa = kendaraan.getHargaSewa();
-                    String status = "24 Jam";
-                    if (lamaPenyewaan.equals(status)) {
-                        double total = (jumlahHariPenyewaan * hargaSewa) * jmlKendaraan;
-                        totalBiayaPembayaran = total;
-                        String a = String.valueOf(total);
-                        textViewTotalPembayaran.setText(a);
-                    } else {
-                        double total = (jumlahHariPenyewaan * (hargaSewa*2)) * jmlKendaraan;
-                        totalBiayaPembayaran = total;
-                        String a = String.valueOf(total);
-                        textViewTotalPembayaran.setText(a);
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+            jumlahHariPenyewaan = dayCount + 1;
+            textViewLamaSewaPemesanan.setText(String.valueOf(jumlahHariPenyewaan));
         }
-
+        return jumlahHariPenyewaan;
     }
 
+    //asli
+//    public void totalBiayaSewa() throws ParseException {
+//        final String idKendaraan = getIntent().getStringExtra("idKendaraan");
+//        final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
+//        final String jumlahKendaraanPencarian = getIntent().getStringExtra("jumlahKendaraanPencarian");
+//        final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
+//        final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
+//        final int jmlKendaraan = Integer.parseInt(jumlahKendaraanPencarian);
+//        SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
+//
+//        if (tglSewaPencarian.equals(tglKembaliPencarian)) {
+//            jumlahHariPenyewaan = 1;
+//            mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
+//                    String lamaPenyewaan = kendaraan.getLamaPenyewaan();
+//                    double hargaSewa = kendaraan.getHargaSewa();
+//                    String status = "24 Jam";
+//                    if (lamaPenyewaan.equals(status)) {
+//                        double total = (jumlahHariPenyewaan * hargaSewa) * jmlKendaraan;
+//                        totalBiayaPembayaran = total;
+//                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+//                        textViewLamaSewaPemesanan.setText(String.valueOf(jumlahHariPenyewaan));
+//                    } else {
+//                        double total = (jumlahHariPenyewaan * (hargaSewa*2)) * jmlKendaraan;
+//                        totalBiayaPembayaran = total;
+//                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+//                        textViewLamaSewaPemesanan.setText(String.valueOf(jumlahHariPenyewaan));
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+//        } else {
+//            Date date1 = myFormat.parse(tglSewaPencarian);
+//            Date date2 = myFormat.parse(tglKembaliPencarian);
+//            long diff = date2.getTime() - date1.getTime();
+//            int dayCount = (int) diff / (24 * 60 * 60 * 1000);
+//            jumlahHariPenyewaan = dayCount;
+//            String lamaSewaPelanggan = String.valueOf(dayCount);
+//            mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
+//                    String lamaPenyewaan = kendaraan.getLamaPenyewaan();
+//                    double hargaSewa = kendaraan.getHargaSewa();
+//                    String status = "24 Jam";
+//                    if (lamaPenyewaan.equals(status)) {
+//                        double total = (jumlahHariPenyewaan * hargaSewa) * jmlKendaraan;
+//                        totalBiayaPembayaran = total;
+//                        String a = String.valueOf(total);
+//                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(totalBiayaPembayaran));
+//                        textViewLamaSewaPemesanan.setText(String.valueOf(jumlahHariPenyewaan));
+//                    } else {
+//                        double total = (jumlahHariPenyewaan * (hargaSewa*2)) * jmlKendaraan;
+//                        totalBiayaPembayaran = total;
+//                        String a = String.valueOf(total);
+//                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(totalBiayaPembayaran));
+//                        textViewLamaSewaPemesanan.setText(String.valueOf(jumlahHariPenyewaan));
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+//        }
+//
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

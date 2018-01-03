@@ -31,6 +31,8 @@ import com.example.meita.rentalpelanggan.R;
 import com.example.meita.rentalpelanggan.Utils.ShowAlertDialog;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,15 +45,18 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 public class UnggahBuktiPembayaran extends AppCompatActivity {
     TextView textViewNamaPemilikRekening, textViewNomorRekening, textViewTotalPembayaran, textViewTanggalPemesanan, textViewWaktuBatasTransfer;
     ImageView imageBuktiPembayaran;
     Button buttonCariGambar, buttonUnggahBuktiPembayaran;
     EditText editTextNamaBank, editTextNamaPemilikRekeningPelanggan, editTextNomorRekeningPelanggan, editTextJumlahTransfer;
+    String idPelanggan;
     DatabaseReference mDatabase;
     private StorageReference mStorageRef;
     private Uri imgUri;
+    private FirebaseAuth auth;
     ProgressBar progressBar;
     public static final int PICK_IMAGE_REQUEST = 234;
 
@@ -79,6 +84,11 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FEBD3D"), PorterDuff.Mode.SRC_ATOP);
         progressBar.setVisibility(View.VISIBLE);
 
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        idPelanggan = user.getUid();
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -101,7 +111,6 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
             public void onClick(View v) {
                 if (cekKolomIsian()) {
                     unggahBuktiPembayaranPelanggan();
-                    finish();
                 }
             }
         });
@@ -126,19 +135,26 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
             }
         });
 
-        mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
-                textViewWaktuBatasTransfer.setText(dataPemesanan.getBatasWaktuPembayaran());
-                textViewTotalPembayaran.setText("Rp."+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
-            }
+        try {
+            mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
+                        textViewWaktuBatasTransfer.setText(dataPemesanan.getBatasWaktuPembayaran());
+                        textViewTotalPembayaran.setText("Rp."+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
+                    }
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+
+        } catch (Exception e) {
+
+        }
 
     }
 
@@ -180,13 +196,12 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
                                             mDatabase.child("pemesananKendaraan").child("menungguKonfirmasiRental").child(idPemesanan).child("pembayaran").setValue(dataPembayaran);
                                             mDatabase.child("pemesananKendaraan").child("menungguKonfirmasiRental").child(idPemesanan).child("statusPemesanan").setValue(statusPemesanan2);
                                             mDatabase.child("pemesananKendaraan").child("menungguKonfirmasiRental").child(idPemesanan).child("idRekeningRental").setValue(idRekening);
-                                            mDatabase.child("cekKetersediaanKendaraan").child(idPemesanan).child("statusPemesanan").setValue(statusPemesanan2);
                                             mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).removeValue();
                                             Toast.makeText(getApplicationContext(), "Bukti Pembayaran Anda Berhasil Disimpan", Toast.LENGTH_LONG).show();
                                             Intent intent = new Intent(UnggahBuktiPembayaran.this, MainActivity.class);
-                                            intent.putExtra("halamanStatus2", 2);
+                                            intent.putExtra(" halamanStatusMenungguKonfirmasi", 1);
                                             startActivity(intent);
-                                            finish();
+                                            buatPemberitahuan();
                                         }
                                     });
 
@@ -213,6 +228,31 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Silahkan Pilih Foto Bukti Pembayaran Anda", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void buatPemberitahuan() {
+        String idPemberitahuan = mDatabase.push().getKey();
+        final String idRental = getIntent().getStringExtra("idRental");
+        final String idKendaraan = getIntent().getStringExtra("idKendaraan");
+        final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
+        final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
+        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        String valueHalaman = "menungguKonfirmasiRental";
+        //String valueHalaman = "0";
+        // String valueHalaman = "h";
+        //int valueHalaman = 1;
+        String statusPemesanan1 = "Menunggu Konfirmasi Rental";
+        HashMap<String, Object> dataNotif = new HashMap<>();
+        dataNotif.put("idPemberitahuan", idPemberitahuan);
+        dataNotif.put("idRental", idRental);
+        dataNotif.put("idKendaraan", idKendaraan);
+        dataNotif.put("tglSewa", tglSewaPencarian);
+        dataNotif.put("tglKembalian", tglKembaliPencarian);
+        dataNotif.put("nilaiHalaman", valueHalaman);
+        dataNotif.put("statusPemesanan", statusPemesanan1);
+        dataNotif.put("idPelanggan", idPelanggan);
+        dataNotif.put("idPemesanan", idPemesanan);
+        mDatabase.child("pemberitahuan").child("rental").child("menungguKonfirmasiRental").child(idRental).child(idPemberitahuan).setValue(dataNotif);
     }
 
     public boolean cekKolomIsian() {
@@ -255,7 +295,6 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==android.R.id.home) {
-            finish();
         }
         return super.onOptionsItemSelected(item);
     }

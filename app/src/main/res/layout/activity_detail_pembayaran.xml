@@ -199,7 +199,7 @@
                     android:id="@+id/txtViewBBMFalse"/>
             </LinearLayout>
             <View
-                android:id="@+id/pembatas1"
+                android:id="@+id/pembatas0"
                 android:layout_width="match_parent"
                 android:layout_height="1.5dp"
                 android:layout_below="@id/txtViewBBMFalse"

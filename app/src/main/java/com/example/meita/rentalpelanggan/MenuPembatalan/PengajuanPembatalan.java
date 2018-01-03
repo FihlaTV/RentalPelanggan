@@ -16,11 +16,15 @@ import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 public class PengajuanPembatalan extends AppCompatActivity {
     TextView textViewTipeKendaraan, textViewNamaRental, textViewDenganSupir, textViewTanpaSupir,
@@ -29,6 +33,8 @@ public class PengajuanPembatalan extends AppCompatActivity {
     Button buttonAjukanPembatalan;
     EditText editTextAlasanPembatalan;
     DatabaseReference mDatabase;
+    String idPelanggan;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +65,11 @@ public class PengajuanPembatalan extends AppCompatActivity {
         checkListTanpaSupir = (ImageView)findViewById(R.id.icCheckListTanpaSupir);
         checkListDenganBBM = (ImageView)findViewById(R.id.icCheckListDenganBBM);
         checkListTanpaBBM = (ImageView)findViewById(R.id.icCheckListTanpaBBM);
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        idPelanggan = user.getUid();
+
 
         buttonAjukanPembatalan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,6 +206,31 @@ public class PengajuanPembatalan extends AppCompatActivity {
         intent.putExtra("halamanStatus3", 3);
         startActivity(intent);
         finish();
+        buatPemberitahuan();
+    }
+
+    private void buatPemberitahuan() {
+        String idPemberitahuan = mDatabase.push().getKey();
+        final String idRental = getIntent().getStringExtra("idRental");
+        final String idKendaraan = getIntent().getStringExtra("idKendaraan");
+        final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
+        final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
+        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        String valueHalaman = "pengajuanPembatalan";
+        //String valueHalaman = "0";
+        // String valueHalaman = "h";
+        String statusPemesanan1 = "pengajuanPembatalan";
+        HashMap<String, Object> dataNotif = new HashMap<>();
+        dataNotif.put("idPemberitahuan", idPemberitahuan);
+        dataNotif.put("idRental", idRental);
+        dataNotif.put("idKendaraan", idKendaraan);
+        dataNotif.put("tglSewa", tglSewaPencarian);
+        dataNotif.put("tglKembalian", tglKembaliPencarian);
+        dataNotif.put("nilaiHalaman", valueHalaman);
+        dataNotif.put("statusPemesanan", statusPemesanan1);
+        dataNotif.put("idPelanggan", idPelanggan);
+        dataNotif.put("idPemesanan", idPemesanan);
+        mDatabase.child("pemberitahuan").child("rental").child("pengajuanPembatalan").child(idRental).child(idPemberitahuan).setValue(dataNotif);
     }
 
 }

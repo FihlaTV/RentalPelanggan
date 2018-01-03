@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.meita.rentalpelanggan.R;
 
@@ -32,24 +33,52 @@ public class MenuStatusPemesanan extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
         try {
-            Bundle extras = getActivity().getIntent().getExtras();
-            int valueStatusHalaman2 = extras.getInt("halamanStatus2", 1);
-            if (valueStatusHalaman2 == 2) {
-                viewPager.setCurrentItem(1);
-            }
+            int position = getArguments().getInt("tab3");
+            viewPager.setCurrentItem(position);
         } catch (Exception e) {
 
         }
 
         try {
-            Bundle extras = getActivity().getIntent().getExtras();
-            int valueStatusHalaman3 = extras.getInt("halamanStatus3", 2);
-            if (valueStatusHalaman3 == 3) {
-                viewPager.setCurrentItem(5);
-            }
+            int position = getArguments().getInt("tab4");
+            viewPager.setCurrentItem(position);
         } catch (Exception e) {
 
         }
+
+        try {
+            int position = getArguments().getInt("tab1");
+            viewPager.setCurrentItem(position);
+        } catch (Exception e) {
+
+        }
+
+        try {
+            int position = getArguments().getInt("tab2");
+            viewPager.setCurrentItem(position);
+        } catch (Exception e) {
+
+        }
+
+//        try {
+//            Bundle extras = getActivity().getIntent().getExtras();
+//            int valueStatusHalaman2 = extras.getInt("halamanStatus2", 1);
+//            if (valueStatusHalaman2 == 2) {
+//                viewPager.setCurrentItem(1);
+//            }
+//        } catch (Exception e) {
+//
+//        }
+//
+//        try {
+//            Bundle extras = getActivity().getIntent().getExtras();
+//            int valueStatusHalaman3 = extras.getInt("halamanStatus3", 2);
+//            if (valueStatusHalaman3 == 3) {
+//                viewPager.setCurrentItem(5);
+//            }
+//        } catch (Exception e) {
+//
+//        }
 
         return v;
 

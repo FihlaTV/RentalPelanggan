@@ -10,6 +10,8 @@ import android.widget.RatingBar;
 
 import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,6 +25,8 @@ public class InputUlasanPelanggan extends AppCompatActivity {
     EditText editTextUlasan;
     Button buttonSimpanUlasan;
     private DatabaseReference mDatabase;
+    String idPelanggan;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,10 @@ public class InputUlasanPelanggan extends AppCompatActivity {
         editTextUlasan = (EditText)findViewById(R.id.editTextUlasan);
         buttonSimpanUlasan = (Button)findViewById(R.id.btnSimpanUlasan);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        idPelanggan = user.getUid();
 
         setRatingBar();
 
@@ -152,5 +160,30 @@ public class InputUlasanPelanggan extends AppCompatActivity {
         mDatabase.child("pemesananKendaraan").child("selesai").child(idPemesanan).child("statusUlasan").setValue(statusUlasan);
         Intent intent = new Intent(InputUlasanPelanggan.this, MainActivity.class);
         startActivity(intent);
+        buatPemberitahuan();
+    }
+
+    private void buatPemberitahuan() {
+        String idPemberitahuan = mDatabase.push().getKey();
+        final String idRental = getIntent().getStringExtra("idRental");
+        final String idKendaraan = getIntent().getStringExtra("idKendaraan");
+        final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
+        final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
+        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        //int valueHalaman1 = 0;
+        String valueHalaman1 = "penilaian";
+        String statusPemesanan1 = "selesai";
+        HashMap<String, Object> dataNotif = new HashMap<>();
+        dataNotif.put("idPemberitahuan", idPemberitahuan);
+        dataNotif.put("idRental", idRental);
+        dataNotif.put("idKendaraan", idKendaraan);
+        dataNotif.put("tglSewa", tglSewaPencarian);
+        dataNotif.put("tglKembalian", tglKembaliPencarian);
+        dataNotif.put("nilaiHalaman", valueHalaman1);
+        dataNotif.put("statusPemesanan", statusPemesanan1);
+        dataNotif.put("idPelanggan", idPelanggan);
+        dataNotif.put("idPemesanan", idPemesanan);
+        mDatabase.child("pemberitahuan").child("rental").child("penilaian").child(idRental).child(idPemberitahuan).setValue(dataNotif);
+        //mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).child("nilaiHalaman").setValue(valueHalaman);
     }
 }

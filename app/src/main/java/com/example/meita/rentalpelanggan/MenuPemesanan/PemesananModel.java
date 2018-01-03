@@ -18,9 +18,23 @@ public class PemesananModel implements Serializable{
             bankPelanggan, namaPemilikRekeningPelanggan, nomorRekeningPelanggan, jumlahTransfer, waktuPembayaran;
     String alasanPembatalan;
     boolean statusUlasan;
+    String idPemberitahuan, nilaiHalaman;
 
     public PemesananModel() {
 
+    }
+
+    public PemesananModel(String idPemberitahuan, String idPelanggan, String idRental, String idPemesanan, String idKendaraan, String statusPemesanan, String tglSewa,
+                          String tglKembali, String nilaiHalaman) {
+        this.idPemberitahuan = idPemberitahuan;
+        this.idPelanggan = idPelanggan;
+        this.idRental = idRental;
+        this.idPemesanan = idPemesanan;
+        this.idKendaraan = idKendaraan;
+        this.statusPemesanan = statusPemesanan;
+        this.tglSewa = tglSewa;
+        this.tglKembali = tglKembali;
+        this.nilaiHalaman = nilaiHalaman;
     }
 
     public PemesananModel(String idPemesanan, String idKendaraan, String idPelanggan, String idRental, String statusPemesanan,

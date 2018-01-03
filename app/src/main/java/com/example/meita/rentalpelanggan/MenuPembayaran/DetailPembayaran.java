@@ -97,7 +97,7 @@ public class DetailPembayaran extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailPembayaran.this, MainActivity.class);
-                intent.putExtra("halamanStatus", 1);
+                intent.putExtra("halamanStatusBelumBayar", 0);
                 startActivity(intent);
             }
         });
@@ -150,51 +150,56 @@ public class DetailPembayaran extends AppCompatActivity {
     public void infoKendaraan() {
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
-        mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot != null) {
-                    KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
-                    if (kendaraan != null) {
-                        textViewTipeKendaraan.setText(kendaraan.getTipeKendaraan());
-                        textViewAreaPemakaian.setText(kendaraan.getAreaPemakaian());
+        try {
+            mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot != null) {
+                        KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
+                        if (kendaraan != null) {
+                            textViewTipeKendaraan.setText(kendaraan.getTipeKendaraan());
+                            textViewAreaPemakaian.setText(kendaraan.getAreaPemakaian());
 
-                        if (kendaraan.isSupir() == true ) {
-                            textViewDenganSupir.setVisibility(View.VISIBLE);
-                            imageChecklistSupirTrue.setVisibility(View.VISIBLE);
-                            textViewTanpaSupir.setVisibility(View.GONE);
-                            imageCheckListSupirFalse.setVisibility(View.GONE);
-                        } else {
-                            textViewTanpaSupir.setVisibility(View.VISIBLE);
-                            imageCheckListSupirFalse.setVisibility(View.VISIBLE);
-                            textViewDenganSupir.setVisibility(View.GONE);
-                            imageChecklistSupirTrue.setVisibility(View.GONE);
+                            if (kendaraan.isSupir() == true ) {
+                                textViewDenganSupir.setVisibility(View.VISIBLE);
+                                imageChecklistSupirTrue.setVisibility(View.VISIBLE);
+                                textViewTanpaSupir.setVisibility(View.GONE);
+                                imageCheckListSupirFalse.setVisibility(View.GONE);
+                            } else {
+                                textViewTanpaSupir.setVisibility(View.VISIBLE);
+                                imageCheckListSupirFalse.setVisibility(View.VISIBLE);
+                                textViewDenganSupir.setVisibility(View.GONE);
+                                imageChecklistSupirTrue.setVisibility(View.GONE);
+                            }
+
+                            if (kendaraan.isBahanBakar() == true ) {
+                                textViewDenganBBM.setVisibility(View.VISIBLE);
+                                imageCheckListBBMTrue.setVisibility(View.VISIBLE);
+                                textViewTanpaBBM.setVisibility(View.GONE);
+                                imageCheckListBBMFalse.setVisibility(View.GONE);
+                            } else {
+                                textViewTanpaBBM.setVisibility(View.VISIBLE);
+                                imageCheckListBBMFalse.setVisibility(View.VISIBLE);
+                                textViewDenganBBM.setVisibility(View.GONE);
+                                imageCheckListBBMTrue.setVisibility(View.GONE);
+                            }
+
+                            boolean supir = kendaraan.isSupir();
+                            valueSupir = supir;
                         }
-
-                        if (kendaraan.isBahanBakar() == true ) {
-                            textViewDenganBBM.setVisibility(View.VISIBLE);
-                            imageCheckListBBMTrue.setVisibility(View.VISIBLE);
-                            textViewTanpaBBM.setVisibility(View.GONE);
-                            imageCheckListBBMFalse.setVisibility(View.GONE);
-                        } else {
-                            textViewTanpaBBM.setVisibility(View.VISIBLE);
-                            imageCheckListBBMFalse.setVisibility(View.VISIBLE);
-                            textViewDenganBBM.setVisibility(View.GONE);
-                            imageCheckListBBMTrue.setVisibility(View.GONE);
-                        }
-
-                        boolean supir = kendaraan.isSupir();
-                        valueSupir = supir;
                     }
+
                 }
 
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        } catch (Exception e) {
 
-            }
-        });
+        }
+
     }
 
     public void infoPemesanan() {
@@ -203,9 +208,11 @@ public class DetailPembayaran extends AppCompatActivity {
             mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
-                    textViewWaktuBatasTransfer.setText(dataPemesanan.getBatasWaktuPembayaran());
-                    textViewTotalPembayaran.setText("Rp."+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
+                    if (dataSnapshot.exists()) {
+                        PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
+                        textViewWaktuBatasTransfer.setText(dataPemesanan.getBatasWaktuPembayaran());
+                        textViewTotalPembayaran.setText("Rp."+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
+                    }
                 }
 
                 @Override
@@ -222,7 +229,7 @@ public class DetailPembayaran extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==android.R.id.home) {
-            finish();
+
         }
         return super.onOptionsItemSelected(item);
     }

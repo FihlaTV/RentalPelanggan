@@ -12,263 +12,330 @@
         android:background="@color/orange"
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+    <android.support.v4.widget.NestedScrollView
+        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:orientation="vertical"
-        android:background="@drawable/rectangle_border">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tanggal Sewa"
-            android:textSize="17dp"
-            android:padding="5dp"
-            android:background="@color/orange"/>
-        <TextView
-            android:id="@+id/textViewTipeKendaraan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tipe Kendaraan"
-            android:textSize="17dp"
-            android:textColor="@color/orange"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="15dp"></TextView>
-        <TextView
-            android:id="@+id/textViewNamaRentalKendaraan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rental Kendaraan"
-            android:textSize="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="15dp"></TextView>
+        android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/icCheckListDenganSupir"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_checklist"/>
-            <TextView
-                android:text="Dengan Supir"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="15sp"
-                android:textColor="@color/abu_tua"
-                android:id="@+id/txtViewSupir"/>
-            <ImageView
-                android:id="@+id/icCheckListTanpaSupir"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_checklist_false"/>
-            <TextView
-                android:text="Tanpa Supir"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="15sp"
-                android:textColor="@color/abu_tua"
-                android:id="@+id/txtViewSupirFalse"/>
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:orientation="vertical"
+                android:background="@drawable/rectangle_border">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/orange">
+                    <TextView
+                        android:id="@+id/textViewTglSewa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tanggal Sewa"
+                        android:textSize="16dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" - "
+                        android:textSize="16dp" />
+                    <TextView
+                        android:id="@+id/textViewTglKembali"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tanggal Kembali"
+                        android:textSize="16dp" />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewTipeKendaraan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tipe Kendaraan"
+                    android:textSize="17dp"
+                    android:textColor="@color/orange"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"></TextView>
+                <TextView
+                    android:id="@+id/textViewNamaRentalKendaraan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rental Kendaraan"
+                    android:textSize="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"></TextView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/icCheckListDenganSupir"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_checklist"/>
+                    <TextView
+                        android:text="Dengan Supir"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/abu_tua"
+                        android:id="@+id/txtViewSupir"/>
+                    <ImageView
+                        android:id="@+id/icCheckListTanpaSupir"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_checklist_false"/>
+                    <TextView
+                        android:text="Tanpa Supir"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/abu_tua"
+                        android:id="@+id/txtViewSupirFalse"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/icCheckListDenganBBM"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_checklist"/>
+                    <TextView
+                        android:text="Dengan Bahan Bakar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/abu_tua"
+                        android:id="@+id/txtViewBBMTrue"/>
+                    <ImageView
+                        android:id="@+id/icCheckListTanpaBBM"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_checklist_false"/>
+                    <TextView
+                        android:text="Tanpa Bahan Bakar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/abu_tua"
+                        android:id="@+id/txtViewBBMFalse"/>
+                </LinearLayout>
+                <View
+                    android:id="@+id/pembatas1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_below="@+id/txtViewBBMFalse"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/orange" />
+                <TextView
+                    android:id="@+id/textViewArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear5"
+                    android:text="Cakupan Pemakaian Kendaraan"
+                    android:textSize="18dp"
+                    android:textColor="@color/hitam"
+                    android:layout_marginTop="15dp">
+                </TextView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linearArea"
+                    android:layout_below="@+id/textViewArea"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_geofence"/>
+                    <TextView
+                        android:text="Area Pemakaian"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/abu_tua"
+                        android:id="@+id/txtViewAreaPemakaian"/>
+                </LinearLayout>
+                <View
+                    android:id="@+id/pembatas2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_below="@+id/txtViewAreaPemakaian"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/orange" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2.4"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.1"
+                        android:text="Harga Sewa"
+                        android:textSize="16dp" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.3"
+                        android:weightSum="1.3"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/textViewHargaSewaKendaraan"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rp.3.300.000"
+                            android:textColor="@color/abu_tua"
+                            android:textSize="16dp"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:text=" / "
+                            android:textColor="@color/abu_tua"
+                            android:textSize="16dp"/>
+                        <TextView
+                            android:id="@+id/textViewLamaPenyewaan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:text=" 12 jam"
+                            android:textColor="@color/abu_tua"
+                            android:textSize="16dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.31"
+                        android:text="Jumlah Sewa Kendaraan"
+                        android:textSize="16dp" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:weightSum="0.7"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/textViewJumlahKendaraan"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:layout_gravity="right"
+                            android:text="1"
+                            android:textColor="@color/abu_tua"
+                            android:textSize="16dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:text=" Buah"
+                            android:gravity="right"
+                            android:textColor="@color/abu_tua"
+                            android:textSize="16dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.3"
+                        android:text="Lama Penyewaan"
+                        android:textSize="16dp" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:weightSum="0.7"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/textViewLamaSewaPemesanan"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:layout_gravity="right"
+                            android:text="1"
+                            android:textColor="@color/abu_tua"
+                            android:textSize="16dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:text=" Hari"
+                            android:gravity="right"
+                            android:textColor="@color/abu_tua"
+                            android:textSize="16dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2.4"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.4"
+                        android:text="Total Pembayaran"
+                        android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/txtViewTotalPembayaran"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="total"
+                        android:textColor="@color/abu_tua"
+                        android:textSize="20dp"/>
+                </LinearLayout>
+
             </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/icCheckListDenganBBM"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_checklist"/>
-            <TextView
-                android:text="Dengan Bahan Bakar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="15sp"
-                android:textColor="@color/abu_tua"
-                android:id="@+id/txtViewBBMTrue"/>
-            <ImageView
-                android:id="@+id/icCheckListTanpaBBM"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_checklist_false"/>
-            <TextView
-                android:text="Tanpa Bahan Bakar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="15sp"
-                android:textColor="@color/abu_tua"
-                android:id="@+id/txtViewBBMFalse"/>
-        </LinearLayout>
-        <View
-            android:id="@+id/pembatas1"
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:layout_below="@+id/txtViewBBMFalse"
-            android:layout_marginTop="20dp"
-            android:background="@color/orange" />
-        <TextView
-            android:id="@+id/textViewArea"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linear5"
-            android:text="Cakupan Pemakaian Kendaraan"
-            android:textSize="18dp"
-            android:textColor="@color/hitam"
-            android:layout_marginTop="15dp">
-        </TextView>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/linearArea"
-            android:layout_below="@+id/textViewArea"
-            android:layout_marginTop="3dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_geofence"/>
-            <TextView
-                android:text="Area Pemakaian"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="15sp"
-                android:textColor="@color/abu_tua"
-                android:id="@+id/txtViewAreaPemakaian"/>
-        </LinearLayout>
-        <View
-            android:id="@+id/pembatas2"
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:layout_below="@+id/txtViewAreaPemakaian"
-            android:layout_marginTop="15dp"
-            android:background="@color/orange" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
-            <TextView
-                android:text="Durasi Penyewaan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="15sp"
-                android:textColor="@color/abu_tua"/>
-            <TextView
-                android:text="5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="100dp"
-                android:textSize="15sp"
-                android:textColor="@color/abu_tua"
-                android:id="@+id/txtViewLamaSewaPemesanan"/>
-            <TextView
-                android:text="Hari"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:textSize="15sp"
-                android:textColor="@color/abu_tua"
-                android:id="@+id/txtViewLamaSewaPemesanan"/>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="0dp">
+                <Button
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:text="Lanjutkan"
+                    android:id="@+id/btnLanjutkan"
+                    android:background="@drawable/round_button"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-            <TextView
-                android:text="Durasi Sewa Kendaraan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textSize="15sp"
-                android:textColor="@color/abu_tua"/>
-            <TextView
-                android:text="per -"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="45dp"
-                android:textSize="15sp"
-                android:textColor="@color/abu_tua"/>
-            <TextView
-                android:text="12 Jam"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:textSize="15sp"
-                android:textColor="@color/abu_tua"
-                android:id="@+id/txtViewLamaSewaKendaraan"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-            <TextView
-                android:text="Total Pembayaran"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textSize="20dp"
-                android:textColor="@color/hitam"/>
-            <TextView
-                android:text="Rp."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
-                android:textSize="20dp"
-                android:textColor="@color/hitam"
-                android:id="@+id/rp"/>
-            <TextView
-                android:text="total"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textColor="@color/hitam"
-                android:id="@+id/txtViewTotalPembayaran"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:layout_weight="0.5">
-        <Button
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:text="Lanjutkan"
-            android:id="@+id/btnLanjutkan"
-            android:background="@drawable/round_button"/>
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_circle"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerInParent="true"
-        android:indeterminate="true" />
-
-
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
