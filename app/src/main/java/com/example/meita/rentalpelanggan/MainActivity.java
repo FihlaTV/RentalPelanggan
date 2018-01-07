@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
             menuStatusPemesanan.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
+            Toast.makeText(MainActivity.this, "nilai notif1 = "+notif1, Toast.LENGTH_SHORT).show();
         }
 
         if (findViewById(R.id.content_frame) != null && notif2 != null && notif2.equals("selesai")) {

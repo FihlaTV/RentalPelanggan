@@ -1,6 +1,7 @@
 package com.example.meita.rentalpelanggan.MenuStatusPemesanan;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -31,31 +32,55 @@ public class MenuStatusPemesanan extends Fragment {
         tabLayout = (TabLayout) v.findViewById(R.id.tabs);
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.getAdapter().notifyDataSetChanged();
+
 
         try {
-            int position = getArguments().getInt("tab3");
-            viewPager.setCurrentItem(position);
+            final int position = getArguments().getInt("tab3");
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    viewPager.setCurrentItem(position);
+                    Toast.makeText(getActivity(), "nilai tab3 = "+position, Toast.LENGTH_SHORT).show();
+
+                }
+            });
         } catch (Exception e) {
 
         }
 
         try {
-            int position = getArguments().getInt("tab4");
-            viewPager.setCurrentItem(position);
+            final int position = getArguments().getInt("tab4");
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    viewPager.setCurrentItem(position);
+                }
+            });
         } catch (Exception e) {
 
         }
 
         try {
-            int position = getArguments().getInt("tab1");
-            viewPager.setCurrentItem(position);
+            final int position = getArguments().getInt("tab1");
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    viewPager.setCurrentItem(position);
+                }
+            });
         } catch (Exception e) {
 
         }
 
         try {
-            int position = getArguments().getInt("tab2");
-            viewPager.setCurrentItem(position);
+            final int position = getArguments().getInt("tab2");
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    viewPager.setCurrentItem(position);
+                }
+            });
         } catch (Exception e) {
 
         }

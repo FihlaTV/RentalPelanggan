@@ -1,5 +1,6 @@
 package com.example.meita.rentalpelanggan.MenuPemesanan;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -19,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.meita.rentalpelanggan.Autentifikasi.PelangganModel;
+import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.MenuPembayaran.DaftarRekeningPembayaran;
+import com.example.meita.rentalpelanggan.MenuPembayaran.UnggahBuktiPembayaran;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.R;
 import com.example.meita.rentalpelanggan.SisaKendaraanModel;
@@ -65,6 +68,7 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
     boolean sisa;
     Date tanggalSewaPencarian, tanggalKembaliPencarian, tglSewaDipesan, tglKembaliDipesan;
     int sisaKendaraan;
+    ProgressDialog progressDialog;
 
 
     private final static int PLACE_PICKER_REQUEST = 2;
@@ -86,6 +90,7 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
         editTextLokasiPenjemputan = (EditText)findViewById(R.id.editTextLokasiPenjemputan);
         editTextKeteranganKhusus = (EditText)findViewById(R.id.editTextKeteranganKhusus);
         buttonBuatPesanan = (Button)findViewById(R.id.btnBuatPesanan);
+        progressDialog = new ProgressDialog(BuatPesanan2_denganSupir.this);
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         idPelanggan = user.getUid();
@@ -191,6 +196,11 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
     }
 
     public  void buatPesanan() {
+        progressDialog.setMessage("Harap tunggu..."); // Setting Message
+        progressDialog.setTitle("Memproses Penyewaan"); // Setting Title
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+        progressDialog.show(); // Display Progress Dialog
+        progressDialog.setCancelable(false);
         final String idRental = getIntent().getStringExtra("idRental");
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
@@ -229,6 +239,7 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Pemesanan Gagal", Toast.LENGTH_SHORT).show();
                         } else {
+                            progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "Pemesanan berhasil", Toast.LENGTH_SHORT).show();
                             Bundle bundle = new Bundle();
                             Intent intent = new Intent(BuatPesanan2_denganSupir.this, DaftarRekeningPembayaran.class);
@@ -335,24 +346,24 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
                             if (sisaKendaraan > jmlKendaraanPencarian || sisaKendaraan == jmlKendaraanPencarian) {
                                 boolean cek = true;
                                 sisa = cek;
-                                Toast.makeText(getApplicationContext(), "di update oiii", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "di update oiii", Toast.LENGTH_LONG).show();
                             }
                             else {
                                 boolean cek = false;
                                 sisa = cek;
-                                Toast.makeText(getApplicationContext(), "kendaraan udah abis alias ga cukup", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "kendaraan udah abis alias ga cukup", Toast.LENGTH_LONG).show();
                             }
                         } else {
                             boolean cek = true;
                             sisa = cek;
-                            Toast.makeText(getApplicationContext(), "Buat sisa karena tanggalnya ga sama", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "Buat sisa karena tanggalnya ga sama", Toast.LENGTH_LONG).show();
                         }
                     }
 
                 } else {
                     boolean cek = true;
                     sisa = cek;
-                    Toast.makeText(getApplicationContext(), "Buat sisa karena ga ada sama sekali di tabel cek sisa", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "Buat sisa karena ga ada sama sekali di tabel cek sisa", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -403,21 +414,21 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
                                 || tanggalSewaPencarian.equals(tglSewaDipesan) && tanggalKembaliPencarian.equals(tglKembaliDipesan)) {
                             if (sisaKendaraan > jmlKendaraanPencarian || sisaKendaraan == jmlKendaraanPencarian) {
                                 perbaruiSisa(jmlKendaraanPencarian, a, sisaKendaraan);
-                                Toast.makeText(getApplicationContext(), "di update oiii", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "di update oiii", Toast.LENGTH_LONG).show();
                             }
                             else {
-                                Toast.makeText(getApplicationContext(), "kendaraan udah abis alias ga cukup", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "kendaraan udah abis alias ga cukup", Toast.LENGTH_LONG).show();
                             }
                         }
                         else {
                             buatSisaKendaraan(jmlKendaraanPencarian);
-                            Toast.makeText(getApplicationContext(), "Buat sisa karena tanggalnya ga sama", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "Buat sisa karena tanggalnya ga sama", Toast.LENGTH_LONG).show();
                         }
                     }
 
                 } else {
                     buatSisaKendaraan(jmlKendaraanPencarian);
-                    Toast.makeText(getApplicationContext(), "Buat sisa karena ga ada sama sekali di tabel cek sisa", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "Buat sisa karena ga ada sama sekali di tabel cek sisa", Toast.LENGTH_LONG).show();
                 }
             }
 

@@ -306,14 +306,12 @@ public class MenuHasilPencarian extends AppCompatActivity {
                                 if (dataSnapshot.exists()) { //7
                                     for (com.firebase.client.DataSnapshot postSnapshot : dataSnapshot.getChildren()) { //8
                                         SisaKendaraanModel sisaModel = postSnapshot.getValue(SisaKendaraanModel.class); //9
-                                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                                         idCekSisa = sisaModel.getIdCekSisa();
                                         final int sisaKendaraan = sisaModel.getSisaKendaraan();
                                         String tanggalSewaDipesan = sisaModel.getTglSewa();
                                         String tanggalKembaliDipesan = sisaModel.getTglKembali();
 
                                         if (cekTanggal(tanggalSewaPencarian, tanggalKembaliPencarian, tanggalSewaDipesan, tanggalKembaliDipesan)) {//10
-                                            String nilaiKembalianCekTanggal = "bernilai true";
                                             if (sisaKendaraan >= jmlKendaraanPencarian || jmlKendaraanModel == jmlKendaraanPencarian) { //11
                                                 kendaraanModel.add(kendaraan); //12
                                             } else { //13
@@ -321,7 +319,6 @@ public class MenuHasilPencarian extends AppCompatActivity {
                                                 break;
                                             }
                                         } else { //15
-                                            String nilaiKembalianCekTanggal = "bernilai false";
                                             if (jmlKendaraanModel >= jmlKendaraanPencarian || jmlKendaraanModel == jmlKendaraanPencarian) { //16
                                                 kendaraanModel.add(kendaraan); //17
                                             } else { //18

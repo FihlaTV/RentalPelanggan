@@ -77,6 +77,7 @@ public class TabStatus3 extends Fragment {
                             adapter = new TabStatus3Adapter(getActivity(), pemesananModel);
                             recyclerView.setAdapter(adapter);
                             ic_noOrder.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
                         }
                     } else {
                         progressBar.setVisibility(View.GONE);

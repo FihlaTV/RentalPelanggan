@@ -158,7 +158,7 @@ public class RincianPesanan extends AppCompatActivity {
                 KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
                 textViewTipeKendaraan.setText(kendaraan.getTipeKendaraan());
                 textViewAreaPemakaian.setText(kendaraan.getAreaPemakaian());
-                textViewHargaSewaKendaraan.setText(String.valueOf(kendaraan.getHargaSewa()));
+                textViewHargaSewaKendaraan.setText("Rp." + BaseActivity.rupiah().format(kendaraan.getHargaSewa()));
                 textViewLamaPenyewaan.setText(kendaraan.getLamaPenyewaan());
 
                 if (kendaraan.isSupir() == true ) {

@@ -59,6 +59,7 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
     private FirebaseAuth auth;
     ProgressBar progressBar;
     public static final int PICK_IMAGE_REQUEST = 234;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,8 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progress_circle);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FEBD3D"), PorterDuff.Mode.SRC_ATOP);
         progressBar.setVisibility(View.VISIBLE);
+
+        progressDialog = new ProgressDialog(UnggahBuktiPembayaran.this);
 
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
@@ -159,6 +162,11 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
     }
 
     public void unggahBuktiPembayaranPelanggan() {
+        progressDialog.setMessage("Harap tunggu..."); // Setting Message
+        progressDialog.setTitle("Menyimpan Bukti Pembayaran"); // Setting Title
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+        progressDialog.show(); // Display Progress Dialog
+        progressDialog.setCancelable(false);
         final String idPemesanan = getIntent().getStringExtra("idPemesanan");
         final String idRekening = getIntent().getStringExtra("idRekening");
         final String statusPemesanan2 = "Menunggu Konfirmasi Rental";
@@ -199,12 +207,13 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
                                             mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).removeValue();
                                             Toast.makeText(getApplicationContext(), "Bukti Pembayaran Anda Berhasil Disimpan", Toast.LENGTH_LONG).show();
                                             Intent intent = new Intent(UnggahBuktiPembayaran.this, MainActivity.class);
-                                            intent.putExtra(" halamanStatusMenungguKonfirmasi", 1);
+                                            intent.putExtra("halamanStatusMenungguKonfirmasi", 1);
                                             startActivity(intent);
                                             buatPemberitahuan();
                                         }
                                     });
 
+                                    progressDialog.dismiss();
                                 }
 
                                 @Override
