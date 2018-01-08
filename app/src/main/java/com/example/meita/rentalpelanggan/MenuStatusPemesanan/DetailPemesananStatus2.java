@@ -224,8 +224,6 @@ public class DetailPemesananStatus2 extends AppCompatActivity {
 
     public void infoPembayaran() {
         try {
-
-        } catch (Exception e) {
             final String idPemesanan = getIntent().getStringExtra("idPemesanan");
             final String idRental = getIntent().getStringExtra("idRental");
             mDatabase.child("pemesananKendaraan").child("menungguKonfirmasiRental").child(idPemesanan).child("pembayaran").addValueEventListener(new ValueEventListener() {
@@ -257,6 +255,8 @@ public class DetailPemesananStatus2 extends AppCompatActivity {
 
                 }
             });
+        } catch (Exception e) {
+
         }
     }
 }

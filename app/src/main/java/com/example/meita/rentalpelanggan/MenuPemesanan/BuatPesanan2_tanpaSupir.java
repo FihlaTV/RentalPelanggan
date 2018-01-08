@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -445,7 +446,7 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
 
     public boolean cekKolomIsian() {
         boolean sukses = true;
-        if ( editTextKeteranganKhusus.getText().toString() == null || jamPengambilan == null){
+        if (TextUtils.isEmpty(editTextKeteranganKhusus.getText().toString()) || jamPengambilan == null){
             sukses = false;
             ShowAlertDialog.showAlert("Lengkapi Seluruh Kolom Isian", this);
         }

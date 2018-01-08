@@ -89,6 +89,7 @@
         <activity android:name=".MenuUlasan.InputUlasanPelanggan" />
         <activity android:name=".MenuUlasan.LihatUlasanPelanggan" />
         <activity android:name=".MenuUlasan.DaftarUlasan" />
+        <activity android:name=".Autentifikasi.AutentifikasiTelepon" />
 
         <service
             android:name=".Services.MyService"

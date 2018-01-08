@@ -448,21 +448,18 @@ public class MenuHasilPencarian extends AppCompatActivity {
     public boolean cekTanggal(String tanggalSewaPencarian, String tanggalKembaliPencarian, String tanggalSewaDipesan, String tanggalKembaliDipesan) {
         boolean cekTanggal;
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
         try {
             tglSewaPencarian = format.parse(tanggalSewaPencarian);
             tglKembaliPencarian = format.parse(tanggalKembaliPencarian);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        try {
             tglSewaDipesan = format.parse(tanggalSewaDipesan);
             tglKembaliDipesan = format.parse(tanggalKembaliDipesan);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        if ((tglSewaPencarian.before(tglKembaliDipesan) || //10
+
+        if ((tglSewaPencarian.before(tglKembaliDipesan) ||
                 tglSewaPencarian.equals(tglKembaliDipesan)) && (tglKembaliPencarian.after(tglSewaDipesan) ||
                 tglKembaliPencarian.equals(tglSewaDipesan)) ||
                 tglSewaPencarian.equals(tglSewaDipesan) && tglKembaliPencarian.equals(tglKembaliDipesan)) {

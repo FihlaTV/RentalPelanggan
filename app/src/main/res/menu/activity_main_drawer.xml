@@ -11,21 +11,9 @@
             android:icon="@drawable/ic_rents"
             android:title="Kelola Pesanan" />
         <item
-            android:id="@+id/nav_pemberitahuan"
-            android:icon="@drawable/ic_notification"
-            android:title="Pemberitahuan" />
-        <item
             android:id="@+id/nav_profilku"
             android:icon="@drawable/ic_profil"
-            android:title="Profilku" />
-        <item
-            android:id="@+id/nav_tentang"
-            android:icon="@drawable/ic_about"
-            android:title="Tentang Aplikasi" />
-        <item
-            android:id="@+id/nav_bantuan"
-            android:icon="@drawable/ic_help"
-            android:title="Bantuan" />
+            android:title="Profil" />
         <item
             android:id="@+id/nav_keluar"
             android:icon="@drawable/ic_logout"

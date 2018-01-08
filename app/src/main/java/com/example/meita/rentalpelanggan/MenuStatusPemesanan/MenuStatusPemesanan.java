@@ -41,7 +41,6 @@ public class MenuStatusPemesanan extends Fragment {
                 @Override
                 public void run() {
                     viewPager.setCurrentItem(position);
-                    Toast.makeText(getActivity(), "nilai tab3 = "+position, Toast.LENGTH_SHORT).show();
 
                 }
             });

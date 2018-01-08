@@ -22,7 +22,9 @@ import android.widget.Toast;
 
 import com.example.meita.rentalpelanggan.Constants;
 import com.example.meita.rentalpelanggan.MainActivity;
+import com.example.meita.rentalpelanggan.MenuPemesanan.BuatPesanan2_denganSupir;
 import com.example.meita.rentalpelanggan.R;
+import com.example.meita.rentalpelanggan.Utils.ShowAlertDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,6 +53,7 @@ public class InputBiodataPelanggan extends AppCompatActivity {
     private StorageReference mStorageRef;
     ProgressBar progressBar;
     public static final int PICK_IMAGE_REQUEST = 234;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,7 @@ public class InputBiodataPelanggan extends AppCompatActivity {
         buttonCariGambar = (Button) findViewById(R.id.btn_cari);
         progressBar = (ProgressBar) findViewById(R.id.progress_circle);
         imageFotoProfile = (ImageView)findViewById(R.id.imageView);
+        progressDialog = new ProgressDialog(InputBiodataPelanggan.this);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -91,8 +95,13 @@ public class InputBiodataPelanggan extends AppCompatActivity {
     }
 
     private void simpanDataPelanggan() {
-        progressBar.setVisibility(View.VISIBLE);
+        if (cekKolomIsian() == true) {
             if (imgUri != null) {
+                progressDialog.setMessage("Harap tunggu..."); // Setting Message
+                progressDialog.setTitle("Menyimpan Biodata Anda"); // Setting Title
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+                progressDialog.show(); // Display Progress Dialog
+                progressDialog.setCancelable(false);
                 //displaying progress dialog while image is uploading
                 //final ProgressDialog progressDialog = new ProgressDialog(this);
 
@@ -110,22 +119,7 @@ public class InputBiodataPelanggan extends AppCompatActivity {
                                 String alamat_pelanggan = editTextAlamat.getText().toString();
                                 String no_telefon_pelanggan = editTextNomorTelp.getText().toString();
 
-                                if (TextUtils.isEmpty(no_ktp_pelanggan)) {
-                                    Toast.makeText(getApplicationContext(), "Masukkan Nomor KTP anda", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                if (TextUtils.isEmpty(nama_pelanggan)) {
-                                    Toast.makeText(getApplicationContext(), "Masukkan Nama Lengkap anda", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                if (TextUtils.isEmpty(alamat_pelanggan)) {
-                                    Toast.makeText(getApplicationContext(), "Masukkan Alamat anda", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                if (TextUtils.isEmpty(no_telefon_pelanggan)) {
-                                    Toast.makeText(getApplicationContext(), "Masukkan Nomor Telefon anda", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
+
                                 String currentDate = null;
                                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                                     currentDate = DateFormat.getDateTimeInstance().format(new Date());
@@ -138,7 +132,7 @@ public class InputBiodataPelanggan extends AppCompatActivity {
                                         if (!task.isSuccessful()) {
                                             Toast.makeText(getApplicationContext(), "Biodata Anda Gagal Disimpan", Toast.LENGTH_SHORT).show();
                                         } else {
-                                            progressBar.setVisibility(View.GONE);
+                                            progressDialog.dismiss();
                                             Toast.makeText(getApplicationContext(), "Biodata Anda Berhasil Disimpan", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(InputBiodataPelanggan.this, MainActivity.class);
                                             startActivity(intent);
@@ -157,10 +151,24 @@ public class InputBiodataPelanggan extends AppCompatActivity {
                             }
                         });
             } else {
-                //display an error if no file is selected
+                ShowAlertDialog.showAlert("Pilih Foto Profil Anda", this);
             }
+        }
+
 
         }
+
+    private boolean cekKolomIsian() {
+        boolean sukses;
+        if (TextUtils.isEmpty(editTextNoIdentitas.getText().toString()) || (TextUtils.isEmpty(editTextNamaLengkap.getText().toString())) ||
+                (TextUtils.isEmpty(editTextAlamat.getText().toString())) || (TextUtils.isEmpty(editTextNomorTelp.getText().toString()))   ) {
+            ShowAlertDialog.showAlert("Lengkapi Seluruh Kolom Isian", this);
+            sukses = false;
+        } else {
+            sukses = true;
+        }
+        return sukses;
+    }
 
     private void showFileChooser() {
         Intent intent = new Intent();

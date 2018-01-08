@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.meita.rentalpelanggan.Autentifikasi.AutentifikasiTelepon;
 import com.example.meita.rentalpelanggan.Autentifikasi.Login;
 import com.example.meita.rentalpelanggan.Base.DeviceToken;
 import com.example.meita.rentalpelanggan.MenuPemberitahuan.MenuPemberitahuan;
@@ -83,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
             menuStatusPemesanan.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
-            Toast.makeText(MainActivity.this, "nilai notif1 = "+notif1, Toast.LENGTH_SHORT).show();
         }
 
         if (findViewById(R.id.content_frame) != null && notif2 != null && notif2.equals("selesai")) {
@@ -177,14 +177,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_penyewaanku:
                 fragment = new MenuStatusPemesanan();
                 break;
-            case R.id.nav_pemberitahuan:
-                fragment = new MenuPemberitahuan();
-                break;
             case R.id.nav_profilku:
                 fragment = new MenuProfil();
-                break;
-            case R.id.nav_tentang:
-                fragment = new MenuTentangAplikasi();
                 break;
             case R.id.nav_keluar:
                 signOut();
@@ -212,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void signOut() {
         FirebaseAuth.getInstance().signOut();
 //        Intent intent = new Intent(this, AutentifikasiTelepon.class);
-        Intent intent = new Intent(this, Login.class);
+        Intent intent = new Intent(this, AutentifikasiTelepon.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -285,13 +286,13 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
     }
 
     public boolean cekKolomIsian() {
-            boolean sukses = true;
-            if ( editTextKeteranganKhusus.getText().toString() == null || editTextLokasiPenjemputan.getText().toString() == null || jamPenjemputan == null){
-                sukses = false;
-                ShowAlertDialog.showAlert("Lengkapi Seluruh Kolom Isian", this);
-            }
-            return sukses;
+        boolean sukses = true;
+        if (TextUtils.isEmpty(editTextKeteranganKhusus.getText().toString()) || jamPenjemputan == null){
+            sukses = false;
+            ShowAlertDialog.showAlert("Lengkapi Seluruh Kolom Isian", this);
         }
+        return sukses;
+    }
 
     public void lokasiPenjemputan() {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
