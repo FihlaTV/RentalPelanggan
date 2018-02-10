@@ -39,6 +39,7 @@ public class DetailPemesananStatus5 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Detail Penyewaan Pengajuan Pembatalan");
         setContentView(R.layout.activity_detail_pemesanan_status5);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();

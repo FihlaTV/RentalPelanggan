@@ -34,10 +34,12 @@ public class DetailPemesananStatus3 extends AppCompatActivity {
     public ImageView checkListDenganSupir, checkListTanpaSupir, checkListDenganBBM, checkListTanpaBBM, icLokasiPenjemputan;
     Button buttonLihatBuktiPembayaran, buttonPengajuanPembatalan;
     DatabaseReference mDatabase;
+    String tglSewa, tglKembali;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Detail Penyewaan Berhasil");
         setContentView(R.layout.activity_detail_pemesanan_status3);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -199,6 +201,8 @@ public class DetailPemesananStatus3 extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
+                        tglSewa = dataPemesanan.getTglSewa();
+                        tglKembali = dataPemesanan.getTglKembali();
                         textViewStatusPemesanan.setText(dataPemesanan.getStatusPemesanan());
                         textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
                         if (dataPemesanan.getJamPenjemputan() == null) {
@@ -281,6 +285,8 @@ public class DetailPemesananStatus3 extends AppCompatActivity {
         bundle.putString("idKendaraan", idKendaraan);
         bundle.putString("idPelanggan", idPelanggan);
         bundle.putString("kategoriKendaraan", kategoriKendaraan);
+        bundle.putString("tglSewa", tglSewa);
+        bundle.putString("tglKembali", tglKembali);
         intent.putExtras(bundle);
         startActivity(intent);
     }

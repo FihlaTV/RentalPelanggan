@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.meita.rentalpelanggan.Autentifikasi.PelangganModel;
 import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.R;
@@ -23,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import org.w3c.dom.Text;
 
 public class UbahProfilPelanggan extends AppCompatActivity {
     EditText editTextNoIdentitas, editTextNamaLengkap, editTextAlamat, editTextNotelp;
@@ -39,7 +43,7 @@ public class UbahProfilPelanggan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle("Ubah Profil");
         setContentView(R.layout.activity_ubah_profil_pelanggan);
-
+        imageViewFotoProfil = (ImageView)findViewById(R.id.imageView);
         editTextNoIdentitas = (EditText) findViewById(R.id.editTextNoIdentitas);
         editTextNamaLengkap = (EditText) findViewById(R.id.editTextNamaLengkap);
         editTextAlamat = (EditText) findViewById(R.id.editTextAlamat);
@@ -75,6 +79,7 @@ public class UbahProfilPelanggan extends AppCompatActivity {
                 editTextAlamat.setText(dataPelanggan.getAlamat());
                 editTextNotelp.setText(dataPelanggan.getNoTelp());
                 textViewEmail.setText(emailPelanggan);
+                Glide.with(getApplication()).load(dataPelanggan.getUriFotoPelanggan()).into(imageViewFotoProfil);
             }
 
             @Override
@@ -96,13 +101,14 @@ public class UbahProfilPelanggan extends AppCompatActivity {
     }
 
     private boolean cekUpdateData() {
-        boolean sukses = true;
-        if (editTextNoIdentitas.getText() == null ||
-                editTextNamaLengkap.getText() == null ||
-                editTextAlamat.getText() == null ||
-                editTextNotelp.getText() == null && (editTextNotelp.getText().length() > 12 || editTextNotelp.getText().length() < 10)) {
+        boolean sukses;
+        if (TextUtils.isEmpty(editTextNoIdentitas.getText().toString()) || TextUtils.isEmpty(editTextNamaLengkap.getText().toString()) ||
+                TextUtils.isEmpty(editTextAlamat.getText().toString()) || TextUtils.isEmpty(editTextNotelp.getText().toString()) ||
+                        TextUtils.isEmpty(editTextNotelp.getText().toString())) {
             sukses = false;
             ShowAlertDialog.showAlert("Lengkapi Seluruh Kolom Isian", this);
+        } else {
+            sukses = true;
         }
         return sukses;
     }

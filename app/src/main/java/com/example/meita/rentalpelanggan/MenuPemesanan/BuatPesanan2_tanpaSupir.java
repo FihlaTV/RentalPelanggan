@@ -73,7 +73,7 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Buat Pesanan");
+        setTitle("Buat Sewa");
         setContentView(R.layout.activity_buat_pesanan2_tanpa_supir);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -231,6 +231,8 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
                                 boolean cek = false;
                                 sisa = cek;
                                 //Toast.makeText(getApplicationContext(), "kendaraan udah abis alias ga cukup", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(BuatPesanan2_tanpaSupir.this, MainActivity.class);
+                                startActivity(intent);
                             }
                         } else {
                             boolean cek = true;

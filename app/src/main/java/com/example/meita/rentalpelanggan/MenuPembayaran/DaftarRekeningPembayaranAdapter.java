@@ -9,9 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.ItemClickListener;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
 import com.example.meita.rentalpelanggan.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -19,7 +25,8 @@ public class DaftarRekeningPembayaranAdapter extends RecyclerView.Adapter<Daftar
 
     private List<RentalModel> rentalModel;
     Context context;
-    String idRental, idKendaraan, idPemesanan, kategoriKendaraan;
+    String idRental, idKendaraan, idPemesanan, kategoriKendaraan, tglSewa, tglKembali;
+    DatabaseReference mDatabase;
 
     public DaftarRekeningPembayaranAdapter(Context context, List<RentalModel> rentalModel) {
         this.rentalModel = rentalModel;
@@ -45,6 +52,7 @@ public class DaftarRekeningPembayaranAdapter extends RecyclerView.Adapter<Daftar
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        getTanggal();
         final RentalModel dataRental = rentalModel.get(position);
         holder.textViewNamaRekening.setText(dataRental.getNamaBank());
         holder.setClickListener(new ItemClickListener() {
@@ -59,6 +67,8 @@ public class DaftarRekeningPembayaranAdapter extends RecyclerView.Adapter<Daftar
                     bundle.putString("idKendaraan", idKendaraan);
                     bundle.putString("idPemesanan", idPemesanan);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);
+                    bundle.putString("tglSewa", tglSewa);
+                    bundle.putString("tglKembali", tglKembali);
                     intent.putExtras(bundle);
                     context.startActivity(intent);
                 } else {
@@ -69,6 +79,8 @@ public class DaftarRekeningPembayaranAdapter extends RecyclerView.Adapter<Daftar
                     bundle.putString("idKendaraan", idKendaraan);
                     bundle.putString("idPemesanan", idPemesanan);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);
+                    bundle.putString("tglSewa", tglSewa);
+                    bundle.putString("tglKembali", tglKembali);
                     intent.putExtras(bundle);
                     context.startActivity(intent);
                 }
@@ -86,7 +98,6 @@ public class DaftarRekeningPembayaranAdapter extends RecyclerView.Adapter<Daftar
     public void onClick(View view) {
 
     }
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView textViewNamaRekening;
@@ -115,6 +126,27 @@ public class DaftarRekeningPembayaranAdapter extends RecyclerView.Adapter<Daftar
 
     }
 
+    private void getTanggal() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        try {
+            mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
+                        tglSewa = dataPemesanan.getTglSewa();
+                        tglKembali = dataPemesanan.getTglKembali();
+                    }
+                }
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } catch (Exception e) {
+
+        }
+    }
 
 }

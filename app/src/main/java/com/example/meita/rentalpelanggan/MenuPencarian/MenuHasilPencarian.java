@@ -68,6 +68,7 @@ public class MenuHasilPencarian extends AppCompatActivity {
     int jmlKendaraanSeluruh;
     int jumlahSisaKendaraan;
     String idCekSisa;
+    boolean cekTanggal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +119,13 @@ public class MenuHasilPencarian extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
                 showDialogFilterPencarian();
+            }
+        });
+
+        buttonTerdekat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Fitur masih dalam tahap pengembangan", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -311,8 +319,8 @@ public class MenuHasilPencarian extends AppCompatActivity {
                                         String tanggalSewaDipesan = sisaModel.getTglSewa();
                                         String tanggalKembaliDipesan = sisaModel.getTglKembali();
 
-                                        if (cekTanggal(tanggalSewaPencarian, tanggalKembaliPencarian, tanggalSewaDipesan, tanggalKembaliDipesan)) {//10
-                                            if (sisaKendaraan >= jmlKendaraanPencarian || jmlKendaraanModel == jmlKendaraanPencarian) { //11
+                                        if (cekTanggal(tanggalSewaPencarian, tanggalKembaliPencarian, tanggalSewaDipesan, tanggalKembaliDipesan) == true) {//10
+                                            if (sisaKendaraan >= jmlKendaraanPencarian || sisaKendaraan == jmlKendaraanPencarian) { //11
                                                 kendaraanModel.add(kendaraan); //12
                                             } else { //13
                                                 kendaraanModel.remove(kendaraan); //14
@@ -444,31 +452,54 @@ public class MenuHasilPencarian extends AppCompatActivity {
 
     } //30
 
-
     public boolean cekTanggal(String tanggalSewaPencarian, String tanggalKembaliPencarian, String tanggalSewaDipesan, String tanggalKembaliDipesan) {
-        boolean cekTanggal;
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
         try {
             tglSewaPencarian = format.parse(tanggalSewaPencarian);
             tglKembaliPencarian = format.parse(tanggalKembaliPencarian);
             tglSewaDipesan = format.parse(tanggalSewaDipesan);
             tglKembaliDipesan = format.parse(tanggalKembaliDipesan);
+
+            if ((tglSewaPencarian.before(tglKembaliDipesan) ||
+                    tglSewaPencarian.equals(tglKembaliDipesan)) && (tglKembaliPencarian.after(tglSewaDipesan) ||
+                    tglKembaliPencarian.equals(tglSewaDipesan)) ||
+                    tglSewaPencarian.equals(tglSewaDipesan) && tglKembaliPencarian.equals(tglKembaliDipesan)) {
+                cekTanggal = true;
+            }  else {
+                cekTanggal = false;
+            }
         } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-        if ((tglSewaPencarian.before(tglKembaliDipesan) ||
-                tglSewaPencarian.equals(tglKembaliDipesan)) && (tglKembaliPencarian.after(tglSewaDipesan) ||
-                tglKembaliPencarian.equals(tglSewaDipesan)) ||
-                tglSewaPencarian.equals(tglSewaDipesan) && tglKembaliPencarian.equals(tglKembaliDipesan)) {
-            cekTanggal = true;
-        }  else {
-            cekTanggal = false;
+            Toast.makeText(getApplicationContext(), "Proses Pencarian Gagal", Toast.LENGTH_LONG).show();
         }
         return cekTanggal;
     }
+
+
+//    public boolean cekTanggal(String tanggalSewaPencarian, String tanggalKembaliPencarian, String tanggalSewaDipesan, String tanggalKembaliDipesan) {
+//        boolean cekTanggal;
+//        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//
+//        try {
+//            tglSewaPencarian = format.parse(tanggalSewaPencarian);
+//            tglKembaliPencarian = format.parse(tanggalKembaliPencarian);
+//            tglSewaDipesan = format.parse(tanggalSewaDipesan);
+//            tglKembaliDipesan = format.parse(tanggalKembaliDipesan);
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        if ((tglSewaPencarian.before(tglKembaliDipesan) ||
+//                tglSewaPencarian.equals(tglKembaliDipesan)) && (tglKembaliPencarian.after(tglSewaDipesan) ||
+//                tglKembaliPencarian.equals(tglSewaDipesan)) ||
+//                tglSewaPencarian.equals(tglSewaDipesan) && tglKembaliPencarian.equals(tglKembaliDipesan)) {
+//            cekTanggal = true;
+//        }  else {
+//            cekTanggal = false;
+//        }
+//
+//        return cekTanggal;
+//    }
 
     public void getFilterHarga() {
         kendaraanModel.clear();

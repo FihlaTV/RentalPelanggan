@@ -34,55 +34,96 @@ public class MenuStatusPemesanan extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         viewPager.getAdapter().notifyDataSetChanged();
 
-
+        //ini bisa
         try {
-            final int position = getArguments().getInt("tab3");
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    viewPager.setCurrentItem(position);
+            final int positionTab1 = getArguments().getInt("tab1");
+            final int positionTab2 = getArguments().getInt("tab2");
+            final int positionTab3 = getArguments().getInt("tab3");
+            final int positionTab4 = getArguments().getInt("tab4");
+            if (positionTab1 == 1) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewPager.setCurrentItem(0);
 
-                }
-            });
+                    }
+                });
+            } else if (positionTab2 == 2) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewPager.setCurrentItem(1);
+                    }
+                });
+            } else if (positionTab3 == 3) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewPager.setCurrentItem(2);
+                    }
+                });
+            } else if (positionTab4 == 4) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewPager.setCurrentItem(3);
+                    }
+                });
+            }
         } catch (Exception e) {
 
         }
 
-        try {
-            final int position = getArguments().getInt("tab4");
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    viewPager.setCurrentItem(position);
-                }
-            });
-        } catch (Exception e) {
 
-        }
-
-        try {
-            final int position = getArguments().getInt("tab1");
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    viewPager.setCurrentItem(position);
-                }
-            });
-        } catch (Exception e) {
-
-        }
-
-        try {
-            final int position = getArguments().getInt("tab2");
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    viewPager.setCurrentItem(position);
-                }
-            });
-        } catch (Exception e) {
-
-        }
+//        try {
+//            final int position = getArguments().getInt("tab3");
+//            new Handler().post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    viewPager.setCurrentItem(position);
+//
+//                }
+//            });
+//        } catch (Exception e) {
+//
+//        }
+//
+//        try {
+//            final int position = getArguments().getInt("tab4");
+//            new Handler().post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    viewPager.setCurrentItem(position);
+//                }
+//            });
+//        } catch (Exception e) {
+//
+//        }
+//
+//        try {
+//            final int position = getArguments().getInt("tab1");
+//            new Handler().post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    viewPager.setCurrentItem(position);
+//                }
+//            });
+//        } catch (Exception e) {
+//
+//        }
+//
+//        try {
+//            final int position = getArguments().getInt("tab2");
+//            new Handler().post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    viewPager.setCurrentItem(position);
+//                }
+//            });
+//        } catch (Exception e) {
+//
+//        }
+        //------------------------------------------------------------------
 
 //        try {
 //            Bundle extras = getActivity().getIntent().getExtras();

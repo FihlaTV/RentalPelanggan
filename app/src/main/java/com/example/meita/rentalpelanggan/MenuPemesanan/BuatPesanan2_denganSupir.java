@@ -62,10 +62,7 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
     double latitude_penjemputan, longitude_penjemputan;
     boolean statusUlasan;
     private boolean isSpinnerTouched = false;
-    int jmlKendaraan, jmlKendaraanPencarian, jmlKendaraanReserved, sum, hargaAwal, hargaAkhir;
-    String idKendaraanChecking;
-    Date tglSewaReserved, tglKembaliReserved;
-    boolean kendaraanTersedia;
+    int jmlKendaraanPencarian;
     boolean sisa;
     Date tanggalSewaPencarian, tanggalKembaliPencarian, tglSewaDipesan, tglKembaliDipesan;
     int sisaKendaraan;
@@ -308,7 +305,6 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
     }
 
     public  boolean cekSisa() {
-        sisa = true;
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
         final String jumlahKendaraanPencarian = getIntent().getStringExtra("jumlahKendaraanPencarian");
@@ -323,6 +319,7 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         mDatabase.child("cekSisaKendaraan").orderByChild("idKendaraan").equalTo(idKendaraan).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -347,24 +344,27 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
                             if (sisaKendaraan > jmlKendaraanPencarian || sisaKendaraan == jmlKendaraanPencarian) {
                                 boolean cek = true;
                                 sisa = cek;
-                                //Toast.makeText(getApplicationContext(), "di update oiii", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "kendaraan masih tersedia", Toast.LENGTH_LONG).show();
                             }
                             else {
                                 boolean cek = false;
                                 sisa = cek;
                                 //Toast.makeText(getApplicationContext(), "kendaraan udah abis alias ga cukup", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "Kendaraan sudah tidak tersedia", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(BuatPesanan2_denganSupir.this, MainActivity.class);
+                                startActivity(intent);
                             }
                         } else {
                             boolean cek = true;
                             sisa = cek;
-                            //Toast.makeText(getApplicationContext(), "Buat sisa karena tanggalnya ga sama", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "kendaraan masih tersedia dan tgl nya ga sama", Toast.LENGTH_LONG).show();
                         }
                     }
 
                 } else {
                     boolean cek = true;
                     sisa = cek;
-                    //Toast.makeText(getApplicationContext(), "Buat sisa karena ga ada sama sekali di tabel cek sisa", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "kendaraan masih tersedia dan belum ada yg mesen sama sekali", Toast.LENGTH_LONG).show();
                 }
             }
 

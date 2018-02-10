@@ -37,6 +37,7 @@ public class DetailPemesananStatus2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Detail Penyewaan Menunggu Konfirmasi");
         setContentView(R.layout.activity_detail_pemesanan_status2);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();

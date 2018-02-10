@@ -74,6 +74,8 @@ public class DetailPembayaran extends AppCompatActivity {
         final String idPemesanan = getIntent().getStringExtra("idPemesanan");
         final String idRekening = getIntent().getStringExtra("idRekening");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
+        final String tglSewa = getIntent().getStringExtra("tglSewa");
+        final String tglKembali = getIntent().getStringExtra("tglKembali");
 
         buttonUnggahSekarang = (Button)findViewById(R.id.buttonUnggahBuktiSekarang);
         buttonUnggahNanti = (Button)findViewById(R.id.buttonUnggahBuktiNanti);
@@ -88,6 +90,8 @@ public class DetailPembayaran extends AppCompatActivity {
                 bundle.putString("idKendaraan", idKendaraan);
                 bundle.putString("idPemesanan", idPemesanan);
                 bundle.putString("kategoriKendaraan", kategoriKendaraan);
+                bundle.putString("tglSewa", tglSewa);
+                bundle.putString("tglKembali", tglKembali);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (findViewById(R.id.content_frame) != null && notif1 != null && notif1.equals("berhasil") ) {
             Bundle bundle=new Bundle();
-            bundle.putInt("tab3", 2);
+            bundle.putInt("tab3", 3);
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
             menuStatusPemesanan.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (findViewById(R.id.content_frame) != null && notif2 != null && notif2.equals("selesai")) {
             Bundle bundle=new Bundle();
-            bundle.putInt("tab4", 3);
+            bundle.putInt("tab4", 4);
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
             menuStatusPemesanan.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
@@ -96,14 +96,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (findViewById(R.id.content_frame) != null && halamanStatusBelumBayar != -1) {
             Bundle bundle=new Bundle();
-            bundle.putInt("tab1", 0);
+            bundle.putInt("tab1", 1);
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
             menuStatusPemesanan.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
         }
         if (findViewById(R.id.content_frame) != null && halamanStatusMenungguKonfirmasi != 0) {
             Bundle bundle=new Bundle();
-            bundle.putInt("tab2", 1);
+            bundle.putInt("tab2", 2);
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
             menuStatusPemesanan.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
@@ -204,9 +204,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void signOut() {
+        Toast.makeText(getApplicationContext(), "Anda Berhasil Logout", Toast.LENGTH_LONG).show();
         FirebaseAuth.getInstance().signOut();
-//        Intent intent = new Intent(this, AutentifikasiTelepon.class);
-        Intent intent = new Intent(this, AutentifikasiTelepon.class);
+//     Intent intent = new Intent(this, AutentifikasiTelepon.class);
+        //Intent intent = new Intent(this, AutentifikasiTelepon.class);
+        Intent intent = new Intent(this, Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

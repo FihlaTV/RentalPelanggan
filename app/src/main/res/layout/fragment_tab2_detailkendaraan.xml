@@ -189,7 +189,7 @@
             <Button
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
-                android:text="Pesan Kendaraan"
+                android:text="Sewa Kendaraan"
                 android:id="@+id/btnPesan"
                 android:background="@drawable/round_button"/>
         </LinearLayout>

@@ -20,6 +20,7 @@ import com.example.meita.rentalpelanggan.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class DaftarUlasanAdapter extends RecyclerView.Adapter<DaftarUlasanAdapte
         holder.textViewUlasan.setText(dataUlasan.getUlasan());
         holder.rb_kualitas_kendaraan.setRating(dataUlasan.getRatingKendaraan());
         holder.rb_kualitas_pelayanan.setRating(dataUlasan.getRatingPelayanan());
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         String idPelanggan = dataUlasan.getIdPelanggan();
         mDatabase.child("pelanggan").child(idPelanggan).addValueEventListener(new ValueEventListener() {
             @Override

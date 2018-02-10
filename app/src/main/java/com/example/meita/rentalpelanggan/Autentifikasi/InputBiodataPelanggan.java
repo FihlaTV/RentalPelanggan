@@ -54,6 +54,7 @@ public class InputBiodataPelanggan extends AppCompatActivity {
     ProgressBar progressBar;
     public static final int PICK_IMAGE_REQUEST = 234;
     ProgressDialog progressDialog;
+    boolean sukses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +160,7 @@ public class InputBiodataPelanggan extends AppCompatActivity {
         }
 
     private boolean cekKolomIsian() {
-        boolean sukses;
+        //boolean sukses;
         if (TextUtils.isEmpty(editTextNoIdentitas.getText().toString()) || (TextUtils.isEmpty(editTextNamaLengkap.getText().toString())) ||
                 (TextUtils.isEmpty(editTextAlamat.getText().toString())) || (TextUtils.isEmpty(editTextNomorTelp.getText().toString()))   ) {
             ShowAlertDialog.showAlert("Lengkapi Seluruh Kolom Isian", this);

@@ -3,6 +3,7 @@ package com.example.meita.rentalpelanggan.MenuUlasan;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.RatingBar;
 
 import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.R;
+import com.example.meita.rentalpelanggan.Utils.ShowAlertDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +29,8 @@ public class InputUlasanPelanggan extends AppCompatActivity {
     private DatabaseReference mDatabase;
     String idPelanggan;
     FirebaseAuth auth;
+    float ratingKendaraan;
+    float ratingPelayanan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +53,10 @@ public class InputUlasanPelanggan extends AppCompatActivity {
         buttonSimpanUlasan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                simpanUlasan();
-                finish();
+                if (cekKolomIsian()) {
+                    simpanUlasan();
+                    finish();
+                }
             }
         });
 
@@ -137,8 +143,8 @@ public class InputUlasanPelanggan extends AppCompatActivity {
         String ulasanText = editTextUlasan.getText().toString();
         String waktuPembuatanUlasan = DateFormat.getDateTimeInstance().format(new Date());
         String idUlasan = mDatabase.push().getKey();
-        float ratingKendaraan = rb_kualitas_kendaraan.getRating();
-        float ratingPelayanan = rb_kualitas_pelayanan.getRating();
+        ratingKendaraan = rb_kualitas_kendaraan.getRating();
+        ratingPelayanan = rb_kualitas_pelayanan.getRating();
 
         boolean statusUlasan = true;
 
@@ -185,5 +191,16 @@ public class InputUlasanPelanggan extends AppCompatActivity {
         dataNotif.put("idPemesanan", idPemesanan);
         mDatabase.child("pemberitahuan").child("rental").child("penilaian").child(idRental).child(idPemberitahuan).setValue(dataNotif);
         //mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).child("nilaiHalaman").setValue(valueHalaman);
+    }
+
+    public boolean cekKolomIsian() {
+        boolean sukses;
+        if (TextUtils.isEmpty(editTextUlasan.getText().toString())) {
+            sukses = false;
+            ShowAlertDialog.showAlert("Lengkapi Seluruh Kolom Isian", this);
+        } else {
+            sukses = true;
+        }
+        return sukses;
     }
 }

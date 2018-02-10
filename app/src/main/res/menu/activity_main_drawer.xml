@@ -9,7 +9,7 @@
         <item
             android:id="@+id/nav_penyewaanku"
             android:icon="@drawable/ic_rents"
-            android:title="Kelola Pesanan" />
+            android:title="Kelola Penyewaan" />
         <item
             android:id="@+id/nav_profilku"
             android:icon="@drawable/ic_profil"

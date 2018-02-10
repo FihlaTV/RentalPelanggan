@@ -46,7 +46,7 @@ public class RincianPesanan extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Rincian Pesanan");
+        setTitle("Rincian Penyewaan");
         setContentView(R.layout.activity_rincian_pesanan);
 
         textViewTipeKendaraan = (TextView)findViewById(R.id.textViewTipeKendaraan);

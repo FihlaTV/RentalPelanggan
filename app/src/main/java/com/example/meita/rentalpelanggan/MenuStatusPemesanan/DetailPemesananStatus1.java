@@ -33,6 +33,7 @@ public class DetailPemesananStatus1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Detail Penyewaan Belum Bayar");
         setContentView(R.layout.activity_detail_pemesanan_status1);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();

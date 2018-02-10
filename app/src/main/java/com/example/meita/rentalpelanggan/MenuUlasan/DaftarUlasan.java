@@ -2,10 +2,12 @@ package com.example.meita.rentalpelanggan.MenuUlasan;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
 import com.example.meita.rentalpelanggan.R;
+import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,9 +28,11 @@ public class DaftarUlasan extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daftar_ulasan);
+        Firebase.setAndroidContext(this);
 
-        recyclerView = (RecyclerView)findViewById(R.id.listView);
+        recyclerView = (RecyclerView) findViewById(R.id.listView);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ulasanModel = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -43,6 +47,7 @@ public class DaftarUlasan extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         UlasanModel dataUlasan = postSnapshot.getValue(UlasanModel.class);
+
                         ulasanModel.add(dataUlasan);
                         adapter = new DaftarUlasanAdapter(getApplication(), ulasanModel);
                         recyclerView.setAdapter(adapter);

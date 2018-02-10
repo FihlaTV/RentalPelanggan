@@ -42,6 +42,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="com.example.rentalPelanggan_mainActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -65,18 +66,24 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".MenuProfilRental.ProfilRental" />
-        <activity android:name=".MenuPemesanan.RincianPesanan"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuPemesanan.BuatPesanan2_denganSupir"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuPemesanan.BuatPesanan2_tanpaSupir"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuPembayaran.DaftarRekeningPembayaran"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuPembayaran.DetailPembayaran"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuPembayaran.UnggahBuktiPembayaran"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".MenuPemesanan.RincianPesanan"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuPemesanan.BuatPesanan2_denganSupir"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuPemesanan.BuatPesanan2_tanpaSupir"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuPembayaran.DaftarRekeningPembayaran"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuPembayaran.DetailPembayaran"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuPembayaran.UnggahBuktiPembayaran"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MenuStatusPemesanan.GambarBuktiPembayaran" />
         <activity android:name=".MenuStatusPemesanan.DetailPemesananStatus1" />
         <activity android:name=".MenuStatusPemesanan.DetailPemesananStatus2" />
@@ -95,12 +102,13 @@
             android:name=".Services.MyService"
             android:enabled="true"
             android:exported="true" />
-
         <service android:name=".FirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".PetaRental.PetaRental"></activity>
     </application>
 
 </manifest>
