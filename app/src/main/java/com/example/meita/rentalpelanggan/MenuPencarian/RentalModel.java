@@ -6,7 +6,7 @@ package com.example.meita.rentalpelanggan.MenuPencarian;
 
 public class RentalModel {
     public String uriFotoProfil;
-    public String nama_pemilik, nama_rental, alamat_rental, notelfon_rental,
+    public String idRental, nama_pemilik, nama_rental, alamat_rental, notelfon_rental,
             kebijakan_sewa_rental, kebijakan_pemesanan_rental,
             kebijakan_pembatalan_rental, idRekening, namaBank,
             namaPemilikBank, nomorRekeningBank;
@@ -37,6 +37,10 @@ public class RentalModel {
         this.namaBank = namaBank;
         this.namaPemilikBank = namaPemilikBank;
         this.nomorRekeningBank = nomorRekeningBank;
+    }
+
+    public String getIdRental() {
+        return idRental;
     }
 
     public String getUriFotoProfil() {

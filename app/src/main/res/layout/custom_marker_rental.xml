@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="20dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:id="@+id/textViewNamaRental"
+        android:text="Nama Rental"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="7dp"
+        android:text="Alamat Rental"
+        android:id="@+id/textViewAlamatRental"/>
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="7dp"
+        android:text="Nomor Telepon"
+        android:id="@+id/textViewNomorTelepon"/>
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lihat Detail"
+        android:id="@+id/btnLihatDetail"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
+        android:background="@color/colorPrimary"
+        />
+</LinearLayout>

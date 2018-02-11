@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/map"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true" />
+
+        <RelativeLayout
+            android:id="@+id/marker_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@null"
+                android:src="@drawable/ub__ic_pin_pickup"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textViewKeterangan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="280dp"
+                android:layout_centerHorizontal="true"
+                android:alpha="0.5"
+                android:background="@drawable/etd_pin"
+                android:gravity="center"
+                android:text="Tidak ada Rental Kendaraan di Sekitar Anda"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/colorAccent"
+                android:visibility="visible" />
+
+
+        </RelativeLayout>
+
+
+        <ProgressBar
+            android:id="@+id/requestBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+
+        <RelativeLayout
+            android:id="@+id/myLocationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="top|right"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/circle_gps">
+
+            <ImageView
+                android:id="@+id/myLocationImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/gpsloc" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</android.support.v4.widget.DrawerLayout>

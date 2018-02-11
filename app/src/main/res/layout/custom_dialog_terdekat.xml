@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="20dp"
+            android:textSize="17dp"
+            android:gravity="center"
+            android:text="Pilih Radius (Km) yang Anda Inginkan"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/orange"></View>
+        <LinearLayout
+            android:id="@+id/linear_checkboxsupir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="10"
+            android:orientation="vertical">
+            <CheckBox
+                android:id="@+id/radius1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:layout_marginLeft="10dp"
+                android:layout_margin="5dp"
+                android:text="1 Km dari jarak anda" />
+            <CheckBox
+                android:id="@+id/radius2"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:layout_marginLeft="10dp"
+                android:layout_margin="5dp"
+                android:text="2 Km dari jarak anda" />
+            <CheckBox
+                android:id="@+id/radius3"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:layout_marginLeft="10dp"
+                android:layout_margin="5dp"
+                android:text="3 Km dari jarak anda" />
+            <CheckBox
+                android:id="@+id/radius4"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:layout_marginLeft="10dp"
+                android:layout_margin="5dp"
+                android:text="4 Km dari jarak anda" />
+            <CheckBox
+                android:id="@+id/radius5"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:layout_marginLeft="10dp"
+                android:layout_margin="5dp"
+                android:text="5 Km dari jarak anda" />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/orange"></View>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:weightSum="2">
+            <Button
+                android:id="@+id/btn_filter_ya"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="0.1dp"
+                android:background="@drawable/round_button"
+                android:shadowColor="@color/hitam"
+                android:layout_margin="10dp"
+                android:text="Terapkan"/>
+            <Button
+                android:id="@+id/btn_filter_tidak"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/round_button"
+                android:shadowColor="@color/hitam"
+                android:layout_margin="10dp"
+                android:text="Batal"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

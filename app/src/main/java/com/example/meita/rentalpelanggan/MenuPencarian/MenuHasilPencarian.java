@@ -30,8 +30,10 @@ import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
+import com.example.meita.rentalpelanggan.PetaRental.PetaRental;
 import com.example.meita.rentalpelanggan.R;
 import com.example.meita.rentalpelanggan.SisaKendaraanModel;
+import com.example.meita.rentalpelanggan.Utils.ShowAlertDialog;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
@@ -69,6 +71,7 @@ public class MenuHasilPencarian extends AppCompatActivity {
     int jumlahSisaKendaraan;
     String idCekSisa;
     boolean cekTanggal;
+    double nearByDistanceRadius;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,12 +128,161 @@ public class MenuHasilPencarian extends AppCompatActivity {
         buttonTerdekat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Fitur masih dalam tahap pengembangan", Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.VISIBLE);
+                showDialogTerdekat();
             }
         });
 
         kendaraanModel.clear();
         getHasilPencarian();
+    }
+
+    public void showDialogTerdekat() {
+        final Dialog dialog = new Dialog(MenuHasilPencarian.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_dialog_terdekat);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setGravity(Gravity.CENTER);
+        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+        dialog.getWindow().setAttributes(layoutParams);
+
+        final CheckBox radius1 = (CheckBox) dialog.findViewById(R.id.radius1);
+        final CheckBox radius2 = (CheckBox) dialog.findViewById(R.id.radius2);
+        final CheckBox radius3 = (CheckBox) dialog.findViewById(R.id.radius3);
+        final CheckBox radius4 = (CheckBox) dialog.findViewById(R.id.radius4);
+        final CheckBox radius5 = (CheckBox) dialog.findViewById(R.id.radius5);
+        Button btnYa = (Button) dialog.findViewById(R.id.btn_filter_ya);
+        Button btnTidak = (Button) dialog.findViewById(R.id.btn_filter_tidak);
+
+        radius1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (radius1.isChecked()) {
+                    radius2.setEnabled(false);
+                    radius3.setEnabled(false);
+                    radius4.setEnabled(false);
+                    radius5.setEnabled(false);
+                } else {
+                    radius2.setEnabled(true);
+                    radius3.setEnabled(true);
+                    radius4.setEnabled(true);
+                    radius5.setEnabled(true);
+                }
+            }
+        });
+
+        radius2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (radius2.isChecked()) {
+                    radius1.setEnabled(false);
+                    radius3.setEnabled(false);
+                    radius4.setEnabled(false);
+                    radius5.setEnabled(false);
+                } else {
+                    radius1.setEnabled(true);
+                    radius3.setEnabled(true);
+                    radius4.setEnabled(true);
+                    radius5.setEnabled(true);
+                }
+            }
+        });
+
+        radius3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (radius3.isChecked()) {
+                    radius1.setEnabled(false);
+                    radius2.setEnabled(false);
+                    radius4.setEnabled(false);
+                    radius5.setEnabled(false);
+                } else {
+                    radius1.setEnabled(true);
+                    radius2.setEnabled(true);
+                    radius4.setEnabled(true);
+                    radius5.setEnabled(true);
+                }
+            }
+        });
+
+        radius4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (radius4.isChecked()) {
+                    radius1.setEnabled(false);
+                    radius2.setEnabled(false);
+                    radius3.setEnabled(false);
+                    radius5.setEnabled(false);
+                } else {
+                    radius1.setEnabled(true);
+                    radius2.setEnabled(true);
+                    radius3.setEnabled(true);
+                    radius5.setEnabled(true);
+                }
+            }
+        });
+
+        radius5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (radius5.isChecked()) {
+                    radius1.setEnabled(false);
+                    radius2.setEnabled(false);
+                    radius3.setEnabled(false);
+                    radius4.setEnabled(false);
+                } else {
+                    radius1.setEnabled(true);
+                    radius2.setEnabled(true);
+                    radius3.setEnabled(true);
+                    radius5.setEnabled(true);
+                }
+            }
+        });
+
+        btnYa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (radius1.isChecked()) {
+                    nearByDistanceRadius = 1;
+                    Intent intent = new Intent(MenuHasilPencarian.this, PetaRental.class);
+                    intent.putExtra("radius", nearByDistanceRadius);
+                    startActivity(intent);
+                } else if (radius2.isChecked()) {
+                    nearByDistanceRadius = 2;
+                    Intent intent = new Intent(MenuHasilPencarian.this, PetaRental.class);
+                    intent.putExtra("radius", nearByDistanceRadius);
+                    startActivity(intent);
+                } else if (radius3.isChecked()) {
+                    nearByDistanceRadius = 3;
+                    Intent intent = new Intent(MenuHasilPencarian.this, PetaRental.class);
+                    intent.putExtra("radius", nearByDistanceRadius);
+                    startActivity(intent);
+                } else if (radius4.isChecked()) {
+                    nearByDistanceRadius = 4;
+                    Intent intent = new Intent(MenuHasilPencarian.this, PetaRental.class);
+                    intent.putExtra("radius", nearByDistanceRadius);
+                    startActivity(intent);
+                } else if (radius5.isChecked()) {
+                    nearByDistanceRadius = 5;
+                    Intent intent = new Intent(MenuHasilPencarian.this, PetaRental.class);
+                    intent.putExtra("radius", nearByDistanceRadius);
+                    startActivity(intent);
+                } else {
+                    ShowAlertDialog.showAlert("Anda belum memilih radius yang anda inginkan", MenuHasilPencarian.this);
+                }
+            }
+        });
+
+
+        btnTidak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
+        dialog.show();
     }
 
     public void showDialogFilterPencarian() {
@@ -244,12 +396,6 @@ public class MenuHasilPencarian extends AppCompatActivity {
             }
         });
 
-        btnYa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
 
         btnYa.setOnClickListener(new View.OnClickListener() {
