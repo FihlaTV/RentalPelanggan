@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.meita.rentalpelanggan.Autentifikasi.PelangganModel;
 import com.example.meita.rentalpelanggan.Base.BaseActivity;
 import com.example.meita.rentalpelanggan.MenuPembayaran.DaftarRekeningPembayaran;
-import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
+import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
 import com.example.meita.rentalpelanggan.R;
@@ -66,7 +66,7 @@ public class DetailPemesananStatus1 extends AppCompatActivity {
 
         buttonLanjutkanPembayaran = (Button)findViewById(R.id.buttonLanjutkanPembayaran);
 
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String idPelanggan = getIntent().getStringExtra("idPelanggan");
         final String idRental = getIntent().getStringExtra("idRental");
@@ -84,7 +84,7 @@ public class DetailPemesananStatus1 extends AppCompatActivity {
                 Intent intent = new Intent(DetailPemesananStatus1.this, DaftarRekeningPembayaran.class);
                 bundle.putString("idKendaraan", idKendaraan);
                 bundle.putString("idRental", idRental);
-                bundle.putString("idPemesanan", idPemesanan);
+                bundle.putString("idPenyewaan", idPenyewaan);
                 bundle.putString("kategoriKendaraan", kategoriKendaraan);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -95,13 +95,13 @@ public class DetailPemesananStatus1 extends AppCompatActivity {
 
     public void infoPemesanan() {
         try {
-            final String idPemesanan = getIntent().getStringExtra("idPemesanan");
-            mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).addValueEventListener(new ValueEventListener() {
+            final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
+            mDatabase.child("penyewaanKendaraan").child("belumBayar").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
-                        textViewStatusPemesanan.setText(dataPemesanan.getStatusPemesanan());
+                        PenyewaanModel dataPemesanan = dataSnapshot.getValue(PenyewaanModel.class);
+                        textViewStatusPemesanan.setText(dataPemesanan.getstatusPenyewaan());
                         textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
                         if (dataPemesanan.getJamPenjemputan() == null) {
                             textViewWaktuPenjemputan.setVisibility(View.GONE);

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,8 +27,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
-import com.example.meita.rentalpelanggan.MainActivity;
-import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
+import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
 import com.example.meita.rentalpelanggan.PetaRental.PetaRental;
 import com.example.meita.rentalpelanggan.R;
 import com.example.meita.rentalpelanggan.SisaKendaraanModel;
@@ -37,8 +35,6 @@ import com.example.meita.rentalpelanggan.Utils.ShowAlertDialog;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.google.android.gms.vision.text.Line;
-import com.google.android.gms.vision.text.Text;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -682,7 +678,7 @@ public class MenuHasilPencarian extends AppCompatActivity {
                             @Override
                             public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
                                 for (com.firebase.client.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                    PemesananModel pemesanan = postSnapshot.getValue(PemesananModel.class);
+                                    PenyewaanModel pemesanan = postSnapshot.getValue(PenyewaanModel.class);
                                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                                     jmlKendaraanDipesan = pemesanan.getJumlahKendaraan();
 
@@ -792,7 +788,7 @@ public class MenuHasilPencarian extends AppCompatActivity {
                             @Override
                             public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
                                 for (com.firebase.client.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                    PemesananModel pemesanan = postSnapshot.getValue(PemesananModel.class);
+                                    PenyewaanModel pemesanan = postSnapshot.getValue(PenyewaanModel.class);
                                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                                     jmlKendaraanDipesan = pemesanan.getJumlahKendaraan();
 
@@ -900,7 +896,7 @@ public class MenuHasilPencarian extends AppCompatActivity {
                             @Override
                             public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
                                 for (com.firebase.client.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                    PemesananModel pemesanan = postSnapshot.getValue(PemesananModel.class);
+                                    PenyewaanModel pemesanan = postSnapshot.getValue(PenyewaanModel.class);
                                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                                     jmlKendaraanDipesan = pemesanan.getJumlahKendaraan();
 
@@ -1007,7 +1003,7 @@ public class MenuHasilPencarian extends AppCompatActivity {
                             @Override
                             public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
                                 for (com.firebase.client.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                    PemesananModel pemesanan = postSnapshot.getValue(PemesananModel.class);
+                                    PenyewaanModel pemesanan = postSnapshot.getValue(PenyewaanModel.class);
                                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                                     jmlKendaraanDipesan = pemesanan.getJumlahKendaraan();
 
@@ -1114,7 +1110,7 @@ public class MenuHasilPencarian extends AppCompatActivity {
                             @Override
                             public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
                                 for (com.firebase.client.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                    PemesananModel pemesanan = postSnapshot.getValue(PemesananModel.class);
+                                    PenyewaanModel pemesanan = postSnapshot.getValue(PenyewaanModel.class);
                                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                                     jmlKendaraanDipesan = pemesanan.getJumlahKendaraan();
 
@@ -1215,7 +1211,7 @@ public class MenuHasilPencarian extends AppCompatActivity {
 //                                long size = dataSnapshot.getChildrenCount();
 //                                if (size>1) {
 //                                    for (com.firebase.client.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                                        PemesananModel pemesanan = postSnapshot.getValue(PemesananModel.class);
+//                                        PenyewaanModel pemesanan = postSnapshot.getValue(PenyewaanModel.class);
 //                                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 //                                        String dicek = id;
 //                                        jmlKendaraanDipesan = pemesanan.getJumlahKendaraan();
@@ -1245,7 +1241,7 @@ public class MenuHasilPencarian extends AppCompatActivity {
 //                                        }
 //                                    }
 //                                } else if (size==1) {
-//                                    PemesananModel pemesanan = dataSnapshot.getValue(PemesananModel.class);
+//                                    PenyewaanModel pemesanan = dataSnapshot.getValue(PenyewaanModel.class);
 //                                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 //                                    jmlKendaraanDipesan = pemesanan.getJumlahKendaraan();
 //                                    String dicek = id;
@@ -1358,7 +1354,7 @@ public class MenuHasilPencarian extends AppCompatActivity {
 //                                if (dataSnapshot.exists()) {
 //                                    long size = dataSnapshot.getChildrenCount();
 //                                    for (com.firebase.client.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                                        PemesananModel pemesanan = postSnapshot.getValue(PemesananModel.class);
+//                                        PenyewaanModel pemesanan = postSnapshot.getValue(PenyewaanModel.class);
 //                                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 //                                        String dicek = id;
 //                                        jmlKendaraanDipesan = pemesanan.getJumlahKendaraan();

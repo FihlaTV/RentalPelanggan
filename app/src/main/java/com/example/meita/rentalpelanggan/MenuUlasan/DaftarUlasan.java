@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
 import com.example.meita.rentalpelanggan.R;
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;

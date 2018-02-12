@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +22,6 @@ import android.widget.Toast;
 import com.example.meita.rentalpelanggan.Autentifikasi.PelangganModel;
 import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.MenuPembayaran.DaftarRekeningPembayaran;
-import com.example.meita.rentalpelanggan.MenuPembayaran.UnggahBuktiPembayaran;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.R;
 import com.example.meita.rentalpelanggan.SisaKendaraanModel;
@@ -50,14 +48,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-public class BuatPesanan2_denganSupir extends AppCompatActivity {
+public class BuatPenyewaan_denganSupir extends AppCompatActivity {
     private FirebaseAuth auth;
     TextView textViewIdentitasPelanggan, textViewNamaPelanggan, textViewAlamatPelanggan, textViewNomorTelponPelanggan,
     textViewEmailPelanggan;
     EditText editTextLokasiPenjemputan, editTextKeteranganKhusus;
     Spinner spinnerJamPenjemputan;
     Button buttonBuatPesanan;
-    String idPelanggan, jamPenjemputan, idPemesanan;
+    String idPelanggan, jamPenjemputan, idPenyewaan;
     DatabaseReference mDatabase;
     double latitude_penjemputan, longitude_penjemputan;
     boolean statusUlasan;
@@ -75,7 +73,7 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Buat Pesanan");
+        setTitle("Buat Sewa");
         setContentView(R.layout.activity_buat_pesanan2_dengan_supir);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -88,7 +86,7 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
         editTextLokasiPenjemputan = (EditText)findViewById(R.id.editTextLokasiPenjemputan);
         editTextKeteranganKhusus = (EditText)findViewById(R.id.editTextKeteranganKhusus);
         buttonBuatPesanan = (Button)findViewById(R.id.btnBuatPesanan);
-        progressDialog = new ProgressDialog(BuatPesanan2_denganSupir.this);
+        progressDialog = new ProgressDialog(BuatPenyewaan_denganSupir.this);
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         idPelanggan = user.getUid();
@@ -158,7 +156,7 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (cekSisa()) {
-                    buatPesanan();
+                    buatSewa();
                     kelolaSisa();
                 }
             }
@@ -193,7 +191,7 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
         });
     }
 
-    public  void buatPesanan() {
+    public  void buatSewa() {
         progressDialog.setMessage("Harap tunggu..."); // Setting Message
         progressDialog.setTitle("Memproses Penyewaan"); // Setting Title
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
@@ -222,28 +220,28 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
         String batasWaktuPembayaran = df.format(a);
 
         final String id = mDatabase.push().getKey();
-        idPemesanan = id;
+        idPenyewaan = id;
         String statusPemesanan1 = "Belum Bayar";
         String currentDate = DateFormat.getDateTimeInstance().format(new Date());
 
         if (cekKolomIsian()) {
-                final PemesananModel dataPemesanan = new PemesananModel(id, idKendaraan, idPelanggan, idRental, statusPemesanan1, currentDate, tglSewaPencarian,
+                final PenyewaanModel dataSewa = new PenyewaanModel(id, idKendaraan, idPelanggan, idRental, statusPemesanan1, currentDate, tglSewaPencarian,
                         tglKembaliPencarian, keteranganKhusus, jamPenjemputan, jmlKendaraanPencarian, latitude_penjemputan, longitude_penjemputan, alamatPenjemputan,
                         jumlahHariPenyewaan, totalBiayaPembayaran, batasWaktuPembayaran, kategoriKendaraan, idRekeningRental, statusUlasan);
 
-                mDatabase.child("pemesananKendaraan").child("belumBayar").child(id).setValue(dataPemesanan).addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                mDatabase.child("penyewaanKendaraan").child("belumBayar").child(id).setValue(dataSewa).addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (!task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Pemesanan Gagal", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Penyewaan Gagal", Toast.LENGTH_SHORT).show();
                         } else {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Pemesanan berhasil", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Penyewaan berhasil", Toast.LENGTH_SHORT).show();
                             Bundle bundle = new Bundle();
-                            Intent intent = new Intent(BuatPesanan2_denganSupir.this, DaftarRekeningPembayaran.class);
+                            Intent intent = new Intent(BuatPenyewaan_denganSupir.this, DaftarRekeningPembayaran.class);
                             bundle.putString("idKendaraan", idKendaraan);
                             bundle.putString("idRental", idRental);
-                            bundle.putString("idPemesanan", idPemesanan);
+                            bundle.putString("idPenyewaan", idPenyewaan);
                             bundle.putString("kategoriKendaraan", kategoriKendaraan);
                             bundle.putString("tglSewaPencarian", tglSewaPencarian);
                             bundle.putString("tglKembaliPencarian", tglKembaliPencarian);
@@ -275,9 +273,9 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
         dataNotif.put("tglSewa", tglSewaPencarian);
         dataNotif.put("tglKembalian", tglKembaliPencarian);
         dataNotif.put("nilaiHalaman", valueHalaman1);
-        dataNotif.put("statusPemesanan", statusPemesanan1);
+        dataNotif.put("statusPenyewaan", statusPemesanan1);
         dataNotif.put("idPelanggan", idPelanggan);
-        dataNotif.put("idPemesanan", idPemesanan);
+        dataNotif.put("idPenyewaan", idPenyewaan);
         mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).setValue(dataNotif);
         //mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).child("nilaiHalaman").setValue(valueHalaman);
     }
@@ -295,7 +293,7 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
         try {
-            Intent intent = builder.build(BuatPesanan2_denganSupir.this);
+            Intent intent = builder.build(BuatPenyewaan_denganSupir.this);
             startActivityForResult(intent, PLACE_PICKER_REQUEST);
         } catch (GooglePlayServicesRepairableException e) {
             e.printStackTrace();
@@ -351,7 +349,7 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
                                 sisa = cek;
                                 //Toast.makeText(getApplicationContext(), "kendaraan udah abis alias ga cukup", Toast.LENGTH_LONG).show();
                                 //Toast.makeText(getApplicationContext(), "Kendaraan sudah tidak tersedia", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(BuatPesanan2_denganSupir.this, MainActivity.class);
+                                Intent intent = new Intent(BuatPenyewaan_denganSupir.this, MainActivity.class);
                                 startActivity(intent);
                             }
                         } else {
@@ -500,7 +498,7 @@ public class BuatPesanan2_denganSupir extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==PLACE_PICKER_REQUEST && resultCode==RESULT_OK && data != null){
-            Place place = PlacePicker.getPlace(BuatPesanan2_denganSupir.this, data);
+            Place place = PlacePicker.getPlace(BuatPenyewaan_denganSupir.this, data);
             latitude_penjemputan=place.getLatLng().latitude;
             longitude_penjemputan=place.getLatLng().longitude;
 

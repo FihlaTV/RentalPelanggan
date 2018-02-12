@@ -7,12 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.meita.rentalpelanggan.Autentifikasi.PelangganModel;
 import com.example.meita.rentalpelanggan.Base.BaseActivity;
 import com.example.meita.rentalpelanggan.MenuPembayaran.PembayaranModel;
-import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
+import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
 import com.example.meita.rentalpelanggan.R;
@@ -81,10 +80,10 @@ public class DetailPemesananStatus6 extends AppCompatActivity {
         buttonLihatBuktiPembayaran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+                final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
                 Bundle bundle = new Bundle();
                 Intent intent = new Intent(DetailPemesananStatus6.this, GambarBuktiPembayaran.class);
-                bundle.putString("idPemesanan", idPemesanan);
+                bundle.putString("idPenyewaan", idPenyewaan);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -191,13 +190,13 @@ public class DetailPemesananStatus6 extends AppCompatActivity {
 
     public void infoPemesanan() {
         try {
-            final String idPemesanan = getIntent().getStringExtra("idPemesanan");
-            mDatabase.child("pemesananKendaraan").child("selesai").child(idPemesanan).addValueEventListener(new ValueEventListener() {
+            final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
+            mDatabase.child("penyewaanKendaraan").child("selesai").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
-                        textViewStatusPemesanan.setText(dataPemesanan.getStatusPemesanan());
+                        PenyewaanModel dataPemesanan = dataSnapshot.getValue(PenyewaanModel.class);
+                        textViewStatusPemesanan.setText(dataPemesanan.getstatusPenyewaan());
                         textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
                         if (dataPemesanan.getJamPenjemputan() == null) {
                             textViewWaktuPenjemputan.setVisibility(View.GONE);
@@ -228,9 +227,9 @@ public class DetailPemesananStatus6 extends AppCompatActivity {
 
     public void infoPembayaran() {
         try {
-            final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+            final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
             final String idRental = getIntent().getStringExtra("idRental");
-            mDatabase.child("pemesananKendaraan").child("selesai").child(idPemesanan).child("pembayaran").addValueEventListener(new ValueEventListener() {
+            mDatabase.child("penyewaanKendaraan").child("selesai").child(idPenyewaan).child("pembayaran").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {

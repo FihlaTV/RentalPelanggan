@@ -12,15 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
+import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
 import com.example.meita.rentalpelanggan.R;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
@@ -33,7 +28,7 @@ import java.util.List;
 public class TabStatus2 extends Fragment {
     private RecyclerView recyclerView;
     private TabStatus2Adapter adapter;
-    private List<PemesananModel> pemesananModel;
+    private List<PenyewaanModel> penyewaanModel;
     private DatabaseReference mDatabase;
     ProgressBar progressBar;
     FirebaseAuth auth;
@@ -56,7 +51,7 @@ public class TabStatus2 extends Fragment {
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FEBD3D"), PorterDuff.Mode.SRC_ATOP);
         progressBar.setVisibility(View.VISIBLE);
         ic_noOrder.setVisibility(View.GONE);
-        pemesananModel = new ArrayList<>();
+        penyewaanModel = new ArrayList<>();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
@@ -71,15 +66,15 @@ public class TabStatus2 extends Fragment {
     public void getDataPemesanan() {
         String status2 = "menungguKonfirmasiRental";
         try {
-            mDatabase.child("pemesananKendaraan").child(status2).orderByChild("idPelanggan").equalTo(idPelanggan).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            mDatabase.child("penyewaanKendaraan").child(status2).orderByChild("idPelanggan").equalTo(idPelanggan).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
                 @Override
                 public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         progressBar.setVisibility(View.GONE);
                         for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            PemesananModel dataPemesanan = postSnapshot.getValue(PemesananModel.class);
-                            pemesananModel.add(dataPemesanan);
-                            adapter = new TabStatus2Adapter(getActivity(), pemesananModel);
+                            PenyewaanModel dataPemesanan = postSnapshot.getValue(PenyewaanModel.class);
+                            penyewaanModel.add(dataPemesanan);
+                            adapter = new TabStatus2Adapter(getActivity(), penyewaanModel);
                             recyclerView.setAdapter(adapter);
                             ic_noOrder.setVisibility(View.GONE);
                         }

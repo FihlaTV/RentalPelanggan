@@ -15,11 +15,10 @@ import android.widget.TextView;
 
 import com.example.meita.rentalpelanggan.Base.BaseActivity;
 import com.example.meita.rentalpelanggan.MainActivity;
-import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
+import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
 import com.example.meita.rentalpelanggan.R;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -71,7 +70,7 @@ public class DetailPembayaran extends AppCompatActivity {
 
         final String idRental = getIntent().getStringExtra("idRental");
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         final String idRekening = getIntent().getStringExtra("idRekening");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
         final String tglSewa = getIntent().getStringExtra("tglSewa");
@@ -88,7 +87,7 @@ public class DetailPembayaran extends AppCompatActivity {
                 bundle.putString("idRekening", idRekening);
                 bundle.putString("idRental", idRental);
                 bundle.putString("idKendaraan", idKendaraan);
-                bundle.putString("idPemesanan", idPemesanan);
+                bundle.putString("idPenyewaan", idPenyewaan);
                 bundle.putString("kategoriKendaraan", kategoriKendaraan);
                 bundle.putString("tglSewa", tglSewa);
                 bundle.putString("tglKembali", tglKembali);
@@ -207,13 +206,13 @@ public class DetailPembayaran extends AppCompatActivity {
     }
 
     public void infoPemesanan() {
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         try {
-            mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).addValueEventListener(new ValueEventListener() {
+            mDatabase.child("penyewaanKendaraan").child("belumBayar").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
+                        PenyewaanModel dataPemesanan = dataSnapshot.getValue(PenyewaanModel.class);
                         textViewWaktuBatasTransfer.setText(dataPemesanan.getBatasWaktuPembayaran());
                         textViewTotalPembayaran.setText("Rp."+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
                     }

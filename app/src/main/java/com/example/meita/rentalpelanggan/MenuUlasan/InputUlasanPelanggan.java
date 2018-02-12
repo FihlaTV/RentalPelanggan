@@ -135,7 +135,7 @@ public class InputUlasanPelanggan extends AppCompatActivity {
 //    }
 
     private void simpanUlasan(){
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String idRental = getIntent().getStringExtra("idRental");
         final String idPelanggan = getIntent().getStringExtra("idPelanggan");
@@ -148,7 +148,7 @@ public class InputUlasanPelanggan extends AppCompatActivity {
 
         boolean statusUlasan = true;
 
-        UlasanModel dataUlasan = new UlasanModel(kategoriKendaraan, idPelanggan, idRental, idUlasan, idPemesanan,
+        UlasanModel dataUlasan = new UlasanModel(kategoriKendaraan, idPelanggan, idRental, idUlasan, idPenyewaan,
                 idKendaraan, ulasanText, ratingKendaraan, ratingPelayanan, waktuPembuatanUlasan);
 //        Map<String, Object> dataUlasan = new HashMap<>();
 //        dataUlasan.put("waktuUlasan", waktuUlasan);
@@ -158,12 +158,12 @@ public class InputUlasanPelanggan extends AppCompatActivity {
 //        dataUlasan.put("idUlasan", ulasanId);
 //        dataUlasan.put("idPelanggan", idPelanggan);
 //        dataUlasan.put("idPemilik", idRental);
-//        dataUlasan.put("idPemesanan", idPemesanan);
+//        dataUlasan.put("idPenyewaan", idPenyewaan);
 //        dataUlasan.put("idKategori", kategoriKendaraan);
 //        dataUlasan.put("idKendaraan", idKendaraan);
 
-        mDatabase.child("ulasan").child(idPemesanan).setValue(dataUlasan);
-        mDatabase.child("pemesananKendaraan").child("selesai").child(idPemesanan).child("statusUlasan").setValue(statusUlasan);
+        mDatabase.child("ulasan").child(idPenyewaan).setValue(dataUlasan);
+        mDatabase.child("penyewaanKendaraan").child("selesai").child(idPenyewaan).child("statusUlasan").setValue(statusUlasan);
         Intent intent = new Intent(InputUlasanPelanggan.this, MainActivity.class);
         startActivity(intent);
         buatPemberitahuan();
@@ -175,7 +175,7 @@ public class InputUlasanPelanggan extends AppCompatActivity {
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
         final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         //int valueHalaman1 = 0;
         String valueHalaman1 = "penilaian";
         String statusPemesanan1 = "selesai";
@@ -186,9 +186,9 @@ public class InputUlasanPelanggan extends AppCompatActivity {
         dataNotif.put("tglSewa", tglSewaPencarian);
         dataNotif.put("tglKembalian", tglKembaliPencarian);
         dataNotif.put("nilaiHalaman", valueHalaman1);
-        dataNotif.put("statusPemesanan", statusPemesanan1);
+        dataNotif.put("statusPenyewaan", statusPemesanan1);
         dataNotif.put("idPelanggan", idPelanggan);
-        dataNotif.put("idPemesanan", idPemesanan);
+        dataNotif.put("idPenyewaan", idPenyewaan);
         mDatabase.child("pemberitahuan").child("rental").child("penilaian").child(idRental).child(idPemberitahuan).setValue(dataNotif);
         //mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).child("nilaiHalaman").setValue(valueHalaman);
     }

@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.icu.text.DateFormat;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +21,6 @@ import android.widget.Toast;
 
 import com.example.meita.rentalpelanggan.Constants;
 import com.example.meita.rentalpelanggan.MainActivity;
-import com.example.meita.rentalpelanggan.MenuPemesanan.BuatPesanan2_denganSupir;
 import com.example.meita.rentalpelanggan.R;
 import com.example.meita.rentalpelanggan.Utils.ShowAlertDialog;
 import com.google.android.gms.tasks.OnCompleteListener;

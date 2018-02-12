@@ -1,8 +1,6 @@
 package com.example.meita.rentalpelanggan.MenuPemesanan;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -28,7 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class RincianPesanan extends AppCompatActivity {
+public class RincianPenyewaan extends AppCompatActivity {
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
     TextView textViewTipeKendaraan, textViewNamaRental, textViewDenganSupir, textViewTanpaSupir,
@@ -103,7 +101,7 @@ public class RincianPesanan extends AppCompatActivity {
             public void onClick(View v) {
                 if (valueSupir == true) {
                     Bundle bundle = new Bundle();
-                    Intent intent = new Intent(RincianPesanan.this, BuatPesanan2_denganSupir.class);
+                    Intent intent = new Intent(RincianPenyewaan.this, BuatPenyewaan_denganSupir.class);
                     bundle.putString("idKendaraan", idKendaraan);
                     bundle.putString("idRental", idRental);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);
@@ -116,7 +114,7 @@ public class RincianPesanan extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     Bundle bundle = new Bundle();
-                    Intent intent = new Intent(RincianPesanan.this, BuatPesanan2_tanpaSupir.class);
+                    Intent intent = new Intent(RincianPenyewaan.this, BuatPenyewaan_tanpaSupir.class);
                     bundle.putString("idKendaraan", idKendaraan);
                     bundle.putString("idRental", idRental);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);

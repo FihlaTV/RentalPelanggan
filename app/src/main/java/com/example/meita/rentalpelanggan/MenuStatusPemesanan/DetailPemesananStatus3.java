@@ -12,7 +12,7 @@ import com.example.meita.rentalpelanggan.Autentifikasi.PelangganModel;
 import com.example.meita.rentalpelanggan.Base.BaseActivity;
 import com.example.meita.rentalpelanggan.MenuPembatalan.PengajuanPembatalan;
 import com.example.meita.rentalpelanggan.MenuPembayaran.PembayaranModel;
-import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
+import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
 import com.example.meita.rentalpelanggan.R;
@@ -195,15 +195,15 @@ public class DetailPemesananStatus3 extends AppCompatActivity {
 
     public void infoPemesanan() {
         try {
-            final String idPemesanan = getIntent().getStringExtra("idPemesanan");
-            mDatabase.child("pemesananKendaraan").child("berhasil").child(idPemesanan).addValueEventListener(new ValueEventListener() {
+            final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
+            mDatabase.child("penyewaanKendaraan").child("berhasil").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
+                        PenyewaanModel dataPemesanan = dataSnapshot.getValue(PenyewaanModel.class);
                         tglSewa = dataPemesanan.getTglSewa();
                         tglKembali = dataPemesanan.getTglKembali();
-                        textViewStatusPemesanan.setText(dataPemesanan.getStatusPemesanan());
+                        textViewStatusPemesanan.setText(dataPemesanan.getstatusPenyewaan());
                         textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
                         if (dataPemesanan.getJamPenjemputan() == null) {
                             textViewWaktuPenjemputan.setVisibility(View.GONE);
@@ -234,9 +234,9 @@ public class DetailPemesananStatus3 extends AppCompatActivity {
 
     public void infoPembayaran() {
         try {
-            final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+            final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
             final String idRental = getIntent().getStringExtra("idRental");
-            mDatabase.child("pemesananKendaraan").child("berhasil").child(idPemesanan).child("pembayaran").addValueEventListener(new ValueEventListener() {
+            mDatabase.child("penyewaanKendaraan").child("berhasil").child(idPenyewaan).child("pembayaran").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -275,13 +275,13 @@ public class DetailPemesananStatus3 extends AppCompatActivity {
     }
 
     public void halamanPengajuanPembatalan() {
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         final String idPelanggan = getIntent().getStringExtra("idPelanggan");
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
         Bundle bundle = new Bundle();
         Intent intent = new Intent(DetailPemesananStatus3.this, PengajuanPembatalan.class);
-        bundle.putString("idPemesanan", idPemesanan);
+        bundle.putString("idPenyewaan", idPenyewaan);
         bundle.putString("idKendaraan", idKendaraan);
         bundle.putString("idPelanggan", idPelanggan);
         bundle.putString("kategoriKendaraan", kategoriKendaraan);
@@ -292,10 +292,10 @@ public class DetailPemesananStatus3 extends AppCompatActivity {
     }
 
     public void lihatBuktiPembayaran() {
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         Bundle bundle = new Bundle();
         Intent intent = new Intent(DetailPemesananStatus3.this, GambarBuktiPembayaran.class);
-        bundle.putString("idPemesanan", idPemesanan);
+        bundle.putString("idPenyewaan", idPenyewaan);
         intent.putExtras(bundle);
         startActivity(intent);
     }

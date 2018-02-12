@@ -28,12 +28,12 @@ public class LihatUlasanPelanggan extends AppCompatActivity {
         textViewUlasan = (TextView) findViewById(R.id.textViewUlasan);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String idRental = getIntent().getStringExtra("idRental");
         final String idPelanggan = getIntent().getStringExtra("idPelanggan");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
-//        idPemesanan = getIntent().getStringExtra("idPemesanan");
+//        idPenyewaan = getIntent().getStringExtra("idPenyewaan");
 //        idKendaraan = getIntent().getStringExtra("idKendaraan");
 //        idRental = getIntent().getStringExtra("idRental");
 //        idPelanggan = getIntent().getStringExtra("idPelanggan");
@@ -42,8 +42,8 @@ public class LihatUlasanPelanggan extends AppCompatActivity {
     }
 
     private void tampilUlasan(){
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
-        mDatabase.child("ulasan").child(idPemesanan).addValueEventListener(new ValueEventListener() {
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
+        mDatabase.child("ulasan").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UlasanModel dataUlasan = dataSnapshot.getValue(UlasanModel.class);

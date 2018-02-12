@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,19 +21,14 @@ import android.widget.Toast;
 import com.example.meita.rentalpelanggan.Autentifikasi.PelangganModel;
 import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.MenuPembayaran.DaftarRekeningPembayaran;
-import com.example.meita.rentalpelanggan.MenuPembayaran.UnggahBuktiPembayaran;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.R;
 import com.example.meita.rentalpelanggan.SisaKendaraanModel;
 import com.example.meita.rentalpelanggan.Utils.ShowAlertDialog;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,13 +43,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
+public class BuatPenyewaan_tanpaSupir extends AppCompatActivity {
     private FirebaseAuth auth;
     TextView textViewIdentitasPelanggan, textViewNamaPelanggan, textViewAlamatPelanggan, textViewNomorTelponPelanggan,
             textViewEmailPelanggan;
     EditText editTextKeteranganKhusus;
     Spinner spinnerJamPengambilan;
-    String idPelanggan, jamPengambilan, idPemesanan;
+    String idPelanggan, jamPengambilan, idPenyewaan;
     Button buttonBuatPesanan;
     boolean statusUlasan;
     private boolean isSpinnerTouched = false;
@@ -85,7 +79,7 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
         textViewEmailPelanggan = (TextView)findViewById(R.id.textViewEmail);
         editTextKeteranganKhusus = (EditText)findViewById(R.id.editTextKeteranganKhusus);
         buttonBuatPesanan = (Button)findViewById(R.id.btnBuatPesanan);
-        progressDialog = new ProgressDialog(BuatPesanan2_tanpaSupir.this);
+        progressDialog = new ProgressDialog(BuatPenyewaan_tanpaSupir.this);
 
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
@@ -231,7 +225,7 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
                                 boolean cek = false;
                                 sisa = cek;
                                 //Toast.makeText(getApplicationContext(), "kendaraan udah abis alias ga cukup", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(BuatPesanan2_tanpaSupir.this, MainActivity.class);
+                                Intent intent = new Intent(BuatPenyewaan_tanpaSupir.this, MainActivity.class);
                                 startActivity(intent);
                             }
                         } else {
@@ -286,26 +280,26 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
         String batasWaktuPembayaran = df.format(a);
 
         final String id = mDatabase.push().getKey();
-        idPemesanan = id;
+        idPenyewaan = id;
         String statusPemesanan1 = "Belum Bayar";
         String currentDate = DateFormat.getDateTimeInstance().format(new Date());
-        final PemesananModel dataPemesanan = new PemesananModel(idPemesanan, idKendaraan, idPelanggan, idRental, statusPemesanan1, currentDate, tglSewaPencarian,
+        final PenyewaanModel dataPemesanan = new PenyewaanModel(idPenyewaan, idKendaraan, idPelanggan, idRental, statusPemesanan1, currentDate, tglSewaPencarian,
                 tglKembaliPencarian, keteranganKhusus, jamPengambilan, jmlKendaraanPencarian, jumlahHariPenyewaan, totalBiayaPembayaran, batasWaktuPembayaran,
                 kategoriKendaraan, idRekeningRental, statusUlasan);
-        mDatabase.child("pemesananKendaraan").child("belumBayar").child(id).setValue(dataPemesanan).
+        mDatabase.child("penyewaanKendaraan").child("belumBayar").child(id).setValue(dataPemesanan).
                 addOnCompleteListener(this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (!task.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "Pemesanan Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Penyewaan Gagal", Toast.LENGTH_SHORT).show();
                 } else {
                     progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "Pemesanan berhasil", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Penyewaan berhasil", Toast.LENGTH_SHORT).show();
                     Bundle bundle = new Bundle();
-                    Intent intent = new Intent(BuatPesanan2_tanpaSupir.this, DaftarRekeningPembayaran.class);
+                    Intent intent = new Intent(BuatPenyewaan_tanpaSupir.this, DaftarRekeningPembayaran.class);
                     bundle.putString("idKendaraan", idKendaraan);
                     bundle.putString("idRental", idRental);
-                    bundle.putString("idPemesanan", idPemesanan);
+                    bundle.putString("idPenyewaan", idPenyewaan);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);
                     bundle.putString("tglSewaPencarian", tglSewaPencarian);
                     bundle.putString("tglKembaliPencarian", tglKembaliPencarian);
@@ -439,9 +433,9 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
         dataNotif.put("tglSewa", tglSewaPencarian);
         dataNotif.put("tglKembalian", tglKembaliPencarian);
         dataNotif.put("nilaiHalaman", valueHalaman);
-        dataNotif.put("statusPemesanan", statusPemesanan1);
+        dataNotif.put("statusPenyewaan", statusPemesanan1);
         dataNotif.put("idPelanggan", idPelanggan);
-        dataNotif.put("idPemesanan", idPemesanan);
+        dataNotif.put("idPenyewaan", idPenyewaan);
         mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).setValue(dataNotif);
         //mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).child("nilaiHalaman").setValue(valueHalaman);
     }
@@ -494,7 +488,7 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
 //                    @Override
 //                    public void onDataChange(DataSnapshot dataSnapshot) {
 //                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                            PemesananModel pemesanan = postSnapshot.getValue(PemesananModel.class);
+//                            PenyewaanModel pemesanan = postSnapshot.getValue(PenyewaanModel.class);
 //                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 //                            jmlKendaraanDipesan = pemesanan.getJumlahKendaraan();
 //
@@ -515,7 +509,7 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
 //                                int a = jmlKendaraanPencarian + jmlKendaraanDipesan;
 //                                if (jmlKendaraanModel < a) {
 //                                    Toast.makeText(getApplicationContext(), "Kendaraan yang anda pilih sudah tidak tersedia", Toast.LENGTH_LONG).show();
-//                                    Intent intent = new Intent(BuatPesanan2_tanpaSupir.this, MainActivity.class);
+//                                    Intent intent = new Intent(BuatPenyewaan_tanpaSupir.this, MainActivity.class);
 //                                    startActivity(intent);
 //                                    kendaraanTersedia = false;
 //                                }
@@ -566,10 +560,10 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
 //        String batasWaktuPembayaran = df.format(a);
 //
 //        final String id = mDatabase.push().getKey();
-//        idPemesanan = id;
+//        idPenyewaan = id;
 //        String statusPemesanan1 = "Belum Bayar";
 //        String currentDate = DateFormat.getDateTimeInstance().format(new Date());
-//        final PemesananModel dataPemesanan = new PemesananModel(idPemesanan, idKendaraan, idPelanggan, idRental, statusPemesanan1, currentDate, tglSewaPencarian,
+//        final PenyewaanModel dataPemesanan = new PenyewaanModel(idPenyewaan, idKendaraan, idPelanggan, idRental, statusPemesanan1, currentDate, tglSewaPencarian,
 //                tglKembaliPencarian, keteranganKhusus, jamPengambilan, jmlKendaraanPencarian, jumlahHariPenyewaan, totalBiayaPembayaran, batasWaktuPembayaran,
 //                kategoriKendaraan, idRekeningRental, statusUlasan);
 //        mDatabase.child("pemesananKendaraan").child("belumBayar").child(id).setValue(dataPemesanan).
@@ -582,10 +576,10 @@ public class BuatPesanan2_tanpaSupir extends AppCompatActivity {
 //                            Toast.makeText(getApplicationContext(), "Pemesanan berhasil", Toast.LENGTH_SHORT).show();
 //                            mDatabase.child("cekKetersediaanKendaraan").child(id).setValue(dataPemesanan);
 //                            Bundle bundle = new Bundle();
-//                            Intent intent = new Intent(BuatPesanan2_tanpaSupir.this, DaftarRekeningPembayaran.class);
+//                            Intent intent = new Intent(BuatPenyewaan_tanpaSupir.this, DaftarRekeningPembayaran.class);
 //                            bundle.putString("idKendaraan", idKendaraan);
 //                            bundle.putString("idRental", idRental);
-//                            bundle.putString("idPemesanan", idPemesanan);
+//                            bundle.putString("idPenyewaan", idPenyewaan);
 //                            bundle.putString("kategoriKendaraan", kategoriKendaraan);
 //                            bundle.putString("tglSewaPencarian", tglSewaPencarian);
 //                            bundle.putString("tglKembaliPencarian", tglKembaliPencarian);

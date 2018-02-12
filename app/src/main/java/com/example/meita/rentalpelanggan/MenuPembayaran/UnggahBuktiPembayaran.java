@@ -26,7 +26,7 @@ import android.widget.Toast;
 import com.example.meita.rentalpelanggan.Base.BaseActivity;
 import com.example.meita.rentalpelanggan.Constants;
 import com.example.meita.rentalpelanggan.MainActivity;
-import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
+import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
 import com.example.meita.rentalpelanggan.R;
 import com.example.meita.rentalpelanggan.Utils.ShowAlertDialog;
@@ -124,7 +124,7 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         final String idRental = getIntent().getStringExtra("idRental");
         final String idRekening = getIntent().getStringExtra("idRekening");
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         mDatabase.child("rentalKendaraan").child(idRental).child("rekeningPembayaran").child(idRekening).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -140,11 +140,11 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
         });
 
         try {
-            mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).addValueEventListener(new ValueEventListener() {
+            mDatabase.child("penyewaanKendaraan").child("belumBayar").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
+                        PenyewaanModel dataPemesanan = dataSnapshot.getValue(PenyewaanModel.class);
                         textViewWaktuBatasTransfer.setText(dataPemesanan.getBatasWaktuPembayaran());
                         textViewTotalPembayaran.setText("Rp."+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
                     }
@@ -163,7 +163,7 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
     }
 
     public void unggahBuktiPembayaranPelanggan() {
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         final String idRekening = getIntent().getStringExtra("idRekening");
         final String statusPemesanan2 = "Menunggu Konfirmasi Rental";
         final String namaBankPelanggan = editTextNamaBank.getText().toString();
@@ -191,16 +191,16 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
                             final PembayaranModel dataPembayaran = new PembayaranModel(idPembayaran, idRekening, taskSnapshot.getDownloadUrl().toString(),
                                     namaBankPelanggan, namaPemilikRekeningPelanggan, nomorRekeningPelanggan, jumlahTransfer, waktuPembayaran);
 
-                            mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).addListenerForSingleValueEvent(new ValueEventListener() {
+                            mDatabase.child("penyewaanKendaraan").child("belumBayar").child(idPenyewaan).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    mDatabase.child("pemesananKendaraan").child("menungguKonfirmasiRental").child(idPemesanan).setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
+                                    mDatabase.child("penyewaanKendaraan").child("menungguKonfirmasiRental").child(idPenyewaan).setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
                                         @Override
                                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                                            mDatabase.child("pemesananKendaraan").child("menungguKonfirmasiRental").child(idPemesanan).child("pembayaran").setValue(dataPembayaran);
-                                            mDatabase.child("pemesananKendaraan").child("menungguKonfirmasiRental").child(idPemesanan).child("statusPemesanan").setValue(statusPemesanan2);
-                                            mDatabase.child("pemesananKendaraan").child("menungguKonfirmasiRental").child(idPemesanan).child("idRekeningRental").setValue(idRekening);
-                                            mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).removeValue();
+                                            mDatabase.child("penyewaanKendaraan").child("menungguKonfirmasiRental").child(idPenyewaan).child("pembayaran").setValue(dataPembayaran);
+                                            mDatabase.child("penyewaanKendaraan").child("menungguKonfirmasiRental").child(idPenyewaan).child("statusPemesanan").setValue(statusPemesanan2);
+                                            mDatabase.child("penyewaanKendaraan").child("menungguKonfirmasiRental").child(idPenyewaan).child("idRekeningRental").setValue(idRekening);
+                                            mDatabase.child("penyewaanKendaraan").child("belumBayar").child(idPenyewaan).removeValue();
                                             Toast.makeText(getApplicationContext(), "Bukti Pembayaran Anda Berhasil Disimpan", Toast.LENGTH_LONG).show();
                                             Intent intent = new Intent(UnggahBuktiPembayaran.this, MainActivity.class);
                                             intent.putExtra("halamanStatusMenungguKonfirmasi", 1);
@@ -241,7 +241,7 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
         final String tglSewa = getIntent().getStringExtra("tglSewa");
         final String tglKembali = getIntent().getStringExtra("tglKembali");
 
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         String valueHalaman = "menungguKonfirmasiRental";
         //String valueHalaman = "0";
         // String valueHalaman = "h";
@@ -254,9 +254,9 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
         dataNotif.put("tglSewa", tglSewa);
         dataNotif.put("tglKembali", tglKembali);
         dataNotif.put("nilaiHalaman", valueHalaman);
-        dataNotif.put("statusPemesanan", statusPemesanan1);
+        dataNotif.put("statusPenyewaan", statusPemesanan1);
         dataNotif.put("idPelanggan", idPelanggan);
-        dataNotif.put("idPemesanan", idPemesanan);
+        dataNotif.put("idPenyewaan", idPenyewaan);
         mDatabase.child("pemberitahuan").child("rental").child("menungguKonfirmasiRental").child(idRental).child(idPemberitahuan).setValue(dataNotif);
     }
 

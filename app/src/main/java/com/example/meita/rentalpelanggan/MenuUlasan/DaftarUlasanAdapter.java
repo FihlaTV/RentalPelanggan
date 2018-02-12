@@ -1,21 +1,15 @@
 package com.example.meita.rentalpelanggan.MenuUlasan;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.meita.rentalpelanggan.Autentifikasi.PelangganModel;
-import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
-import com.example.meita.rentalpelanggan.MenuPencarian.ItemClickListener;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
-import com.example.meita.rentalpelanggan.MenuStatusPemesanan.TabStatus1Adapter;
 import com.example.meita.rentalpelanggan.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

@@ -7,20 +7,20 @@ import java.io.Serializable;
  */
 
 public class UlasanModel implements Serializable{
-    public String idKategori, idPelanggan, idRental, idUlasan, idPemesanan,
+    public String idKategori, idPelanggan, idRental, idUlasan, idPenyewaan,
             idKendaraan, ulasan;
     public float ratingKendaraan, ratingPelayanan;
     public String waktuUlasan;
 
     public UlasanModel(){}
 
-    public UlasanModel(String idKategori, String idPelanggan, String idRental, String idUlasan, String idPemesanan,
+    public UlasanModel(String idKategori, String idPelanggan, String idRental, String idUlasan, String idPenyewaan,
                        String idKendaraan, String ulasan, float ratingKendaraan, float ratingPelayanan, String waktuUlasan) {
         this.idKategori = idKategori;
         this.idPelanggan = idPelanggan;
         this.idRental = idRental;
         this.idUlasan = idUlasan;
-        this.idPemesanan = idPemesanan;
+        this.idPenyewaan = idPenyewaan;
         this.idKendaraan = idKendaraan;
         this.ulasan = ulasan;
         this.ratingKendaraan = ratingKendaraan;
@@ -44,8 +44,8 @@ public class UlasanModel implements Serializable{
         return idUlasan;
     }
 
-    public String getIdPemesanan() {
-        return idPemesanan;
+    public String getidPenyewaan() {
+        return idPenyewaan;
     }
 
     public String getUlasan() {

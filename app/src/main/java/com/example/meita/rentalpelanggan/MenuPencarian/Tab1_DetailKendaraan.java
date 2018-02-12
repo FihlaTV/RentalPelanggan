@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.meita.rentalpelanggan.Base.BaseActivity;
 import com.example.meita.rentalpelanggan.Base.ImageLoader;
-import com.example.meita.rentalpelanggan.MenuPemesanan.RincianPesanan;
+import com.example.meita.rentalpelanggan.MenuPemesanan.RincianPenyewaan;
 import com.example.meita.rentalpelanggan.R;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,7 +72,7 @@ public class Tab1_DetailKendaraan extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                Intent intent = new Intent(getActivity(), RincianPesanan.class);
+                Intent intent = new Intent(getActivity(), RincianPenyewaan.class);
                 bundle.putString("idKendaraan", idKendaraan);
                 bundle.putString("idRental", idRental);
                 bundle.putString("kategoriKendaraan", kategoriKendaraan);

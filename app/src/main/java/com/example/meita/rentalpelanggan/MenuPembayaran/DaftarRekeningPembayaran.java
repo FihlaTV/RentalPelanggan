@@ -64,7 +64,7 @@ public class DaftarRekeningPembayaran extends AppCompatActivity {
     public void getDaftarRekeningPembayaran() {
         final String idRental = getIntent().getStringExtra("idRental");
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
 
         try {
@@ -76,7 +76,7 @@ public class DaftarRekeningPembayaran extends AppCompatActivity {
                         RentalModel dataRental = postSnapshot.getValue(RentalModel.class);
                         rentalModel.add(dataRental);
                     }
-                    adapter = new DaftarRekeningPembayaranAdapter(rentalModel, DaftarRekeningPembayaran.this, idRental, idKendaraan, idPemesanan, kategoriKendaraan);
+                    adapter = new DaftarRekeningPembayaranAdapter(rentalModel, DaftarRekeningPembayaran.this, idRental, idKendaraan, idPenyewaan, kategoriKendaraan);
                     //adding adapter to recyclerview
                     recyclerView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);

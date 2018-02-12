@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.example.meita.rentalpelanggan.Autentifikasi.PelangganModel;
 import com.example.meita.rentalpelanggan.Base.BaseActivity;
 import com.example.meita.rentalpelanggan.MainActivity;
-import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
+import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -155,12 +155,12 @@ public class PengajuanPembatalan extends AppCompatActivity {
 
     public void infoPemesanan() {
         try {
-            final String idPemesanan = getIntent().getStringExtra("idPemesanan");
-            mDatabase.child("pemesananKendaraan").child("berhasil").child(idPemesanan).addValueEventListener(new ValueEventListener() {
+            final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
+            mDatabase.child("penyewaanKendaraan").child("berhasil").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
+                        PenyewaanModel dataPemesanan = dataSnapshot.getValue(PenyewaanModel.class);
                         textViewTotalPembayaran.setText("Rp."+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
                     }
                 }
@@ -178,18 +178,18 @@ public class PengajuanPembatalan extends AppCompatActivity {
 
     public void pengajuanPembatalan() {
         final String alasanPembatalan = editTextAlasanPembatalan.getText().toString();
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         final String statusPemesanan5 = "Pengajuan Pembatalan";
-        mDatabase.child("pemesananKendaraan").child("berhasil").child(idPemesanan).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("penyewaanKendaraan").child("berhasil").child(idPenyewaan).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mDatabase.child("pemesananKendaraan").child("pengajuanPembatalan").child(idPemesanan).setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
+                mDatabase.child("penyewaanKendaraan").child("pengajuanPembatalan").child(idPenyewaan).setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                        mDatabase.child("cekKetersediaanKendaraan").child(idPemesanan).child("statusPemesanan").setValue(statusPemesanan5);
-                        mDatabase.child("pemesananKendaraan").child("pengajuanPembatalan").child(idPemesanan).child("statusPemesanan").setValue(statusPemesanan5);
-                        mDatabase.child("pemesananKendaraan").child("pengajuanPembatalan").child(idPemesanan).child("alasanPembatalan").setValue(alasanPembatalan);
-                        mDatabase.child("pemesananKendaraan").child("berhasil").child(idPemesanan).removeValue();
+                        mDatabase.child("cekKetersediaanKendaraan").child(idPenyewaan).child("statusPemesanan").setValue(statusPemesanan5);
+                        mDatabase.child("penyewaanKendaraan").child("pengajuanPembatalan").child(idPenyewaan).child("statusPemesanan").setValue(statusPemesanan5);
+                        mDatabase.child("penyewaanKendaraan").child("pengajuanPembatalan").child(idPenyewaan).child("alasanPembatalan").setValue(alasanPembatalan);
+                        mDatabase.child("penyewaanKendaraan").child("berhasil").child(idPenyewaan).removeValue();
                         Toast.makeText(getApplicationContext(), "Pengajuan Pembatalan anda berhasil disimpan", Toast.LENGTH_LONG).show();
 
                     }
@@ -215,7 +215,7 @@ public class PengajuanPembatalan extends AppCompatActivity {
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String tglSewa = getIntent().getStringExtra("tglSewa");
         final String tglKembali = getIntent().getStringExtra("tglKembali");
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         String valueHalaman = "pengajuanPembatalan";
         String statusPemesanan1 = "pengajuanPembatalan";
         HashMap<String, Object> dataNotif = new HashMap<>();
@@ -227,7 +227,7 @@ public class PengajuanPembatalan extends AppCompatActivity {
         dataNotif.put("nilaiHalaman", valueHalaman);
         dataNotif.put("statusPemesanan", statusPemesanan1);
         dataNotif.put("idPelanggan", idPelanggan);
-        dataNotif.put("idPemesanan", idPemesanan);
+        dataNotif.put("idPenyewaan", idPenyewaan);
         mDatabase.child("pemberitahuan").child("rental").child("pengajuanPembatalan").child(idRental).child(idPemberitahuan).setValue(dataNotif);
     }
 

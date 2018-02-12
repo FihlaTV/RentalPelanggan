@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.meita.rentalpelanggan.Base.AdapterImagePager;
 import com.example.meita.rentalpelanggan.Base.BaseActivity;
-import com.example.meita.rentalpelanggan.MenuPemesanan.RincianPesanan;
+import com.example.meita.rentalpelanggan.MenuPemesanan.RincianPenyewaan;
 import com.example.meita.rentalpelanggan.MenuProfilRental.ProfilRental;
 import com.example.meita.rentalpelanggan.R;
 import com.firebase.client.Firebase;
@@ -84,7 +84,7 @@ public class Tab2_DetailKendaraan extends Fragment implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                Intent intent = new Intent(getActivity(), RincianPesanan.class);
+                Intent intent = new Intent(getActivity(), RincianPenyewaan.class);
                 bundle.putString("idKendaraan", idKendaraan);
                 bundle.putString("idRental", idRental);
                 bundle.putString("kategoriKendaraan", kategoriKendaraan);

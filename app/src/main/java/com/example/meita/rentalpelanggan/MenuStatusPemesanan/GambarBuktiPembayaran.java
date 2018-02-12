@@ -26,9 +26,9 @@ public class GambarBuktiPembayaran extends AppCompatActivity {
 
         imageViewBuktiPembayaran = (ImageView)findViewById(R.id.imageViewBuktiPembayaran);
 
-        final String idPemesanan = getIntent().getStringExtra("idPemesanan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("pemesananKendaraan").child("menungguKonfirmasiRental").child(idPemesanan).child("pembayaran").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("penyewaanKendaraan").child("menungguKonfirmasiRental").child(idPenyewaan).child("pembayaran").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 PembayaranModel dataPembayaran = dataSnapshot.getValue(PembayaranModel.class);

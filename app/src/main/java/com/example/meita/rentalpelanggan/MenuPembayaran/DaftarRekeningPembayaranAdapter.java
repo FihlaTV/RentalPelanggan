@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.meita.rentalpelanggan.MenuPemesanan.PemesananModel;
+import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.ItemClickListener;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
 import com.example.meita.rentalpelanggan.R;
@@ -25,7 +25,7 @@ public class DaftarRekeningPembayaranAdapter extends RecyclerView.Adapter<Daftar
 
     private List<RentalModel> rentalModel;
     Context context;
-    String idRental, idKendaraan, idPemesanan, kategoriKendaraan, tglSewa, tglKembali;
+    String idRental, idKendaraan, idPenyewaan, kategoriKendaraan, tglSewa, tglKembali;
     DatabaseReference mDatabase;
 
     public DaftarRekeningPembayaranAdapter(Context context, List<RentalModel> rentalModel) {
@@ -33,12 +33,12 @@ public class DaftarRekeningPembayaranAdapter extends RecyclerView.Adapter<Daftar
         this.context = context;
     }
 
-    public DaftarRekeningPembayaranAdapter(List<RentalModel> rentalModel, Context context, String idRental, String idKendaraan, String idPemesanan, String kategoriKendaraan) {
+    public DaftarRekeningPembayaranAdapter(List<RentalModel> rentalModel, Context context, String idRental, String idKendaraan, String idPenyewaan, String kategoriKendaraan) {
         this.rentalModel = rentalModel;
         this.context = context;
         this.idRental = idRental;
         this.idKendaraan = idKendaraan;
-        this.idPemesanan = idPemesanan;
+        this.idPenyewaan = idPenyewaan;
         this.kategoriKendaraan = kategoriKendaraan;
     }
 
@@ -65,7 +65,7 @@ public class DaftarRekeningPembayaranAdapter extends RecyclerView.Adapter<Daftar
                     bundle.putString("idRekening", dataRental.getIdRekening());
                     bundle.putString("idRental", idRental);
                     bundle.putString("idKendaraan", idKendaraan);
-                    bundle.putString("idPemesanan", idPemesanan);
+                    bundle.putString("idPenyewaan", idPenyewaan);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);
                     bundle.putString("tglSewa", tglSewa);
                     bundle.putString("tglKembali", tglKembali);
@@ -77,7 +77,7 @@ public class DaftarRekeningPembayaranAdapter extends RecyclerView.Adapter<Daftar
                     bundle.putString("idRekening", dataRental.getIdRekening());
                     bundle.putString("idRental", idRental);
                     bundle.putString("idKendaraan", idKendaraan);
-                    bundle.putString("idPemesanan", idPemesanan);
+                    bundle.putString("idPenyewaan", idPenyewaan);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);
                     bundle.putString("tglSewa", tglSewa);
                     bundle.putString("tglKembali", tglKembali);
@@ -129,11 +129,11 @@ public class DaftarRekeningPembayaranAdapter extends RecyclerView.Adapter<Daftar
     private void getTanggal() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         try {
-            mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPemesanan).addValueEventListener(new ValueEventListener() {
+            mDatabase.child("pemesananKendaraan").child("belumBayar").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        PemesananModel dataPemesanan = dataSnapshot.getValue(PemesananModel.class);
+                        PenyewaanModel dataPemesanan = dataSnapshot.getValue(PenyewaanModel.class);
                         tglSewa = dataPemesanan.getTglSewa();
                         tglKembali = dataPemesanan.getTglKembali();
                     }
