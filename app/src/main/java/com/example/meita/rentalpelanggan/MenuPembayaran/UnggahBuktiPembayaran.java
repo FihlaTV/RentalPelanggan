@@ -198,7 +198,7 @@ public class UnggahBuktiPembayaran extends AppCompatActivity {
                                         @Override
                                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                                             mDatabase.child("penyewaanKendaraan").child("menungguKonfirmasiRental").child(idPenyewaan).child("pembayaran").setValue(dataPembayaran);
-                                            mDatabase.child("penyewaanKendaraan").child("menungguKonfirmasiRental").child(idPenyewaan).child("statusPemesanan").setValue(statusPemesanan2);
+                                            mDatabase.child("penyewaanKendaraan").child("menungguKonfirmasiRental").child(idPenyewaan).child("statusPenyewaan").setValue(statusPemesanan2);
                                             mDatabase.child("penyewaanKendaraan").child("menungguKonfirmasiRental").child(idPenyewaan).child("idRekeningRental").setValue(idRekening);
                                             mDatabase.child("penyewaanKendaraan").child("belumBayar").child(idPenyewaan).removeValue();
                                             Toast.makeText(getApplicationContext(), "Bukti Pembayaran Anda Berhasil Disimpan", Toast.LENGTH_LONG).show();

@@ -83,6 +83,7 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
     private Circle searchCircle;
     private Map<String, Marker> markers;
     private HashMap<Marker, RentalModel> markerRental;
+    private HashMap<Marker, String> markerCoba;
 
     private LatLng mDefaultLocation = new LatLng(-7.982630999999983, 112.63088100000004);
 
@@ -204,24 +205,22 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
 
     @Override
     public void onKeyEntered(String key, GeoLocation location) {
-
         if (location != null){
             textViewKeteranganRental.setVisibility(View.GONE);
 
             //add marker
             final Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(location.latitude, location.longitude))
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_maps)).flat(true))
-                    ;
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_maps)).flat(true));
             marker.setFlat(true);
             marker.setAnchor(0.5f, 0.5f);
             this.markers.put(key, marker);
 
-            mDatabase.child("geofire").addListenerForSingleValueEvent(new ValueEventListener() {
+            mDatabase.child("rentalKendaraan").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()){
                         RentalModel rentalModel = userSnapshot.getValue(RentalModel.class);
-
+                        String id = rentalModel.getIdRental();
                         markerRental.put(marker,rentalModel);
                         Log.d(TAG, "data" + rentalModel);
                     }
@@ -352,7 +351,7 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        final RentalModel rentalModel = this.markerRental.get(marker);//model gak dapet
+        final RentalModel rentalModel = this.markerRental.get(marker);
         final Dialog dialog = new Dialog(this);
         Log.d(TAG, "data" + markerRental);
         dialog.setContentView(R.layout.custom_marker_rental);
@@ -364,6 +363,7 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
         namaRental.setText(rentalModel.getNama_rental());
         alamatRental.setText(rentalModel.getAlamat_rental());
         nmrTelpon.setText(rentalModel.getNotelfon_rental());
+        dialog.show();
 
         detail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -374,7 +374,7 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
             }
         });
 
-        dialog.show();
+
 
         return false;
     }

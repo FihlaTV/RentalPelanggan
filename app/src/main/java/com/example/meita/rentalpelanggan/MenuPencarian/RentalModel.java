@@ -1,10 +1,12 @@
 package com.example.meita.rentalpelanggan.MenuPencarian;
 
+import java.io.Serializable;
+
 /**
  * Created by meita on 17/09/2017.
  */
 
-public class RentalModel {
+public class RentalModel implements Serializable{
     public String uriFotoProfil;
     public String idRental, nama_pemilik, nama_rental, alamat_rental, notelfon_rental,
             kebijakan_sewa_rental, kebijakan_pemesanan_rental,
