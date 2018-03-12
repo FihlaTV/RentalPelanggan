@@ -27,6 +27,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         String idRental = remoteMessage.getData().get("id_pengirim");
         String valueHalaman3 = remoteMessage.getData().get("valueHalaman3");
         String valueHalaman4 = remoteMessage.getData().get("valueHalaman4");
+        String valueHalaman7 = remoteMessage.getData().get("valueHalaman7");
         String idPemesanan = remoteMessage.getData().get("idPemesanan");
 
         NotificationCompat.Builder mBuilder =
@@ -40,6 +41,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         resultIntent.putExtra("idRental", idRental);
         resultIntent.putExtra("notifBerhasil", valueHalaman3);
         resultIntent.putExtra("notifSelesai", valueHalaman4);
+        resultIntent.putExtra("notifMenungguSisaPembayaran", valueHalaman7);
         resultIntent.putExtra("idPemesanan", idPemesanan);
 
         PendingIntent resultPendingIntent =

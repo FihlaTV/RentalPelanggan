@@ -11,7 +11,7 @@ public class RentalModel implements Serializable{
     public String idRental, nama_pemilik, nama_rental, alamat_rental, notelfon_rental,
             kebijakan_sewa_rental, kebijakan_pemesanan_rental,
             kebijakan_pembatalan_rental, idRekening, namaBank,
-            namaPemilikBank, nomorRekeningBank;
+            namaPemilikBank, nomorRekeningBank, emailRental;
     public double latitude, longitude;
     String email;
 
@@ -151,5 +151,9 @@ public class RentalModel implements Serializable{
 
     public String getIdRekening() {
         return idRekening;
+    }
+
+    public String getEmailRental() {
+        return emailRental;
     }
 }

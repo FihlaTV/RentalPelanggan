@@ -13,4 +13,5 @@
     <color name="hijau_tua">#0FC728</color>
     <color name="ratingBarActived">#ffbf41</color>
     <color name="ratingBarNotActived">#ffde9d</color>
+    <color name="merah">#FF0000</color>
 </resources>

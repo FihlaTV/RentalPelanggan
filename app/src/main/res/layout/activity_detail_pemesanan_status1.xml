@@ -1,194 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/orange"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Status Penyewaan Kendaraan :"
-                android:textSize="15dp"/>
-            <TextView
-                android:id="@+id/textViewStatusPemesanan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:text="Status"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:textColor="@color/hitam"
-                android:gravity="center"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:orientation="vertical"
-            android:background="@drawable/rectangle_border">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tanggal Sewa"
-                android:textSize="15dp"
-                android:background="@color/orange"/>
-            <TextView
-                android:id="@+id/textViewTipeKendaraan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tipe Kendaraan"
-                android:textSize="13dp"
-                android:textColor="@color/orange"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="15dp"></TextView>
-            <TextView
-                android:id="@+id/textViewNamaRentalKendaraan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Rental Kendaraan"
-                android:textSize="13dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="15dp"></TextView>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="horizontal">
-                <ImageView
-                    android:id="@+id/icCheckListDenganSupir"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_checklist"/>
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Dengan Supir"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"
-                    android:textColor="@color/abu_tua"
-                    android:id="@+id/textViewDenganSupir"/>
-                <ImageView
-                    android:id="@+id/icCheckListTanpaSupir"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_checklist_false"/>
+                    android:text="Status Penyewaan Kendaraan :"
+                    android:textSize="15dp"/>
                 <TextView
-                    android:text="Tanpa Supir"
+                    android:id="@+id/textViewStatusPemesanan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"
-                    android:textColor="@color/abu_tua"
-                    android:id="@+id/textViewTanpaSupir"/>
+                    android:layout_marginTop="3dp"
+                    android:text="Status"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/hitam"
+                    android:gravity="center"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="horizontal">
-                <ImageView
-                    android:id="@+id/icCheckListDenganBBM"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_checklist"/>
-                <TextView
-                    android:text="Dengan Bahan Bakar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"
-                    android:textColor="@color/abu_tua"
-                    android:id="@+id/textViewDenganBBM"/>
-                <ImageView
-                    android:id="@+id/icCheckListTanpaBBM"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_checklist_false"/>
-                <TextView
-                    android:text="Tanpa Bahan Bakar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"
-                    android:textColor="@color/abu_tua"
-                    android:id="@+id/textViewTanpaBBM"/>
-            </LinearLayout>
-            <View
-                android:id="@+id/pembatas1"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/orange" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cakupan Pemakaian Kendaraan"
-                android:textSize="15dp"
-                android:textColor="@color/orange"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="15dp"></TextView>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="3dp"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/ic_geofence"/>
-                <TextView
-                    android:text="Area Pemakaian"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="13dp"
-                    android:textColor="@color/abu_tua"
-                    android:id="@+id/textViewAreaPemakaian"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewWaktuPenjemputan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Waktu Penjemputan"
-                    android:textSize="15dp"
-                    android:textColor="@color/orange"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="15dp"></TextView>
-                <TextView
-                    android:id="@+id/textViewWaktuPengambilan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Waktu Pengambilan"
-                    android:textSize="15dp"
-                    android:textColor="@color/orange"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="15dp"></TextView>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="vertical"
+                android:background="@drawable/rectangle_border">
                 <LinearLayout
-                    android:id="@+id/linearLayoutWaktuPenjemputan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/orange">
+                    <TextView
+                        android:id="@+id/textViewTglSewa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tanggal Sewa"
+                        android:textSize="16dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" - "
+                        android:textSize="16dp" />
+                    <TextView
+                        android:id="@+id/textViewTglKembali"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tanggal Kembali"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textViewTipeKendaraan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tipe Kendaraan"
+                    android:textSize="16dp"
+                    android:textColor="@color/orange"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"></TextView>
+                <TextView
+                    android:id="@+id/textViewNamaRentalKendaraan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rental Kendaraan"
+                    android:textSize="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"></TextView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/textViewJumlahSewaKendaraan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="jumlah"
+                        android:textSize="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="15dp"></TextView>
+                    <TextView
+                        android:id="@+id/textViewMobil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mobil"
+                        android:textSize="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"></TextView>
+                    <TextView
+                        android:id="@+id/textViewMotor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Motor"
+                        android:textSize="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"></TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/textViewJmlHariPenyewaan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lama Sewa"
+                        android:textSize="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="15dp"></TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hari"
+                        android:textSize="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"></TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/icCheckListDenganSupir"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_checklist"/>
+                    <TextView
+                        android:text="Dengan Supir"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/abu_tua"
+                        android:id="@+id/textViewDenganSupir"/>
+                    <ImageView
+                        android:id="@+id/icCheckListTanpaSupir"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_checklist_false"/>
+                    <TextView
+                        android:text="Tanpa Supir"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/abu_tua"
+                        android:id="@+id/textViewTanpaSupir"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/icCheckListDenganBBM"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_checklist"/>
+                    <TextView
+                        android:text="Dengan Bahan Bakar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/abu_tua"
+                        android:id="@+id/textViewDenganBBM"/>
+                    <ImageView
+                        android:id="@+id/icCheckListTanpaBBM"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_checklist_false"/>
+                    <TextView
+                        android:text="Tanpa Bahan Bakar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/abu_tua"
+                        android:id="@+id/textViewTanpaBBM"/>
+                </LinearLayout>
+                <View
+                    android:id="@+id/pembatas1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/orange" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cakupan Pemakaian Kendaraan"
+                    android:textSize="15dp"
+                    android:textColor="@color/orange"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"></TextView>
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -197,156 +229,220 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_time"/>
+                        android:src="@drawable/ic_geofence"/>
                     <TextView
-                        android:text="Waktu Penjemputan"
+                        android:text="Area Pemakaian"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textSize="13dp"
+                        android:textSize="15dp"
                         android:textColor="@color/abu_tua"
-                        android:id="@+id/textViewWaktuPenjemputanValue"/>
+                        android:id="@+id/textViewAreaPemakaian"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/linearLayoutWaktuPengambilan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="3dp"
                     android:orientation="horizontal">
                     <TextView
-                        android:text="Waktu Pengambilan"
+                        android:id="@+id/textViewWaktuPenjemputan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="Waktu Penjemputan"
+                        android:textSize="15dp"
+                        android:textColor="@color/orange"
                         android:layout_marginTop="5dp"
-                        android:textSize="13dp"
+                        android:layout_marginLeft="15dp"></TextView>
+                    <TextView
+                        android:id="@+id/textViewWaktuPengambilan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Waktu Pengambilan"
+                        android:textSize="15dp"
+                        android:textColor="@color/orange"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="15dp"></TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:id="@+id/linearLayoutWaktuPenjemputan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="3dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_time"/>
+                        <TextView
+                            android:text="Waktu Penjemputan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textSize="15dp"
+                            android:textColor="@color/abu_tua"
+                            android:id="@+id/textViewWaktuPenjemputanValue"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/linearLayoutWaktuPengambilan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="3dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:text="Waktu Pengambilan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textSize="15dp"
+                            android:textColor="@color/abu_tua"
+                            android:id="@+id/textViewWaktuPengambilanValue"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayoutLokasiPenjemputan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/textViewLokasiPenjemputan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lokasi Penjemputan"
+                        android:textSize="15dp"
+                        android:textColor="@color/orange"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="15dp"></TextView>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="3dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:id="@+id/icLokasiPenjemputan"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/ic_lokasi"/>
+                        <TextView
+                            android:text="Lokasi Penjemputan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textSize="15dp"
+                            android:textColor="@color/abu_tua"
+                            android:id="@+id/textViewLokasiPenjemputanValue"/>
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/btnLihatLokasiPenjemputan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:text="Lihat Lokasi Penjemputan"
+                        android:background="@null"
+                        android:textColor="@color/merah"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_gravity="right"></Button>
+                </LinearLayout>
+                <View
+                    android:id="@+id/pembatas2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/orange" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Biodata Pemesan"
+                        android:textSize="15dp"
+                        android:textStyle=""
+                        android:textColor="@color/orange"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="15dp"></TextView>
+                    <TextView
+                        android:id="@+id/textViewNamaPemesan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nama Pemesan"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="15dp"></TextView>
+                    <TextView
+                        android:id="@+id/textViewAlamatPemesan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Alamat Pemesan"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="15dp"></TextView>
+                    <TextView
+                        android:id="@+id/textViewTelponPemesan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Telepon Pemesan"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="15dp"></TextView>
+                    <TextView
+                        android:id="@+id/textViewEmailPemesan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Email Pemesan"
+                        android:textSize="15dp"
+                        android:layout_marginLeft="15dp"></TextView>
+                </LinearLayout>
+                <View
+                    android:id="@+id/pembatas3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/orange" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2.4"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.4"
+                        android:text="Total Pembayaran"
+                        android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/textViewTotalPembayaran"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="total"
                         android:textColor="@color/abu_tua"
-                        android:id="@+id/textViewWaktuPengambilanValue"/>
+                        android:textSize="20dp"/>
                 </LinearLayout>
             </LinearLayout>
-            <TextView
-                android:id="@+id/textViewLokasiPenjemputan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lokasi Penjemputan"
-                android:textSize="15dp"
-                android:textColor="@color/orange"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="15dp"></TextView>
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:id="@+id/linearLayoutKonfirmasiPembayaran"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
                 android:layout_marginTop="3dp"
-                android:orientation="horizontal">
-                <ImageView
-                    android:id="@+id/icLokasiPenjemputan"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/ic_lokasi"/>
-                <TextView
-                    android:text="Lokasi Penjemputan"
-                    android:layout_width="match_parent"
+                android:padding="5dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_weight="0.4">
+                <Button
+                    android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="13dp"
-                    android:textColor="@color/abu_tua"
-                    android:id="@+id/textViewLokasiPenjemputanValue"/>
+                    android:text="Lanjutkan Pembayaran"
+                    android:id="@+id/buttonLanjutkanPembayaran"
+                    android:background="@drawable/round_button"/>
             </LinearLayout>
-            <View
-                android:id="@+id/pembatas2"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/orange" />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Biodata Pemesan"
-                    android:textSize="15dp"
-                    android:textStyle=""
-                    android:textColor="@color/orange"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="15dp"></TextView>
-                <TextView
-                    android:id="@+id/textViewNamaPemesan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nama Pemesan"
-                    android:textSize="13dp"
-                    android:layout_marginLeft="15dp"></TextView>
-                <TextView
-                    android:id="@+id/textViewAlamatPemesan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Alamat Pemesan"
-                    android:textSize="13dp"
-                    android:layout_marginLeft="15dp"></TextView>
-                <TextView
-                    android:id="@+id/textViewTelponPemesan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Telepon Pemesan"
-                    android:textSize="13dp"
-                    android:layout_marginLeft="15dp"></TextView>
-                <TextView
-                    android:id="@+id/textViewEmailPemesan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Email Pemesan"
-                    android:textSize="13dp"
-                    android:layout_marginLeft="15dp"></TextView>
-            </LinearLayout>
-            <View
-                android:id="@+id/pembatas3"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/orange" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:weightSum="2.4"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
-                    android:text="Total Pembayaran"
-                    android:textSize="20dp" />
-                <TextView
-                    android:id="@+id/textViewTotalPembayaran"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="total"
-                    android:textColor="@color/abu_tua"
-                    android:textSize="20dp"/>
-            </LinearLayout>
-
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="3dp"
-            android:padding="5dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_alignParentBottom="true"
-            android:layout_weight="0.5">
-            <Button
-                android:layout_width="330dp"
-                android:layout_height="wrap_content"
-                android:text="Lanjutkan Pembayaran"
-                android:id="@+id/buttonLanjutkanPembayaran"
-                android:background="@drawable/round_button"/>
-        </LinearLayout>
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
 

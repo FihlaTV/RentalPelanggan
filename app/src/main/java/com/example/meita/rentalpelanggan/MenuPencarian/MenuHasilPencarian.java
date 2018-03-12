@@ -27,6 +27,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
 import com.example.meita.rentalpelanggan.PetaRental.PetaRental;
 import com.example.meita.rentalpelanggan.R;
@@ -304,7 +305,7 @@ public class MenuHasilPencarian extends AppCompatActivity {
         rangeSeekbar.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
             @Override
             public void valueChanged(Number minValue, Number maxValue) {
-                if ((maxValue.intValue() < 2900000 && maxValue.intValue() != 0) || (maxValue.intValue() < 2900000)) {
+                if ((maxValue.intValue() < 2000000 && maxValue.intValue() != 0) || (maxValue.intValue() < 2000000)) {
                     txthargaAwal.setText(String.valueOf(minValue));
                     txthargaAkhir.setText(String.valueOf(maxValue));
                     hargaAwal = minValue.intValue();
@@ -397,7 +398,7 @@ public class MenuHasilPencarian extends AppCompatActivity {
         btnYa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((hargaAkhir < 2900000 && hargaAkhir != 0) || (hargaAkhir < 2900000)) {
+                if ((hargaAkhir < 1800000 && hargaAkhir != 0) || (hargaAkhir < 1800000)) {
                     Toast.makeText(dialog.getContext(), String.valueOf(hargaAwal) + " - " + String.valueOf(hargaAkhir), Toast.LENGTH_SHORT).show();
                     getFilterHarga();
                     dialog.dismiss();
@@ -1185,7 +1186,8 @@ public class MenuHasilPencarian extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==android.R.id.home) {
-            finish();
+            Intent intent = new Intent(MenuHasilPencarian.this, MainActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

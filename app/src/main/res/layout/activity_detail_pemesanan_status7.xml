@@ -18,14 +18,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginRight="20dp">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -48,7 +49,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5.7"
+                android:layout_weight="5.5"
                 android:orientation="vertical"
                 android:background="@drawable/rectangle_border">
                 <LinearLayout
@@ -396,6 +397,16 @@
                         android:text="Email Pemesan"
                         android:textSize="15dp"
                         android:layout_marginLeft="15dp"></TextView>
+                    <Button
+                        android:id="@+id/btnLihatProfilPelanggan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:text="Lihat Profil Pelanggan"
+                        android:background="@null"
+                        android:textColor="@color/merah"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_gravity="right"></Button>
                 </LinearLayout>
                 <View
                     android:id="@+id/pembatas3"
@@ -531,9 +542,9 @@
                     android:background="@color/orange" />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
                     android:layout_marginTop="10dp"
                     android:weightSum="2.4"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="0dp"
@@ -553,15 +564,24 @@
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/linearLayoutKonfirmasiPembayaran"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
                 android:padding="5dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:gravity="center"
                 android:layout_alignParentBottom="true"
-                android:layout_weight="0.1">
+                android:layout_weight="0.45">
+                <Button
+                    android:layout_width="330dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.45"
+                    android:text="Unggah Bukti Sisa Pembayaran"
+                    android:id="@+id/btnUnggahSisaPembayaran"
+                    android:background="@drawable/round_button"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

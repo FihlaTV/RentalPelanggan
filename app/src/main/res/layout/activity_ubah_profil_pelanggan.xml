@@ -182,7 +182,7 @@
                     <Button
                         android:layout_width="330dp"
                         android:layout_height="wrap_content"
-                        android:text="Simmpan Perubahan"
+                        android:text="Simpan Perubahan"
                         android:id="@+id/buttonSimpan"
                         android:background="@drawable/round_button"/>
                 </LinearLayout>

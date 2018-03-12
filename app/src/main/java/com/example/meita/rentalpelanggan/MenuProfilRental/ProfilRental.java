@@ -3,6 +3,8 @@ package com.example.meita.rentalpelanggan.MenuProfilRental;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,6 +45,13 @@ public class ProfilRental extends AppCompatActivity {
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
         buttonLihatPenilaian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +78,7 @@ public class ProfilRental extends AppCompatActivity {
                 textViewNamaRental.setText(dataRental.getNama_rental());
                 textViewAlamatRental.setText(dataRental.getAlamat_rental());
                 textViewTelpRental.setText(dataRental.getNotelfon_rental());
+                textViewEmailRental.setText(dataRental.getEmailRental());
                 Glide.with(getApplication()).load(dataRental.uriFotoProfil).into(imageView);
             }
 
@@ -77,5 +87,13 @@ public class ProfilRental extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

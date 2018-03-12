@@ -60,6 +60,7 @@ public class TabStatus1Adapter extends RecyclerView.Adapter<TabStatus1Adapter.Vi
         holder.textViewTglSewa.setText(dataPemesanan.getTglSewa());
         holder.textViewTglKembali.setText(dataPemesanan.getTglKembali());
         holder.textViewTotalPembayaran.setText("Rp. "+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
+        holder.tglBuatPenyewaan.setText(dataPemesanan.gettglPembuatanPenyewaan());
         holder.setClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
@@ -163,7 +164,7 @@ public class TabStatus1Adapter extends RecyclerView.Adapter<TabStatus1Adapter.Vi
         public ImageView fotoKendaraan, checkListDenganSupir, checkListTanpaSupir, checkListDenganBBM, checkListTanpaBBM;
         public TextView textViewStatusPemesanan, textViewTglSewa, textViewTglKembali, textViewTipeKendaraan,
         textViewNamaRental, textViewDenganSupir, textViewTanpaSupir, textViewDenganBBM,
-                textViewTanpaBBM, textViewTotalPembayaran;
+                textViewTanpaBBM, textViewTotalPembayaran, tglBuatPenyewaan;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -185,6 +186,7 @@ public class TabStatus1Adapter extends RecyclerView.Adapter<TabStatus1Adapter.Vi
             textViewDenganBBM = (TextView)itemView.findViewById(R.id.textViewDenganBBM);
             textViewTanpaBBM = (TextView)itemView.findViewById(R.id.textViewTanpaBBM);
             textViewTotalPembayaran = (TextView)itemView.findViewById(R.id.textViewTotalPembayaran);
+            tglBuatPenyewaan = (TextView)itemView.findViewById(R.id.tglBuatPenyewaan);
         }
 
         public void setClickListener(ItemClickListener itemClickListener) {

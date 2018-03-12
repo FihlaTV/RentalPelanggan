@@ -50,27 +50,28 @@
                 android:textSize="15dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="15dp"></TextView>
-            <LinearLayout
+            <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp">
+            <TextView
+                android:text="Total Pembayaran"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:text="Total Pembayaran"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:textSize="20dp"
-                    android:textColor="@color/hitam"/>
-                <TextView
-                    android:text="total"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:layout_marginLeft="110dp"
-                    android:textColor="@color/hitam"
-                    android:id="@+id/txtViewTotalPembayaran"/>
-            </LinearLayout>
+                android:layout_alignParentLeft="true"
+                android:textSize="20dp"
+                android:textColor="@color/hitam"/>
+            <TextView
+                android:text="total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:layout_alignParentRight="true"
+                android:textSize="20dp"
+                android:textColor="@color/hitam"
+                android:id="@+id/txtViewTotalPembayaran"/>
+        </RelativeLayout>
 
         </LinearLayout>
 
@@ -110,13 +111,29 @@
             android:layout_weight="2.5"
             android:orientation="vertical"
             android:background="@drawable/rectangle_border">
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tanggal Sewa"
-                android:textSize="17dp"
-                android:padding="5dp"
-                android:background="@color/orange"/>
+                android:orientation="horizontal"
+                android:background="@color/orange">
+                <TextView
+                    android:id="@+id/textViewTglSewa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tanggal Sewa"
+                    android:textSize="16dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/textViewTglKembali"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tanggal Kembali"
+                    android:textSize="16dp" />
+            </LinearLayout>
             <TextView
                 android:id="@+id/textViewTipeKendaraan"
                 android:layout_width="match_parent"

@@ -3,11 +3,14 @@ package com.example.meita.rentalpelanggan.MenuUlasan;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.R;
@@ -42,6 +45,15 @@ public class InputUlasanPelanggan extends AppCompatActivity {
         rb_kualitas_kendaraan = (RatingBar)findViewById(R.id.rb_kualitas_kendaraan);
         editTextUlasan = (EditText)findViewById(R.id.editTextUlasan);
         buttonSimpanUlasan = (Button)findViewById(R.id.btnSimpanUlasan);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         auth = FirebaseAuth.getInstance();
@@ -129,11 +141,6 @@ public class InputUlasanPelanggan extends AppCompatActivity {
         });
     }
 
-//    private void submitData(){
-//        String ulasanText = editTextUlasan.getText().toString();
-//        buatUlasan(ulasanText);
-//    }
-
     private void simpanUlasan(){
         final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
@@ -164,6 +171,7 @@ public class InputUlasanPelanggan extends AppCompatActivity {
 
         mDatabase.child("ulasan").child(idPenyewaan).setValue(dataUlasan);
         mDatabase.child("penyewaanKendaraan").child("selesai").child(idPenyewaan).child("statusUlasan").setValue(statusUlasan);
+        Toast.makeText(getApplicationContext(), "Penilaian Anda Berhasil Disimpan", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(InputUlasanPelanggan.this, MainActivity.class);
         startActivity(intent);
         buatPemberitahuan();
@@ -202,5 +210,13 @@ public class InputUlasanPelanggan extends AppCompatActivity {
             sukses = true;
         }
         return sukses;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

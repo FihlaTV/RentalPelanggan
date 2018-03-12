@@ -66,6 +66,8 @@ public class DaftarRekeningPembayaran extends AppCompatActivity {
         final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
+        final String tglSewa = getIntent().getStringExtra("tglSewaPencarian");
+        final String tglKembali = getIntent().getStringExtra("tglKembaliPencarian");
 
         try {
             mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -76,7 +78,7 @@ public class DaftarRekeningPembayaran extends AppCompatActivity {
                         RentalModel dataRental = postSnapshot.getValue(RentalModel.class);
                         rentalModel.add(dataRental);
                     }
-                    adapter = new DaftarRekeningPembayaranAdapter(rentalModel, DaftarRekeningPembayaran.this, idRental, idKendaraan, idPenyewaan, kategoriKendaraan);
+                    adapter = new DaftarRekeningPembayaranAdapter(rentalModel, DaftarRekeningPembayaran.this, idRental, idKendaraan, idPenyewaan, kategoriKendaraan, tglSewa, tglKembali);
                     //adding adapter to recyclerview
                     recyclerView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);

@@ -4,6 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.meita.rentalpelanggan.R;
 import com.firebase.client.Firebase;
@@ -21,17 +25,28 @@ public class DaftarUlasan extends AppCompatActivity {
     private List<UlasanModel> ulasanModel;
     private DaftarUlasanAdapter adapter;
     private DatabaseReference mDatabase;
-
+    ImageView ic_no_penilaian;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daftar_ulasan);
+        setTitle("Penilaian Rental Kendaraan");
         Firebase.setAndroidContext(this);
+
+        ic_no_penilaian= (ImageView)findViewById(R.id.ic_noPenilaian);
+        ic_no_penilaian.setVisibility(View.GONE);
 
         recyclerView = (RecyclerView) findViewById(R.id.listView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         ulasanModel = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -44,13 +59,19 @@ public class DaftarUlasan extends AppCompatActivity {
             mDatabase.child("ulasan").orderByChild("idRental").equalTo(idRental).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        UlasanModel dataUlasan = postSnapshot.getValue(UlasanModel.class);
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            UlasanModel dataUlasan = postSnapshot.getValue(UlasanModel.class);
 
-                        ulasanModel.add(dataUlasan);
-                        adapter = new DaftarUlasanAdapter(getApplication(), ulasanModel);
-                        recyclerView.setAdapter(adapter);
+                            ulasanModel.add(dataUlasan);
+                            adapter = new DaftarUlasanAdapter(getApplication(), ulasanModel);
+                            recyclerView.setAdapter(adapter);
+                        }
+                    } else {
+                        recyclerView.setVisibility(View.GONE);
+                        ic_no_penilaian.setVisibility(View.VISIBLE);
                     }
+
                 }
 
                 @Override
@@ -61,5 +82,13 @@ public class DaftarUlasan extends AppCompatActivity {
         } catch (Exception e) {
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

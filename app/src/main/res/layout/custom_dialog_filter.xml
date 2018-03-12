@@ -51,7 +51,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 app:min_value="0"
-                app:max_value="1000000"/>
+                app:max_value="2000000"
+                app:steps="50000"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -116,7 +117,7 @@
         <LinearLayout
             android:id="@+id/linear_checkboxbahanbakar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginTop="10dp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"

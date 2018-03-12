@@ -26,7 +26,7 @@ public class MenuStatusPemesanan extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getActivity().setTitle("Kelola Pesanan");
+        getActivity().setTitle("Kelola Penyewaan");
         View v = inflater.inflate(R.layout.fragment_menu_status_pemesanan, container, false);
         viewPager = (ViewPager) v.findViewById(R.id.viewpager);
         tabLayout = (TabLayout) v.findViewById(R.id.tabs);
@@ -40,6 +40,8 @@ public class MenuStatusPemesanan extends Fragment {
             final int positionTab2 = getArguments().getInt("tab2");
             final int positionTab3 = getArguments().getInt("tab3");
             final int positionTab4 = getArguments().getInt("tab4");
+            final int positionTab7 = getArguments().getInt("tab7");
+            final int positionTab8 = getArguments().getInt("tab8");
             if (positionTab1 == 1) {
                 new Handler().post(new Runnable() {
                     @Override
@@ -69,81 +71,25 @@ public class MenuStatusPemesanan extends Fragment {
                         viewPager.setCurrentItem(3);
                     }
                 });
+            } else if (positionTab7 == 7) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewPager.setCurrentItem(6);
+                    }
+                });
+            } else if (positionTab8 == 8) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewPager.setCurrentItem(7);
+                    }
+                });
             }
         } catch (Exception e) {
 
         }
 
-
-//        try {
-//            final int position = getArguments().getInt("tab3");
-//            new Handler().post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    viewPager.setCurrentItem(position);
-//
-//                }
-//            });
-//        } catch (Exception e) {
-//
-//        }
-//
-//        try {
-//            final int position = getArguments().getInt("tab4");
-//            new Handler().post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    viewPager.setCurrentItem(position);
-//                }
-//            });
-//        } catch (Exception e) {
-//
-//        }
-//
-//        try {
-//            final int position = getArguments().getInt("tab1");
-//            new Handler().post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    viewPager.setCurrentItem(position);
-//                }
-//            });
-//        } catch (Exception e) {
-//
-//        }
-//
-//        try {
-//            final int position = getArguments().getInt("tab2");
-//            new Handler().post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    viewPager.setCurrentItem(position);
-//                }
-//            });
-//        } catch (Exception e) {
-//
-//        }
-        //------------------------------------------------------------------
-
-//        try {
-//            Bundle extras = getActivity().getIntent().getExtras();
-//            int valueStatusHalaman2 = extras.getInt("halamanStatus2", 1);
-//            if (valueStatusHalaman2 == 2) {
-//                viewPager.setCurrentItem(1);
-//            }
-//        } catch (Exception e) {
-//
-//        }
-//
-//        try {
-//            Bundle extras = getActivity().getIntent().getExtras();
-//            int valueStatusHalaman3 = extras.getInt("halamanStatus3", 2);
-//            if (valueStatusHalaman3 == 3) {
-//                viewPager.setCurrentItem(5);
-//            }
-//        } catch (Exception e) {
-//
-//        }
 
         return v;
 
@@ -157,6 +103,8 @@ public class MenuStatusPemesanan extends Fragment {
         adapter.addFragment(new TabStatus4(), "Selesai");
         adapter.addFragment(new TabStatus5(), "Pengajuan Pembatalan");
         adapter.addFragment(new TabStatus6(), "Batal");
+        adapter.addFragment(new TabStatus7(), "Menunggu Sisa Pembayaran");
+        adapter.addFragment(new TabStatus8(), "Konfirmasi Sisa Pembayaran");
         viewPager.setAdapter(adapter);
     }
 

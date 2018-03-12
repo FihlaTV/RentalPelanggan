@@ -28,7 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 public class DetailPembayaran extends AppCompatActivity {
     private DatabaseReference mDatabase;
     TextView textViewNamaPemilikRekening, textViewNomorRekening, textViewTipeKendaraan, textViewNamaRental, textViewDenganSupir, textViewTanpaSupir,
-            textViewDenganBBM, textViewTanpaBBM, textViewAreaPemakaian, textViewTotalPembayaran, textViewWaktuBatasTransfer;
+            textViewDenganBBM, textViewTanpaBBM, textViewAreaPemakaian, textViewTotalPembayaran, textViewWaktuBatasTransfer,  textViewTglSewa,
+            textViewTglKembali;
     ImageView imageChecklistSupirTrue, imageCheckListSupirFalse, imageCheckListBBMTrue, imageCheckListBBMFalse;
     boolean valueSupir;
     Button buttonUnggahSekarang, buttonUnggahNanti;
@@ -51,6 +52,8 @@ public class DetailPembayaran extends AppCompatActivity {
         textViewAreaPemakaian = (TextView)findViewById(R.id.txtViewAreaPemakaian);
         textViewTotalPembayaran = (TextView)findViewById(R.id.txtViewTotalPembayaran);
         textViewWaktuBatasTransfer = (TextView)findViewById(R.id.textViewJamBatasTransfer);
+        textViewTglSewa = (TextView)findViewById(R.id.textViewTglSewa);
+        textViewTglKembali = (TextView)findViewById(R.id.textViewTglKembali);
 
         imageChecklistSupirTrue = (ImageView)findViewById(R.id.icCheckListDenganSupir);
         imageCheckListSupirFalse = (ImageView)findViewById(R.id.icCheckListTanpaSupir);
@@ -110,7 +113,7 @@ public class DetailPembayaran extends AppCompatActivity {
         infoRental();
         infoRekeningPembayaran();
         infoKendaraan();
-        infoPemesanan();
+        infoPenyewaan();
 
     }
 
@@ -205,7 +208,7 @@ public class DetailPembayaran extends AppCompatActivity {
 
     }
 
-    public void infoPemesanan() {
+    public void infoPenyewaan() {
         final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         try {
             mDatabase.child("penyewaanKendaraan").child("belumBayar").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
@@ -215,6 +218,8 @@ public class DetailPembayaran extends AppCompatActivity {
                         PenyewaanModel dataPemesanan = dataSnapshot.getValue(PenyewaanModel.class);
                         textViewWaktuBatasTransfer.setText(dataPemesanan.getBatasWaktuPembayaran());
                         textViewTotalPembayaran.setText("Rp."+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
+                        textViewTglSewa.setText(dataPemesanan.getTglSewa());
+                        textViewTglKembali.setText(dataPemesanan.getTglKembali());
                     }
                 }
 

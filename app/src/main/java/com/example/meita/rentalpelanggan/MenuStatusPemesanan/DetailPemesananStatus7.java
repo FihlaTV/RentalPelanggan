@@ -1,10 +1,9 @@
 package com.example.meita.rentalpelanggan.MenuStatusPemesanan;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +12,8 @@ import android.widget.TextView;
 import com.example.meita.rentalpelanggan.Autentifikasi.PelangganModel;
 import com.example.meita.rentalpelanggan.Base.BaseActivity;
 import com.example.meita.rentalpelanggan.MenuPembayaran.PembayaranModel;
+import com.example.meita.rentalpelanggan.MenuPembayaran.UnggahBuktiPembayaran;
+import com.example.meita.rentalpelanggan.MenuPembayaran.UnggahBuktiSisaPembayaran;
 import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
@@ -23,8 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class DetailPemesananStatus6 extends AppCompatActivity {
+import java.util.Date;
 
+public class DetailPemesananStatus7 extends AppCompatActivity {
     TextView textViewTipeKendaraan, textViewNamaRental, textViewDenganSupir, textViewTanpaSupir,
             textViewDenganBBM, textViewTanpaBBM, textViewStatusPemesanan, textViewAreaPemakaian, textViewTotalPembayaran, textViewWaktuPenjemputan, textViewWaktuPengambilan,
             textViewWaktuPenjemputanValue, textViewWaktuPengambilanValue, textViewLokasiPenjemputan, textViewLokasiPenjemputanValue,
@@ -34,14 +36,17 @@ public class DetailPemesananStatus6 extends AppCompatActivity {
     TextView textViewNamaRekeningRental, textViewNomorRekeningRental, textViewNamaBankRental;
     public ImageView checkListDenganSupir, checkListTanpaSupir, checkListDenganBBM, checkListTanpaBBM, icLokasiPenjemputan;
     Button buttonLihatBuktiPembayaran;
+    Date tglSewaCekSisa, tglKembaliCekSisa, tglSewaDipesan, tglKembaliDipesan;
     DatabaseReference mDatabase;
     TextView textViewTglSewa, textViewTglKembali, textViewJumlahSewaKendaraan, textViewMobil, textViewMotor, textViewJmlHariPenyewaan;
+    Button buttonUnggahSisaPembayaran;
+    String idRekening;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Detail Penyewaan Batal");
-        setContentView(R.layout.activity_detail_pemesanan_status6);
+        setContentView(R.layout.activity_detail_pemesanan_status7);
+        setTitle("Detail Penyewaan");
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -73,18 +78,18 @@ public class DetailPemesananStatus6 extends AppCompatActivity {
         textViewTelponPemesan = (TextView)findViewById(R.id.textViewTelponPemesan);
         textViewEmailPemesan = (TextView)findViewById(R.id.textViewEmailPemesan);
 
-        checkListDenganSupir = (ImageView)findViewById(R.id.icCheckListDenganSupir);
-        checkListTanpaSupir = (ImageView)findViewById(R.id.icCheckListTanpaSupir);
-        checkListDenganBBM = (ImageView)findViewById(R.id.icCheckListDenganBBM);
-        checkListTanpaBBM = (ImageView)findViewById(R.id.icCheckListTanpaBBM);
-        icLokasiPenjemputan = (ImageView)findViewById(R.id.icLokasiPenjemputan);
-
         textViewTglSewa = (TextView)findViewById(R.id.textViewTglSewa);
         textViewTglKembali = (TextView)findViewById(R.id.textViewTglKembali);
         textViewJumlahSewaKendaraan = (TextView)findViewById(R.id.textViewJumlahSewaKendaraan);
         textViewMobil = (TextView)findViewById(R.id.textViewMobil);
         textViewMotor = (TextView)findViewById(R.id.textViewMotor);
         textViewJmlHariPenyewaan = (TextView)findViewById(R.id.textViewJmlHariPenyewaan);
+
+        checkListDenganSupir = (ImageView)findViewById(R.id.icCheckListDenganSupir);
+        checkListTanpaSupir = (ImageView)findViewById(R.id.icCheckListTanpaSupir);
+        checkListDenganBBM = (ImageView)findViewById(R.id.icCheckListDenganBBM);
+        checkListTanpaBBM = (ImageView)findViewById(R.id.icCheckListTanpaBBM);
+        icLokasiPenjemputan = (ImageView)findViewById(R.id.icLokasiPenjemputan);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -93,22 +98,42 @@ public class DetailPemesananStatus6 extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        buttonLihatBuktiPembayaran = (Button)findViewById(R.id.btnLihatBuktiPembayaran);
-        buttonLihatBuktiPembayaran.setOnClickListener(new View.OnClickListener() {
+        buttonUnggahSisaPembayaran = (Button)findViewById(R.id.btnUnggahSisaPembayaran);
+
+        final String idKendaraan = getIntent().getStringExtra("idKendaraan");
+        final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
+        final String idRental = getIntent().getStringExtra("idRental");
+        final String idPelanggan = getIntent().getStringExtra("idPelanggan");
+        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
+        final String idRekening = getIntent().getStringExtra("idRekening");
+        final String tglSewa = getIntent().getStringExtra("tglSewa");
+        final String tglKembali = getIntent().getStringExtra("tglKembali");
+
+        buttonUnggahSisaPembayaran.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                lihatBuktiPembayaran();
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                Intent intent = new Intent(DetailPemesananStatus7.this, UnggahBuktiSisaPembayaran.class);
+                bundle.putString("unggahSisaPembayaran", "unggahSisaPembayaran");
+                bundle.putString("idPenyewaan", idPenyewaan);
+                bundle.putString("idKendaraan", idKendaraan);
+                bundle.putString("idRental", idRental);
+                bundle.putString("idPelanggan", idPelanggan);
+                bundle.putString("kategoriKendaraan", kategoriKendaraan);
+                bundle.putString("idRekening", idRekening);
+                bundle.putString("tglSewa", tglSewa);
+                bundle.putString("tglKembali", tglKembali);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
-
-        infoPenyewaan();
-        infoPembayaran();
         infoKendaraan();
         infoRentalKendaraan();
         infoPelanggan();
+        infoPenyewaan();
+        infoPembayaran();
     }
-
 
     public void infoKendaraan() {
         try {
@@ -203,13 +228,13 @@ public class DetailPemesananStatus6 extends AppCompatActivity {
     public void infoPenyewaan() {
         try {
             final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
-            mDatabase.child("penyewaanKendaraan").child("selesai").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
+            mDatabase.child("penyewaanKendaraan").child("menungguSisaPembayaran").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         PenyewaanModel dataPemesanan = dataSnapshot.getValue(PenyewaanModel.class);
                         textViewStatusPemesanan.setText(dataPemesanan.getstatusPenyewaan());
-                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
+                        textViewTotalPembayaran.setText("Rp. "+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
                         textViewTglSewa.setText(dataPemesanan.getTglSewa());
                         textViewTglKembali.setText(dataPemesanan.getTglKembali());
                         textViewJumlahSewaKendaraan.setText(String.valueOf(dataPemesanan.getJumlahKendaraan()));
@@ -228,6 +253,7 @@ public class DetailPemesananStatus6 extends AppCompatActivity {
                             textViewLokasiPenjemputanValue.setVisibility(View.GONE);
                             icLokasiPenjemputan.setVisibility(View.GONE);
                             textViewWaktuPengambilanValue.setText(dataPemesanan.getJamPengambilan());
+
                         } else {
                             textViewWaktuPengambilan.setVisibility(View.GONE);
                             textViewWaktuPengambilanValue.setVisibility(View.GONE);
@@ -252,7 +278,7 @@ public class DetailPemesananStatus6 extends AppCompatActivity {
         try {
             final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
             final String idRental = getIntent().getStringExtra("idRental");
-            mDatabase.child("penyewaanKendaraan").child("selesai").child(idPenyewaan).child("pembayaran").addValueEventListener(new ValueEventListener() {
+            mDatabase.child("penyewaanKendaraan").child("menungguSisaPembayaran").child(idPenyewaan).child("pembayaran").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -290,22 +316,5 @@ public class DetailPemesananStatus6 extends AppCompatActivity {
         }
     }
 
-    public void lihatBuktiPembayaran() {
-        final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
-        final String statusPenyewaan = getIntent().getStringExtra("statusPenyewaan");
-        Bundle bundle = new Bundle();
-        Intent intent = new Intent(DetailPemesananStatus6.this, GambarBuktiPembayaran.class);
-        bundle.putString("idPenyewaan", idPenyewaan);
-        bundle.putString("statusPenyewaan", statusPenyewaan);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

@@ -440,7 +440,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:weightSum="2.4"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="0dp"
@@ -458,6 +458,17 @@
                     android:textColor="@color/abu_tua"
                     android:textSize="20dp"/>
             </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:padding="5dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="0.1">
         </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

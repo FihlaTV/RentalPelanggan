@@ -73,10 +73,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         String notif1 = getIntent().getStringExtra("notifBerhasil");
         String notif2 = getIntent().getStringExtra("notifSelesai");
+        String notif7 = getIntent().getStringExtra("notifMenungguSisaPembayaran");
 
         int halamanStatusBelumBayar = getIntent().getIntExtra("halamanStatusBelumBayar", -1);
         int halamanStatusMenungguKonfirmasi = getIntent().getIntExtra("halamanStatusMenungguKonfirmasi", 0);
         int halamanEditProfil = getIntent().getIntExtra("halamanEditProfil", 10);
+        int halamanStatusMenungguKonfirmasiSisaPembayaran = getIntent().getIntExtra("halamanStatusMenungguKonfirmasiSisaPembayaran", 11);
 
         if (findViewById(R.id.content_frame) != null && notif1 != null && notif1.equals("berhasil") ) {
             Bundle bundle=new Bundle();
@@ -84,34 +86,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
             menuStatusPemesanan.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
-        }
-
-        if (findViewById(R.id.content_frame) != null && notif2 != null && notif2.equals("selesai")) {
+        } else if (findViewById(R.id.content_frame) != null && notif2 != null && notif2.equals("selesai")) {
             Bundle bundle=new Bundle();
             bundle.putInt("tab4", 4);
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
             menuStatusPemesanan.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
-        }
-
-        if (findViewById(R.id.content_frame) != null && halamanStatusBelumBayar != -1) {
+        } else if (findViewById(R.id.content_frame) != null && notif7 != null && notif7.equals("menungguSisaPembayaran")) {
+            Bundle bundle=new Bundle();
+            bundle.putInt("tab7", 7);
+            MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
+            menuStatusPemesanan.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
+        } else if (findViewById(R.id.content_frame) != null && halamanStatusBelumBayar != -1) {
             Bundle bundle=new Bundle();
             bundle.putInt("tab1", 1);
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
             menuStatusPemesanan.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
-        }
-        if (findViewById(R.id.content_frame) != null && halamanStatusMenungguKonfirmasi != 0) {
+        } else if (findViewById(R.id.content_frame) != null && halamanStatusMenungguKonfirmasi != 0) {
             Bundle bundle=new Bundle();
             bundle.putInt("tab2", 2);
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
             menuStatusPemesanan.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
-        }
-
-        if (findViewById(R.id.content_frame) != null && halamanEditProfil != 10) {
+        } else if (findViewById(R.id.content_frame) != null && halamanEditProfil != 10) {
             MenuProfil menuProfil = new MenuProfil();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuProfil).commit();
+        } else if (findViewById(R.id.content_frame) != null && halamanStatusMenungguKonfirmasiSisaPembayaran != 11) {
+            Bundle bundle=new Bundle();
+            bundle.putInt("tab8", 8);
+            MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
+            menuStatusPemesanan.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
         }
 
 //

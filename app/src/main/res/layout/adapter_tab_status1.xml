@@ -89,7 +89,6 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -126,7 +125,6 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -160,26 +158,37 @@
                         android:textSize="15sp" />
                 </LinearLayout>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+                    <TextView
+                        android:text="Pembayaran"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:textColor="@color/hijau_tua"
+                        android:textSize="15dp"/>
+                    <TextView
+                        android:text="total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textSize="15dp"
+                        android:textColor="@color/hijau_tua"
+                        android:id="@+id/textViewTotalPembayaran"/>
+                </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:weightSum="2.4"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.4"
-                        android:text="Total Pembayaran"
-                        android:textSize="15sp" />
-                    <TextView
-                        android:id="@+id/textViewTotalPembayaran"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="total"
-                        android:textColor="@color/abu_tua"
-                        android:textSize="15sp"/>
+                    android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/tglBuatPenyewaan"
+                    android:text="Tanggal Buat Penyewaan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"/>
                 </LinearLayout>
 
             </LinearLayout>

@@ -33,13 +33,15 @@ public class DaftarRekeningPembayaranAdapter extends RecyclerView.Adapter<Daftar
         this.context = context;
     }
 
-    public DaftarRekeningPembayaranAdapter(List<RentalModel> rentalModel, Context context, String idRental, String idKendaraan, String idPenyewaan, String kategoriKendaraan) {
+    public DaftarRekeningPembayaranAdapter(List<RentalModel> rentalModel, Context context, String idRental, String idKendaraan, String idPenyewaan, String kategoriKendaraan, String tglSewa, String tglKembali) {
         this.rentalModel = rentalModel;
         this.context = context;
         this.idRental = idRental;
         this.idKendaraan = idKendaraan;
         this.idPenyewaan = idPenyewaan;
         this.kategoriKendaraan = kategoriKendaraan;
+        this.tglSewa = tglSewa;
+        this.tglKembali = tglKembali;
     }
 
     @Override

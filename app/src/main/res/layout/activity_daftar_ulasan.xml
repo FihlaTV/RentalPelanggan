@@ -4,10 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/orange"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    <ImageView
+        android:id="@+id/ic_noPenilaian"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_no_penilaian"
+        android:gravity="center_vertical"
+        android:layout_centerInParent="true"/>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
         android:padding="5dp"
         android:scrollbars="vertical"
         android:id="@+id/listView">

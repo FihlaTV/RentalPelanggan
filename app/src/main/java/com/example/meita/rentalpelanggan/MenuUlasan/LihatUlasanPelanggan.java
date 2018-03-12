@@ -2,6 +2,8 @@ package com.example.meita.rentalpelanggan.MenuUlasan;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -33,11 +35,14 @@ public class LihatUlasanPelanggan extends AppCompatActivity {
         final String idRental = getIntent().getStringExtra("idRental");
         final String idPelanggan = getIntent().getStringExtra("idPelanggan");
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
-//        idPenyewaan = getIntent().getStringExtra("idPenyewaan");
-//        idKendaraan = getIntent().getStringExtra("idKendaraan");
-//        idRental = getIntent().getStringExtra("idRental");
-//        idPelanggan = getIntent().getStringExtra("idPelanggan");
-//        kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         tampilUlasan();
     }
 
@@ -61,5 +66,14 @@ public class LihatUlasanPelanggan extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

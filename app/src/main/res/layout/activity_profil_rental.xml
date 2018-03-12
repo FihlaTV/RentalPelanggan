@@ -4,11 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/orange"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/linear_action"
-        android:layout_below="@+id/appbar"
+        android:layout_below="@+id/toolbar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
         <LinearLayout
@@ -38,17 +45,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.4"
-                        android:background="@color/abu_muda"
-                        android:padding="5dp"
-                        android:text="Biodata Rental"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -201,25 +198,42 @@
                                 android:textSize="18dp" />
                         </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/border_text_input"
-                    android:orientation="vertical">
-                    <Button
-                        android:id="@+id/btnLihatPenilaian"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.4"
-                        android:padding="5dp"
-                        android:text="Lihat Penilaian"
-                        android:textSize="18dp"
-                        android:gravity="left|center_vertical"
-                        />
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_text_input"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="45dp"
+                            android:layout_marginRight="20dp"
+                            android:src="@drawable/ic_penilaian" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:background="@null"
+                                android:text="Lihat Penilaian Rental"
+                                android:gravity="center_vertical"
+                                android:textSize="18dp" />
+                        </LinearLayout>
+                        <Button
+                            android:id="@+id/btnLihatPenilaian"
+                            android:layout_width="40dp"
+                            android:layout_height="45dp"
+                            android:layout_marginLeft="100dp"
+                            android:background="@drawable/ic_panah" />
+                    </LinearLayout>
                 </LinearLayout>
+
             </LinearLayout>
             <ProgressBar
                 android:id="@+id/progressBar"
