@@ -350,7 +350,6 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
     public void onMapClick(LatLng latLng) {
 
     }
-
     @Override
     public boolean onMarkerClick(Marker marker) {
         final String markerKey = (String) marker.getTag();
