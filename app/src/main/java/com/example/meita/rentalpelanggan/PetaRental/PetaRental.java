@@ -214,23 +214,25 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
             marker.setFlat(true);
             marker.setAnchor(0.5f, 0.5f);
             this.markers.put(key, marker);
+            marker.setTag(key);
 
-            mDatabase.child("rentalKendaraan").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()){
-                        RentalModel rentalModel = userSnapshot.getValue(RentalModel.class);
-                        String id = rentalModel.getIdRental();
-                        markerRental.put(marker,rentalModel);
-                        Log.d(TAG, "data" + rentalModel);
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+//            mDatabase.child("rentalKendaraan").addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()){
+//                        RentalModel rentalModel = userSnapshot.getValue(RentalModel.class);
+//                        String id = rentalModel.getIdRental();
+//                        markerRental.put(marker,rentalModel);
+//
+//                        Log.d(TAG, "data" + rentalModel);
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
             Log.d(TAG, "data" + markerRental);
         }
 
@@ -351,28 +353,62 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        final RentalModel rentalModel = this.markerRental.get(marker);
-        final Dialog dialog = new Dialog(this);
-        Log.d(TAG, "data" + markerRental);
-        dialog.setContentView(R.layout.custom_marker_rental);
-        idRental = rentalModel.getIdRental();
-        TextView namaRental = (TextView) dialog.findViewById(R.id.textViewNamaRental);
-        TextView alamatRental = (TextView) dialog.findViewById(R.id.textViewAlamatRental);
-        TextView nmrTelpon = (TextView) dialog.findViewById(R.id.textViewNomorTelepon);
-        Button detail = (Button) dialog.findViewById(R.id.btnLihatDetail);
-        namaRental.setText(rentalModel.getNama_rental());
-        alamatRental.setText(rentalModel.getAlamat_rental());
-        nmrTelpon.setText(rentalModel.getNotelfon_rental());
-        dialog.show();
-
-        detail.setOnClickListener(new View.OnClickListener() {
+        final String markerKey = (String) marker.getTag();
+        mDatabase.child("rentalKendaraan").child(markerKey).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PetaRental.this, ProfilRental.class);
-                intent.putExtra("idRental", idRental);
-                startActivity(intent);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                        RentalModel rentalModel = dataSnapshot.getValue(RentalModel.class);
+                        String id = rentalModel.getIdRental();
+                        final Dialog dialog = new Dialog(PetaRental.this);
+                        dialog.setContentView(R.layout.custom_marker_rental);
+                        idRental = rentalModel.getIdRental();
+                        TextView namaRental = (TextView) dialog.findViewById(R.id.textViewNamaRental);
+                        TextView alamatRental = (TextView) dialog.findViewById(R.id.textViewAlamatRental);
+                        TextView nmrTelpon = (TextView) dialog.findViewById(R.id.textViewNomorTelepon);
+                        Button detail = (Button) dialog.findViewById(R.id.btnLihatDetail);
+                        namaRental.setText(rentalModel.getNama_rental());
+                        alamatRental.setText(rentalModel.getAlamat_rental());
+                        nmrTelpon.setText(rentalModel.getNotelfon_rental());
+                        dialog.show();
+
+                        detail.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(PetaRental.this, ProfilRental.class);
+                                intent.putExtra("idRental", idRental);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
+//        final RentalModel rentalModel = this.markerRental.get(marker);
+//        final Dialog dialog = new Dialog(this);
+//        Log.d(TAG, "data" + markerRental);
+//        dialog.setContentView(R.layout.custom_marker_rental);
+//        idRental = rentalModel.getIdRental();
+//        TextView namaRental = (TextView) dialog.findViewById(R.id.textViewNamaRental);
+//        TextView alamatRental = (TextView) dialog.findViewById(R.id.textViewAlamatRental);
+//        TextView nmrTelpon = (TextView) dialog.findViewById(R.id.textViewNomorTelepon);
+//        Button detail = (Button) dialog.findViewById(R.id.btnLihatDetail);
+//        namaRental.setText(rentalModel.getNama_rental());
+//        alamatRental.setText(rentalModel.getAlamat_rental());
+//        nmrTelpon.setText(rentalModel.getNotelfon_rental());
+//        dialog.show();
+//
+//        detail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(PetaRental.this, ProfilRental.class);
+//                intent.putExtra("idRental", idRental);
+//                startActivity(intent);
+//            }
+//        });
 
 
 
