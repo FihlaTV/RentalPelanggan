@@ -113,7 +113,6 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-
         // setup markers
         this.markers = new HashMap<>();
         this.markerRental = new HashMap<>();
