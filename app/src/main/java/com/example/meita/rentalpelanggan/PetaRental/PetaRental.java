@@ -19,7 +19,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
@@ -95,6 +97,7 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_peta_rental);
+        setTitle("Peta Rental Kendaraan");
 
         nearByDistanceRadius = getIntent().getDoubleExtra("radius", 0);
 
@@ -116,6 +119,13 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
         // setup markers
         this.markers = new HashMap<>();
         this.markerRental = new HashMap<>();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         cekGPS();
 
@@ -356,7 +366,6 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                         RentalModel rentalModel = dataSnapshot.getValue(RentalModel.class);
-                        String id = rentalModel.getIdRental();
                         final Dialog dialog = new Dialog(PetaRental.this);
                         dialog.setContentView(R.layout.custom_marker_rental);
                         idRental = rentalModel.getIdRental();
@@ -509,5 +518,13 @@ public class PetaRental extends AppCompatActivity  implements GoogleApiClient.Co
     private double zoomLevelToRadius(double zoomLevel) {
         // Approximation to fit circle into view
         return 16384000/Math.pow(2, zoomLevel);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

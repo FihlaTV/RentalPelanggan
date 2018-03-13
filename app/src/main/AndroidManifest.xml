@@ -124,7 +124,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".PetaRental.PetaRental" />
+        <activity android:name=".PetaRental.PetaRental"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".MenuPembayaran.UnggahBuktiSisaPembayaran"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
