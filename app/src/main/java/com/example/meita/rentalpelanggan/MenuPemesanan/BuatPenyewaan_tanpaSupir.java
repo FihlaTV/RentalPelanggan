@@ -2,6 +2,7 @@ package com.example.meita.rentalpelanggan.MenuPemesanan;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class BuatPenyewaan_tanpaSupir extends AppCompatActivity {
     private FirebaseAuth auth;
@@ -417,27 +422,87 @@ public class BuatPenyewaan_tanpaSupir extends AppCompatActivity {
         });
     }
 
+//    private void buatPemberitahuan() {
+//        String idPemberitahuan = mDatabase.push().getKey();
+//        final String idRental = getIntent().getStringExtra("idRental");
+//        final String idKendaraan = getIntent().getStringExtra("idKendaraan");
+//        final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
+//        final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
+//        String valueHalaman = "belumBayar";
+//        //int valueHalaman = 0;
+//        String statusPemesanan1 = "Belum Bayar";
+//        HashMap<String, Object> dataNotif = new HashMap<>();
+//        dataNotif.put("idPemberitahuan", idPemberitahuan);
+//        dataNotif.put("idRental", idRental);
+//        dataNotif.put("idKendaraan", idKendaraan);
+//        dataNotif.put("tglSewa", tglSewaPencarian);
+//        dataNotif.put("tglKembalian", tglKembaliPencarian);
+//        dataNotif.put("nilaiHalaman", valueHalaman);
+//        dataNotif.put("statusPenyewaan", statusPemesanan1);
+//        dataNotif.put("idPelanggan", idPelanggan);
+//        dataNotif.put("idPenyewaan", idPenyewaan);
+//        mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).setValue(dataNotif);
+//        //mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).child("nilaiHalaman").setValue(valueHalaman);
+//    }
+
     private void buatPemberitahuan() {
-        String idPemberitahuan = mDatabase.push().getKey();
         final String idRental = getIntent().getStringExtra("idRental");
-        final String idKendaraan = getIntent().getStringExtra("idKendaraan");
         final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
         final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
-        String valueHalaman = "belumBayar";
-        //int valueHalaman = 0;
-        String statusPemesanan1 = "Belum Bayar";
-        HashMap<String, Object> dataNotif = new HashMap<>();
-        dataNotif.put("idPemberitahuan", idPemberitahuan);
-        dataNotif.put("idRental", idRental);
-        dataNotif.put("idKendaraan", idKendaraan);
-        dataNotif.put("tglSewa", tglSewaPencarian);
-        dataNotif.put("tglKembalian", tglKembaliPencarian);
-        dataNotif.put("nilaiHalaman", valueHalaman);
-        dataNotif.put("statusPenyewaan", statusPemesanan1);
-        dataNotif.put("idPelanggan", idPelanggan);
-        dataNotif.put("idPenyewaan", idPenyewaan);
-        mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).setValue(dataNotif);
-        //mDatabase.child("pemberitahuan").child("rental").child("belumBayar").child(idRental).child(idPemberitahuan).child("nilaiHalaman").setValue(valueHalaman);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        try {
+            // JSON here
+            String jsonResponse;
+
+            URL url = new URL("https://onesignal.com/api/v1/notifications");
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setUseCaches(false);
+            con.setDoOutput(true);
+            con.setDoInput(true);
+
+            con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            con.setRequestProperty("Authorization", "Basic MWRlZjUzNzUtMjMwMS00NDQxLTgyMDEtYThhNmU0MDlmNTg5");
+            con.setRequestMethod("POST");
+
+            String strJsonBody = "{"
+                    +   "\"app_id\": \"8d59b6c9-1cd7-4c76-8390-38a065ac6924\","
+                    +   "\"filters\": [{\"field\": \"tag\", \"key\": \"UID\", \"relation\": \"=\", \"value\": \"" + idRental +"\"}],"
+                    +   "\"data\": {\"statusPenyewaan\": \"belumBayar\"},"
+                    +   "\"headings\": {\"en\": \"Penyewaan Belum Bayar\"},"
+                    +   "\"contents\": {\"en\": \"Untuk Tanggal "+tglSewaPencarian+" - "+tglKembaliPencarian+"\"}"
+                    + "}";
+
+            System.out.println("strJsonBody:\n" + strJsonBody);
+
+            byte[] sendBytes = strJsonBody.getBytes("UTF-8");
+            con.setFixedLengthStreamingMode(sendBytes.length);
+
+            OutputStream outputStream = con.getOutputStream();
+            outputStream.write(sendBytes);
+
+            int httpResponse = con.getResponseCode();
+            System.out.println("httpResponse: " + httpResponse);
+
+            if (  httpResponse >= HttpURLConnection.HTTP_OK
+                    && httpResponse < HttpURLConnection.HTTP_BAD_REQUEST) {
+                Scanner scanner = new Scanner(con.getInputStream(), "UTF-8");
+                jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+                scanner.close();
+            }
+            else {
+                Scanner scanner = new Scanner(con.getErrorStream(), "UTF-8");
+                jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+                scanner.close();
+            }
+            System.out.println("jsonResponse:\n" + jsonResponse);
+        }
+        catch(Throwable t) {
+            t.printStackTrace();
+        }
+
     }
 
     public boolean cekKolomIsian() {
