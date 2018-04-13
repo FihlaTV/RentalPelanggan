@@ -13,17 +13,20 @@
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     <android.support.v4.widget.NestedScrollView
-        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp">
             <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="10"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/rectangle_border">
                 <LinearLayout
@@ -54,16 +57,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Tipe Kendaraan"
-                    android:textSize="17dp"
+                    android:textSize="15dp"
                     android:textColor="@color/orange"
                     android:layout_marginTop="5dp"
-                    android:layout_marginLeft="15dp"></TextView>
+                    android:layout_marginLeft="16dp"></TextView>
                 <TextView
                     android:id="@+id/textViewNamaRentalKendaraan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Rental Kendaraan"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="15dp"></TextView>
                 <LinearLayout
@@ -81,9 +84,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textSize="15sp"
+                        android:textSize="16dp"
                         android:textColor="@color/abu_tua"
-                        android:id="@+id/txtViewSupir"/>
+                        android:id="@+id/textViewDenganSupir"/>
                     <ImageView
                         android:id="@+id/icCheckListTanpaSupir"
                         android:layout_width="30dp"
@@ -94,9 +97,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textSize="15sp"
+                        android:textSize="16dp"
                         android:textColor="@color/abu_tua"
-                        android:id="@+id/txtViewSupirFalse"/>
+                        android:id="@+id/textViewTanpaSupir"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -113,9 +116,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textSize="15sp"
+                        android:textSize="16dp"
                         android:textColor="@color/abu_tua"
-                        android:id="@+id/txtViewBBMTrue"/>
+                        android:id="@+id/textViewDenganBBM"/>
                     <ImageView
                         android:id="@+id/icCheckListTanpaBBM"
                         android:layout_width="30dp"
@@ -126,53 +129,50 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textSize="15sp"
+                        android:textSize="16dp"
                         android:textColor="@color/abu_tua"
-                        android:id="@+id/txtViewBBMFalse"/>
+                        android:id="@+id/textViewTanpaBBM"/>
                 </LinearLayout>
                 <View
                     android:id="@+id/pembatas1"
                     android:layout_width="match_parent"
                     android:layout_height="1.5dp"
-                    android:layout_below="@+id/txtViewBBMFalse"
-                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/txtViewBBMFalse"
+                    android:layout_marginTop="5dp"
                     android:background="@color/orange" />
                 <TextView
-                    android:id="@+id/textViewArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linear5"
                     android:text="Cakupan Pemakaian Kendaraan"
-                    android:textSize="18dp"
-                    android:textColor="@color/hitam"
-                    android:layout_marginTop="15dp">
-                </TextView>
+                    android:textSize="16dp"
+                    android:textColor="@color/orange"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"></TextView>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/linearArea"
-                    android:layout_below="@+id/textViewArea"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="3dp"
                     android:orientation="horizontal">
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:src="@drawable/ic_geofence"/>
                     <TextView
                         android:text="Area Pemakaian"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textSize="15sp"
+                        android:textSize="16dp"
                         android:textColor="@color/abu_tua"
-                        android:id="@+id/txtViewAreaPemakaian"/>
+                        android:id="@+id/textViewAreaPemakaian"/>
                 </LinearLayout>
                 <View
                     android:id="@+id/pembatas2"
                     android:layout_width="match_parent"
                     android:layout_height="1.5dp"
-                    android:layout_below="@+id/txtViewAreaPemakaian"
-                    android:layout_marginTop="15dp"
+                    android:layout_below="@id/txtViewBBMFalse"
+                    android:layout_marginTop="5dp"
                     android:background="@color/orange" />
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -317,15 +317,11 @@
                         android:textColor="@color/abu_tua"
                         android:textSize="20dp"/>
                 </LinearLayout>
-
             </LinearLayout>
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_alignParentBottom="true"
-                android:layout_weight="1"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="0dp">
                 <Button
@@ -335,7 +331,17 @@
                     android:id="@+id/btnLanjutkan"
                     android:background="@drawable/round_button"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:padding="5dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_weight="0.1">
+            </LinearLayout>
         </LinearLayout>
-
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

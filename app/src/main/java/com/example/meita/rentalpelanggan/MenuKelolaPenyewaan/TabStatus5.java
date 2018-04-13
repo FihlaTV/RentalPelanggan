@@ -1,4 +1,4 @@
-package com.example.meita.rentalpelanggan.MenuStatusPemesanan;
+package com.example.meita.rentalpelanggan.MenuKelolaPenyewaan;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -25,20 +25,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabStatus2 extends Fragment {
+
+public class TabStatus5 extends Fragment {
     private RecyclerView recyclerView;
-    private TabStatus2Adapter adapter;
+    private TabStatus5Adapter adapter;
     private List<PenyewaanModel> penyewaanModel;
     private DatabaseReference mDatabase;
     ProgressBar progressBar;
-    FirebaseAuth auth;
-    String idPelanggan;
+    private FirebaseAuth auth;
+    private String idPelanggan;
     ImageView ic_noOrder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_tab_status2, container, false);
-        Firebase.setAndroidContext(getContext());
+        View v = inflater.inflate(R.layout.fragment_tab_status5, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.listView);
         recyclerView.setHasFixedSize(true);
         ic_noOrder = (ImageView)v.findViewById(R.id.ic_noOrder);
@@ -57,32 +57,32 @@ public class TabStatus2 extends Fragment {
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         idPelanggan = user.getUid();
+        Firebase.setAndroidContext(getActivity());
 
         getDataPemesanan();
-
         return v;
     }
 
     public void getDataPemesanan() {
-        String status2 = "menungguKonfirmasiRental";
         try {
-            mDatabase.child("penyewaanKendaraan").child(status2).orderByChild("idPelanggan").equalTo(idPelanggan).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            String status5 = "pengajuanPembatalan";
+            mDatabase.child("penyewaanKendaraan").child(status5).orderByChild("idPelanggan").equalTo(idPelanggan).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
                 @Override
                 public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        progressBar.setVisibility(View.GONE);
                         for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             PenyewaanModel dataPemesanan = postSnapshot.getValue(PenyewaanModel.class);
                             penyewaanModel.add(dataPemesanan);
-                            adapter = new TabStatus2Adapter(getActivity(), penyewaanModel);
+                            adapter = new TabStatus5Adapter(getActivity(), penyewaanModel);
+                            //adding adapter to recyclerview
                             recyclerView.setAdapter(adapter);
                             ic_noOrder.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
                         }
                     } else {
                         progressBar.setVisibility(View.GONE);
                         ic_noOrder.setVisibility(View.VISIBLE);
                     }
-
                 }
 
                 @Override
@@ -93,8 +93,7 @@ public class TabStatus2 extends Fragment {
 
         } catch (Exception e) {
 
+
         }
     }
 }
-
-

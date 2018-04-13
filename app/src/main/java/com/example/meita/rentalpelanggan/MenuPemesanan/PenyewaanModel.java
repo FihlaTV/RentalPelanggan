@@ -19,6 +19,8 @@ public class PenyewaanModel implements Serializable{
     String alasanPembatalan;
     boolean statusUlasan;
     String idPemberitahuan, nilaiHalaman;
+    String namaBankRental, namaRekeningRental, nomorRekeningRental, jumlahTransferPengembalian, uriBuktiPengembalian, waktuTransferPengembalian;
+    String keteranganSisaPembayaran;
 
     public PenyewaanModel() {
 
@@ -201,6 +203,34 @@ public class PenyewaanModel implements Serializable{
 
     public boolean isStatusUlasan() {
         return statusUlasan;
+    }
+
+    public String getNamaBankRental() {
+        return namaBankRental;
+    }
+
+    public String getNamaRekeningRental() {
+        return namaRekeningRental;
+    }
+
+    public String getNomorRekeningRental() {
+        return nomorRekeningRental;
+    }
+
+    public String getJumlahTransferPengembalian() {
+        return jumlahTransferPengembalian;
+    }
+
+    public String getUriBuktiPengembalian() {
+        return uriBuktiPengembalian;
+    }
+
+    public String getWaktuTransferPengembalian() {
+        return waktuTransferPengembalian;
+    }
+
+    public String getKeteranganSisaPembayaran() {
+        return keteranganSisaPembayaran;
     }
 }
 

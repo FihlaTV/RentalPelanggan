@@ -26,7 +26,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".ApplicationClass">
+        <!-- Disable opening of launcher Activity -->
+        <meta-data android:name="com.onesignal.NotificationOpened.DEFAULT" android:value="DISABLE" />
         <activity
             android:name=".SplashScreen"
             android:label="Rental Pelanggan"
@@ -65,8 +68,9 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".MenuProfilRental.ProfilRental"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".MenuProfilRental.ProfilRental"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MenuPemesanan.RincianPenyewaan"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -85,33 +89,53 @@
         <activity
             android:name=".MenuPembayaran.UnggahBuktiPembayaran"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MenuStatusPemesanan.GambarBuktiPembayaran" />
-        <activity android:name=".MenuStatusPemesanan.DetailPemesananStatus1"
+        <activity android:name=".MenuKelolaPenyewaan.GambarBuktiPembayaran"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuStatusPemesanan.DetailPemesananStatus2"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuStatusPemesanan.DetailPemesananStatus3"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuStatusPemesanan.DetailPemesananStatus4"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuStatusPemesanan.DetailPemesananStatus5"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuStatusPemesanan.DetailPemesananStatus6"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuStatusPemesanan.DetailPemesananStatus7"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuStatusPemesanan.DetailPemesananStatus8"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuPembatalan.PengajuanPembatalan" />
-        <activity android:name=".MenuProfilPelanggan.UbahProfilPelanggan"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".MenuKelolaPenyewaan.DetailPemesananStatus1"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuKelolaPenyewaan.DetailPemesananStatus2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuKelolaPenyewaan.DetailPemesananStatus3"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuKelolaPenyewaan.DetailPemesananStatus4"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuKelolaPenyewaan.DetailPemesananStatus5"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuKelolaPenyewaan.DetailPemesananStatus6"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuKelolaPenyewaan.DetailPemesananStatus7"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuKelolaPenyewaan.DetailPemesananStatus8"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuKelolaPenyewaan.GambarBuktiPembayaranPengembalianDana"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuKelolaPenyewaan.GambarBuktiSisaPembayaran"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuPembatalan.PengajuanPembatalan"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuProfilPelanggan.UbahProfilPelanggan"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MenuUlasan.InputUlasanPelanggan"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MenuUlasan.LihatUlasanPelanggan"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuUlasan.DaftarUlasan"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".MenuUlasan.LihatUlasanPelanggan"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuUlasan.DaftarUlasan"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Autentifikasi.AutentifikasiTelepon" />
 
         <service
@@ -124,9 +148,19 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".PetaRental.PetaRental"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".MenuPembayaran.UnggahBuktiSisaPembayaran"
+        <activity
+            android:name=".PetaRental.PetaRental"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuPembayaran.UnggahBuktiSisaPembayaran"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".BackgroundService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".PetaLokasiPenjemputan"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

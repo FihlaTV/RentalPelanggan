@@ -1,4 +1,5 @@
-package com.example.meita.rentalpelanggan.MenuStatusPemesanan;
+package com.example.meita.rentalpelanggan.MenuKelolaPenyewaan;
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.meita.rentalpelanggan.Base.BaseActivity;
 import com.example.meita.rentalpelanggan.Base.ImageLoader;
 import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
+import com.example.meita.rentalpelanggan.Base.BaseActivity;
 import com.example.meita.rentalpelanggan.MenuPencarian.ItemClickListener;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
@@ -25,33 +26,43 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class TabStatus3Adapter extends RecyclerView.Adapter<TabStatus3Adapter.ViewHolder> implements View.OnClickListener {
+/**
+ * Created by meita on 10/28/2017.
+ */
+
+public class TabStatus7Adapter extends RecyclerView.Adapter<TabStatus7Adapter.ViewHolder> implements View.OnClickListener {
     private List<PenyewaanModel> penyewaanModel;
     DatabaseReference mDatabase;
     Context context;
+    String idPenyewaan, tglSewa, tglKembali;
 
-    public TabStatus3Adapter(Context context, List<PenyewaanModel> penyewaanModel) {
+    public TabStatus7Adapter(Context context, List<PenyewaanModel> penyewaanModel) {
         this.penyewaanModel = penyewaanModel;
         this.context = context;
     }
 
 
     @Override
-    public TabStatus3Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TabStatus7Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_tab_status3, parent, false);
+                .inflate(R.layout.adapter_tab_status7, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final TabStatus3Adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final TabStatus7Adapter.ViewHolder holder, int position) {
         final PenyewaanModel dataPemesanan = penyewaanModel.get(position);
         final String kategoriKendaraan = dataPemesanan.getKategoriKendaraan();
         final String idKendaraan = dataPemesanan.getIdKendaraan();
         final String idRental = dataPemesanan.getIdRental();
         final String idPelanggan = dataPemesanan.getIdPelanggan();
         final String statusPemesanan = dataPemesanan.getstatusPenyewaan();
+        final String idRekening = dataPemesanan.getIdRekeningRental();
+        idPenyewaan = dataPemesanan.getidPenyewaan();
+
+        getTanggal();
+
         holder.textViewStatusPemesanan.setText(dataPemesanan.getstatusPenyewaan());
         holder.textViewTglSewa.setText(dataPemesanan.getTglSewa());
         holder.textViewTglKembali.setText(dataPemesanan.getTglKembali());
@@ -62,26 +73,30 @@ public class TabStatus3Adapter extends RecyclerView.Adapter<TabStatus3Adapter.Vi
             public void onClick(View view, int position, boolean isLongClick) {
                 if (isLongClick) {
                     Bundle bundle = new Bundle();
-                    Intent intent = new Intent(context, DetailPemesananStatus3.class);
+                    Intent intent = new Intent(context, DetailPemesananStatus7.class);
                     bundle.putString("idPenyewaan", dataPemesanan.getidPenyewaan());
                     bundle.putString("idKendaraan", idKendaraan);
                     bundle.putString("idRental", idRental);
                     bundle.putString("idPelanggan", idPelanggan);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);
                     bundle.putString("statusPemesanan", statusPemesanan);
-                    bundle.putString("statusPenyewaan", "berhasil");
+                    bundle.putString("tglSewa", tglSewa);
+                    bundle.putString("tglKembali", tglKembali);
+                    bundle.putString("idRekening", idRekening);
                     intent.putExtras(bundle);
                     context.startActivity(intent);
                 } else {
                     Bundle bundle = new Bundle();
-                    Intent intent = new Intent(context, DetailPemesananStatus3.class);
+                    Intent intent = new Intent(context, DetailPemesananStatus7.class);
                     bundle.putString("idPenyewaan", dataPemesanan.getidPenyewaan());
                     bundle.putString("idKendaraan", idKendaraan);
                     bundle.putString("idRental", idRental);
                     bundle.putString("idPelanggan", idPelanggan);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);
                     bundle.putString("statusPemesanan", statusPemesanan);
-                    bundle.putString("statusPenyewaan", "berhasil");
+                    bundle.putString("tglSewa", tglSewa);
+                    bundle.putString("tglKembali", tglKembali);
+                    bundle.putString("idRekening", idRekening);
                     intent.putExtras(bundle);
                     context.startActivity(intent);
                 }
@@ -93,6 +108,7 @@ public class TabStatus3Adapter extends RecyclerView.Adapter<TabStatus3Adapter.Vi
             public void onDataChange(DataSnapshot dataSnapshot) {
                 KendaraanModel dataKendaraan = dataSnapshot.getValue(KendaraanModel.class);
                 holder.textViewTipeKendaraan.setText(dataKendaraan.getTipeKendaraan());
+                //Glide.with(context).load(dataKendaraan.getUriFotoKendaraan()).into(holder.fotoKendaraan);
                 ImageLoader.getInstance().loadImageOther(context, dataKendaraan.getUriFotoKendaraan().get(0), holder.fotoKendaraan);
                 if (dataKendaraan.isSupir() == true ) {
                     holder.textViewDenganSupir.setVisibility(View.VISIBLE);
@@ -137,6 +153,29 @@ public class TabStatus3Adapter extends RecyclerView.Adapter<TabStatus3Adapter.Vi
 
             }
         });
+    }
+
+    private void getTanggal() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        try {
+            mDatabase.child("penyewaanKendaraan").child("menungguSisaPembayaran").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        PenyewaanModel dataPemesanan = dataSnapshot.getValue(PenyewaanModel.class);
+                        tglSewa = dataPemesanan.getTglSewa();
+                        tglKembali = dataPemesanan.getTglKembali();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } catch (Exception e) {
+
+        }
     }
 
     @Override

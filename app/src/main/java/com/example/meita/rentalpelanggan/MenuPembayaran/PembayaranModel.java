@@ -6,7 +6,7 @@ package com.example.meita.rentalpelanggan.MenuPembayaran;
 
 public class PembayaranModel {
     String idPembayaran, idRekeningRental, uriFotoBuktiPembayaran,
-            bankPelanggan, namaPemilikRekeningPelanggan, nomorRekeningPelanggan, jumlahTransfer, waktuPembayaran;
+            bankPelanggan, namaPemilikRekeningPelanggan, nomorRekeningPelanggan, jumlahTransfer, waktuPembayaran, uriFotoBuktiSisaPembayaran;
 
     public PembayaranModel() {
 
@@ -24,6 +24,8 @@ public class PembayaranModel {
         this.jumlahTransfer = jumlahTransfer;
         this.waktuPembayaran = waktuPembayaran;
     }
+
+
 
     public String getIdPembayaran() {
         return idPembayaran;

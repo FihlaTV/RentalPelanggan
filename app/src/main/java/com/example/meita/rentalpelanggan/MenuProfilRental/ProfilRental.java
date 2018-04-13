@@ -13,10 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
-import com.example.meita.rentalpelanggan.MenuStatusPemesanan.DetailPemesananStatus1;
 import com.example.meita.rentalpelanggan.MenuUlasan.DaftarUlasan;
 import com.example.meita.rentalpelanggan.R;
-import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

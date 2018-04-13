@@ -1,4 +1,4 @@
-package com.example.meita.rentalpelanggan.MenuStatusPemesanan;
+package com.example.meita.rentalpelanggan.MenuKelolaPenyewaan;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.meita.rentalpelanggan.Autentifikasi.PelangganModel;
@@ -16,6 +17,7 @@ import com.example.meita.rentalpelanggan.MenuPembayaran.PembayaranModel;
 import com.example.meita.rentalpelanggan.MenuPemesanan.PenyewaanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
+import com.example.meita.rentalpelanggan.PetaLokasiPenjemputan;
 import com.example.meita.rentalpelanggan.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,14 +35,19 @@ public class DetailPemesananStatus2 extends AppCompatActivity {
     textViewJumlahTransfer, textViewWaktuTransfer;
     TextView textViewNamaRekeningRental, textViewNomorRekeningRental, textViewNamaBankRental;
     public ImageView checkListDenganSupir, checkListTanpaSupir, checkListDenganBBM, checkListTanpaBBM, icLokasiPenjemputan;
-    Button buttonLihatBuktiPembayaran;
+    Button buttonLihatBuktiPembayaran, btnLihatLokasiPenjemputan, btnLihatBuktiSisaPembayaran;
     DatabaseReference mDatabase;
     TextView textViewTglSewa, textViewTglKembali, textViewJumlahSewaKendaraan, textViewMobil, textViewMotor, textViewJmlHariPenyewaan;
+    TextView textViewNamaRekeningPelangganSisaPembayaran,textViewNomorRekeningPelangganSisaPembayaran,
+            textViewNamaBankPelangganSisaPembayaran, textViewJumlahTransferSisaPembayaran,textViewWaktuTransferSisaPembayaran,
+            textViewNamaRekeningRentalSisaPembayaran, textViewNomorRekeningRentalSisaPembayaran,
+            textViewNamaBankRentalSisaPembayaran;
+    LinearLayout linearLayoutInfoSisapembayaran;
+    View pembatas5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Detail Penyewaan Menunggu Konfirmasi");
         setContentView(R.layout.activity_detail_pemesanan_status2);
         setTitle("Detail Penyewaan");
 
@@ -88,6 +95,8 @@ public class DetailPemesananStatus2 extends AppCompatActivity {
         checkListTanpaBBM = (ImageView)findViewById(R.id.icCheckListTanpaBBM);
         icLokasiPenjemputan = (ImageView)findViewById(R.id.icLokasiPenjemputan);
 
+        btnLihatLokasiPenjemputan = (Button)findViewById(R.id.btnLihatLokasiPenjemputan);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -106,6 +115,17 @@ public class DetailPemesananStatus2 extends AppCompatActivity {
                 bundle.putString("idPenyewaan", idPenyewaan);
                 bundle.putString("statusPenyewaan", statusPenyewaan);
                 intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        btnLihatLokasiPenjemputan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
+                Intent intent = new Intent(DetailPemesananStatus2.this, PetaLokasiPenjemputan.class);
+                intent.putExtra("idPenyewaan", idPenyewaan);
+                intent.putExtra("statusPenyewaan", "menungguKonfirmasiRental");
                 startActivity(intent);
             }
         });
@@ -146,6 +166,7 @@ public class DetailPemesananStatus2 extends AppCompatActivity {
                             textViewLokasiPenjemputanValue.setVisibility(View.GONE);
                             icLokasiPenjemputan.setVisibility(View.GONE);
                             textViewWaktuPengambilanValue.setText(dataPemesanan.getJamPengambilan());
+                            btnLihatLokasiPenjemputan.setVisibility(View.GONE);
                         } else {
                             textViewWaktuPengambilan.setVisibility(View.GONE);
                             textViewWaktuPengambilanValue.setVisibility(View.GONE);
@@ -263,26 +284,28 @@ public class DetailPemesananStatus2 extends AppCompatActivity {
             mDatabase.child("penyewaanKendaraan").child("menungguKonfirmasiRental").child(idPenyewaan).child("pembayaran").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    PembayaranModel dataPembayaran = dataSnapshot.getValue(PembayaranModel.class);
-                    final String idRekening = dataPembayaran.getIdRekeningRental();
-                    textViewNamaRekeningPelanggan.setText(dataPembayaran.getNamaPemilikRekeningPelanggan());
-                    textViewNomorRekeningPelanggan.setText(dataPembayaran.getNomorRekeningPelanggan());
-                    textViewNamaBankPelanggan.setText(dataPembayaran.getBankPelanggan());
-                    textViewJumlahTransfer.setText(dataPembayaran.getJumlahTransfer());
-                    textViewWaktuTransfer.setText(dataPembayaran.getWaktuPembayaran());
-                    mDatabase.child("rentalKendaraan").child(idRental).child("rekeningPembayaran").child(idRekening).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            RentalModel dataRental = dataSnapshot.getValue(RentalModel.class);
-                            textViewNamaRekeningRental.setText(dataRental.getNamaPemilikBank());
-                            textViewNomorRekeningRental.setText(dataRental.getNomorRekeningBank());
-                            textViewNamaBankRental.setText(dataRental.getNamaBank());
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                    if (dataSnapshot.exists()) {
+                        PembayaranModel dataPembayaran = dataSnapshot.getValue(PembayaranModel.class);
+                        final String idRekening = dataPembayaran.getIdRekeningRental();
+                        textViewNamaRekeningPelanggan.setText(dataPembayaran.getNamaPemilikRekeningPelanggan());
+                        textViewNomorRekeningPelanggan.setText(dataPembayaran.getNomorRekeningPelanggan());
+                        textViewNamaBankPelanggan.setText(dataPembayaran.getBankPelanggan());
+                        textViewJumlahTransfer.setText(dataPembayaran.getJumlahTransfer());
+                        textViewWaktuTransfer.setText(dataPembayaran.getWaktuPembayaran());
+                        mDatabase.child("rentalKendaraan").child(idRental).child("rekeningPembayaran").child(idRekening).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                RentalModel dataRental = dataSnapshot.getValue(RentalModel.class);
+                                textViewNamaRekeningRental.setText(dataRental.getNamaPemilikBank());
+                                textViewNomorRekeningRental.setText(dataRental.getNomorRekeningBank());
+                                textViewNamaBankRental.setText(dataRental.getNamaBank());
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -293,6 +316,8 @@ public class DetailPemesananStatus2 extends AppCompatActivity {
 
         }
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

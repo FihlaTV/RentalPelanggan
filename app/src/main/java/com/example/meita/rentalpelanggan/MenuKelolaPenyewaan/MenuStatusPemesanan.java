@@ -1,4 +1,4 @@
-package com.example.meita.rentalpelanggan.MenuStatusPemesanan;
+package com.example.meita.rentalpelanggan.MenuKelolaPenyewaan;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,7 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.meita.rentalpelanggan.R;
 
@@ -40,6 +39,8 @@ public class MenuStatusPemesanan extends Fragment {
             final int positionTab2 = getArguments().getInt("tab2");
             final int positionTab3 = getArguments().getInt("tab3");
             final int positionTab4 = getArguments().getInt("tab4");
+            final int positionTab5 = getArguments().getInt("tab5");
+            final int positionTab6 = getArguments().getInt("tab6");
             final int positionTab7 = getArguments().getInt("tab7");
             final int positionTab8 = getArguments().getInt("tab8");
             if (positionTab1 == 1) {
@@ -69,6 +70,20 @@ public class MenuStatusPemesanan extends Fragment {
                     @Override
                     public void run() {
                         viewPager.setCurrentItem(3);
+                    }
+                });
+            } else if (positionTab5 == 5) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewPager.setCurrentItem(4);
+                    }
+                });
+            } else if (positionTab6 == 6) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewPager.setCurrentItem(5);
                     }
                 });
             } else if (positionTab7 == 7) {

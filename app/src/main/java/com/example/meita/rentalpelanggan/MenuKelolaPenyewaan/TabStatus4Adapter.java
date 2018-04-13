@@ -1,4 +1,4 @@
-package com.example.meita.rentalpelanggan.MenuStatusPemesanan;
+package com.example.meita.rentalpelanggan.MenuKelolaPenyewaan;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,27 +25,27 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class TabStatus6Adapter extends RecyclerView.Adapter<TabStatus6Adapter.ViewHolder> implements View.OnClickListener {
+public class TabStatus4Adapter extends RecyclerView.Adapter<TabStatus4Adapter.ViewHolder> implements View.OnClickListener {
     private List<PenyewaanModel> penyewaanModel;
     DatabaseReference mDatabase;
     Context context;
 
-    public TabStatus6Adapter(Context context, List<PenyewaanModel> penyewaanModel) {
+    public TabStatus4Adapter(Context context, List<PenyewaanModel> penyewaanModel) {
         this.penyewaanModel = penyewaanModel;
         this.context = context;
     }
 
 
     @Override
-    public TabStatus6Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TabStatus4Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_tab_status6, parent, false);
+                .inflate(R.layout.adapter_tab_status4, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final TabStatus6Adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final TabStatus4Adapter.ViewHolder holder, int position) {
         final PenyewaanModel dataPemesanan = penyewaanModel.get(position);
         final String kategoriKendaraan = dataPemesanan.getKategoriKendaraan();
         final String idKendaraan = dataPemesanan.getIdKendaraan();
@@ -62,26 +62,26 @@ public class TabStatus6Adapter extends RecyclerView.Adapter<TabStatus6Adapter.Vi
             public void onClick(View view, int position, boolean isLongClick) {
                 if (isLongClick) {
                     Bundle bundle = new Bundle();
-                    Intent intent = new Intent(context, DetailPemesananStatus6.class);
+                    Intent intent = new Intent(context, DetailPemesananStatus4.class);
                     bundle.putString("idPenyewaan", dataPemesanan.getidPenyewaan());
                     bundle.putString("idKendaraan", idKendaraan);
                     bundle.putString("idRental", idRental);
                     bundle.putString("idPelanggan", idPelanggan);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);
                     bundle.putString("statusPemesanan", statusPemesanan);
-                    bundle.putString("statusPenyewaan", "batal");
+                    bundle.putString("statusPenyewaan", "selesai");
                     intent.putExtras(bundle);
                     context.startActivity(intent);
                 } else {
                     Bundle bundle = new Bundle();
-                    Intent intent = new Intent(context, DetailPemesananStatus6.class);
+                    Intent intent = new Intent(context, DetailPemesananStatus4.class);
                     bundle.putString("idPenyewaan", dataPemesanan.getidPenyewaan());
                     bundle.putString("idKendaraan", idKendaraan);
                     bundle.putString("idRental", idRental);
                     bundle.putString("idPelanggan", idPelanggan);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);
                     bundle.putString("statusPemesanan", statusPemesanan);
-                    bundle.putString("statusPenyewaan", "batal");
+                    bundle.putString("statusPenyewaan", "selesai");
                     intent.putExtras(bundle);
                     context.startActivity(intent);
                 }

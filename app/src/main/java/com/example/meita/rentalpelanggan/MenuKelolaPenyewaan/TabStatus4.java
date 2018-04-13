@@ -1,4 +1,5 @@
-package com.example.meita.rentalpelanggan.MenuStatusPemesanan;
+package com.example.meita.rentalpelanggan.MenuKelolaPenyewaan;
+
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -26,9 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TabStatus5 extends Fragment {
+public class TabStatus4 extends Fragment {
     private RecyclerView recyclerView;
-    private TabStatus5Adapter adapter;
+    private TabStatus4Adapter adapter;
     private List<PenyewaanModel> penyewaanModel;
     private DatabaseReference mDatabase;
     ProgressBar progressBar;
@@ -38,7 +39,7 @@ public class TabStatus5 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_tab_status5, container, false);
+        View v = inflater.inflate(R.layout.fragment_tab_status4, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.listView);
         recyclerView.setHasFixedSize(true);
         ic_noOrder = (ImageView)v.findViewById(R.id.ic_noOrder);
@@ -65,19 +66,19 @@ public class TabStatus5 extends Fragment {
 
     public void getDataPemesanan() {
         try {
-            String status5 = "pengajuanPembatalan";
-            mDatabase.child("penyewaanKendaraan").child(status5).orderByChild("idPelanggan").equalTo(idPelanggan).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            String status4 = "selesai";
+            mDatabase.child("penyewaanKendaraan").child(status4).orderByChild("idPelanggan").equalTo(idPelanggan).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
                 @Override
                 public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             PenyewaanModel dataPemesanan = postSnapshot.getValue(PenyewaanModel.class);
                             penyewaanModel.add(dataPemesanan);
-                            adapter = new TabStatus5Adapter(getActivity(), penyewaanModel);
+                            adapter = new TabStatus4Adapter(getActivity(), penyewaanModel);
                             //adding adapter to recyclerview
                             recyclerView.setAdapter(adapter);
-                            ic_noOrder.setVisibility(View.GONE);
                             progressBar.setVisibility(View.GONE);
+                            ic_noOrder.setVisibility(View.GONE);
                         }
                     } else {
                         progressBar.setVisibility(View.GONE);

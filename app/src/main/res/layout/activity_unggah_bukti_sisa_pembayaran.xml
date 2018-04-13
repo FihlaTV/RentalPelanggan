@@ -17,13 +17,12 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="4">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
@@ -74,52 +73,25 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.6"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:background="@color/orange"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="Batas Waktu Pembayaran"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:padding="5dp"/>
-                <TextView
-                    android:id="@+id/textViewJamBatasTransfer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="19.00 WIB"
-                    android:textStyle="bold"
-                    android:textSize="25dp"
-                    android:textColor="@color/hitam"></TextView>
-
-            </LinearLayout>
             <View
                 android:id="@+id/pembatas1"
                 android:layout_width="match_parent"
                 android:layout_height="1.5dp"
-                android:layout_marginTop="10dp"
                 android:background="@color/orange" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2.1"
+                android:layout_weight="2.5"
                 android:orientation="vertical"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                android:paddingRight="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical|center_horizontal"
-                    android:text="Unggah Bukti Pembayaran"
+                    android:text="Unggah Bukti Sisa Pembayaran"
                     android:layout_marginBottom="5dp"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -277,8 +249,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="1.5dp"
                     android:background="@color/orange" />
-
-
             </LinearLayout>
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -286,23 +256,15 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_alignParentBottom="true"
-                android:layout_weight="0.4"
-                android:layout_marginTop="3dp"
+                android:layout_weight="0.5"
                 android:layout_marginBottom="10dp">
                 <Button
                     android:id="@+id/buttonUnggahBuktiPembayaran"
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:text="Unggah Bukti Pembayaran"
+                    android:text="Unggah Bukti Sisa Pembayaran"
                     android:background="@drawable/round_button"/>
             </LinearLayout>
-            <ProgressBar
-                android:id="@+id/progress_circle"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerInParent="true"
-                android:indeterminate="true" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

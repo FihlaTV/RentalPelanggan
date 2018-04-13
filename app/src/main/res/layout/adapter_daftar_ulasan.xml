@@ -113,6 +113,17 @@
                     android:layout_height="wrap_content"
                     android:text="Ulasan"/>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:background="@android:color/darker_gray" />
+            <TextView
+                android:id="@+id/textViewWaktuUlasan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="waktu ulasan"
+                android:textSize="15dp"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

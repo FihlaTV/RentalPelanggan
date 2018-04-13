@@ -65,6 +65,7 @@ public class UnggahBuktiSisaPembayaran extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Unggah Bukti Sisa Pembayaran");
         setContentView(R.layout.activity_unggah_bukti_sisa_pembayaran);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -73,7 +74,6 @@ public class UnggahBuktiSisaPembayaran extends AppCompatActivity {
         textViewNamaPemilikRekening = (TextView)findViewById(R.id.textViewNamaPemilik);
         textViewNomorRekening = (TextView)findViewById(R.id.textViewNomorRekening);
         textViewTotalPembayaran = (TextView)findViewById(R.id.txtViewTotalPembayaran);
-        textViewWaktuBatasTransfer = (TextView)findViewById(R.id.textViewJamBatasTransfer);
         editTextNamaBank = (EditText) findViewById(R.id.editTextBankPelanggan);
         editTextNamaPemilikRekeningPelanggan = (EditText)findViewById(R.id.editTextNamaPemilikRekeningPelanggan);
         editTextNomorRekeningPelanggan = (EditText)findViewById(R.id.ediTextNomorRekeningPelanggan);
@@ -82,9 +82,7 @@ public class UnggahBuktiSisaPembayaran extends AppCompatActivity {
         buttonCariGambar = (Button)findViewById(R.id.btn_cari);
         buttonUnggahBuktiPembayaran = (Button)findViewById(R.id.buttonUnggahBuktiPembayaran);
 
-        progressBar = (ProgressBar) findViewById(R.id.progress_circle);
-        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FEBD3D"), PorterDuff.Mode.SRC_ATOP);
-        progressBar.setVisibility(View.VISIBLE);
+
 
         progressDialog = new ProgressDialog(UnggahBuktiSisaPembayaran.this);
 
@@ -125,7 +123,6 @@ public class UnggahBuktiSisaPembayaran extends AppCompatActivity {
     }
 
     public void infoPembayaran() {
-        progressBar.setVisibility(View.GONE);
         final String idRental = getIntent().getStringExtra("idRental");
         final String idRekening = getIntent().getStringExtra("idRekening");
         final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
@@ -144,12 +141,11 @@ public class UnggahBuktiSisaPembayaran extends AppCompatActivity {
         });
 
         try {
-            mDatabase.child("penyewaanKendaraan").child("menungguKonfirmasiSisaPembayaran").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
+            mDatabase.child("penyewaanKendaraan").child("menungguSisaPembayaran").child(idPenyewaan).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         PenyewaanModel dataPemesanan = dataSnapshot.getValue(PenyewaanModel.class);
-                        textViewWaktuBatasTransfer.setText(dataPemesanan.getBatasWaktuPembayaran());
                         textViewTotalPembayaran.setText("Rp."+ BaseActivity.rupiah().format(dataPemesanan.getTotalBiayaPembayaran()));
                     }
                 }

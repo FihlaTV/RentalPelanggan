@@ -10,8 +10,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.meita.rentalpelanggan.Base.BaseActivity;
+import com.example.meita.rentalpelanggan.MainActivity;
 import com.example.meita.rentalpelanggan.MenuPencarian.KendaraanModel;
 import com.example.meita.rentalpelanggan.MenuPencarian.RentalModel;
 import com.example.meita.rentalpelanggan.R;
@@ -49,11 +51,11 @@ public class RincianPenyewaan extends AppCompatActivity {
 
         textViewTipeKendaraan = (TextView)findViewById(R.id.textViewTipeKendaraan);
         textViewNamaRental = (TextView)findViewById(R.id.textViewNamaRentalKendaraan);
-        textViewDenganSupir = (TextView)findViewById(R.id.txtViewSupir);
-        textViewTanpaSupir = (TextView)findViewById(R.id.txtViewSupirFalse);
-        textViewDenganBBM = (TextView)findViewById(R.id.txtViewBBMTrue);
-        textViewTanpaBBM = (TextView)findViewById(R.id.txtViewBBMFalse);
-        textViewAreaPemakaian = (TextView)findViewById(R.id.txtViewAreaPemakaian);
+        textViewDenganSupir = (TextView)findViewById(R.id.textViewDenganSupir);
+        textViewTanpaSupir = (TextView)findViewById(R.id.textViewTanpaSupir);
+        textViewDenganBBM = (TextView)findViewById(R.id.textViewDenganBBM);
+        textViewTanpaBBM = (TextView)findViewById(R.id.textViewTanpaBBM);
+        textViewAreaPemakaian = (TextView)findViewById(R.id.textViewAreaPemakaian);
         textViewTotalPembayaran = (TextView)findViewById(R.id.txtViewTotalPembayaran);
 
         imageChecklistSupirTrue = (ImageView)findViewById(R.id.icCheckListDenganSupir);
@@ -211,92 +213,167 @@ public class RincianPenyewaan extends AppCompatActivity {
         });
     }
 
-    public void totalBiayaSewa() throws ParseException  {
-        final String idKendaraan = getIntent().getStringExtra("idKendaraan");
+    public void totalBiayaSewa() throws ParseException  { //1
+        final String idKendaraan = getIntent().getStringExtra("idKendaraan"); //2
         final String kategoriKendaraan = getIntent().getStringExtra("kategoriKendaraan");
         final String jumlahKendaraanPencarian = getIntent().getStringExtra("jumlahKendaraanPencarian");
         final int jmlKendaraan = Integer.parseInt(jumlahKendaraanPencarian);
-
-        // stub
-        final int stubJumlahHariPenyewaan = 1;
-
-        mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
+        mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() { //3
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
+                KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class); //4
                 String lamaPenyewaan = kendaraan.getLamaPenyewaan();
+                boolean fasilitasSupir = kendaraan.isSupir();
                 double hargaSewa = kendaraan.getHargaSewa();
-                String status = "24 Jam";
-                if (lamaPenyewaan.equals(status)) {
-                    double total = 0;
-                    total = (stubJumlahHariPenyewaan * hargaSewa) * jmlKendaraan;
-                    totalBiayaPembayaran = total;
-                    textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
-                } else {
-                    double total = 0;
-                    total = (stubJumlahHariPenyewaan * (hargaSewa*2)) * jmlKendaraan;
-                    totalBiayaPembayaran = total;
-                    textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+                String durasiPenyewaanKendaraan = "12 Jam";
+                double total = 0;
+                try { //5
+                    if ((lamaPenyewaan.equals(durasiPenyewaanKendaraan) && fasilitasSupir == true)) { //6
+                        total = (getJumlahHariPenyewaan() * hargaSewa) * jmlKendaraan; //7
+                        totalBiayaPembayaran = total;
+                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+                    }
+                    else if ((lamaPenyewaan.equals(durasiPenyewaanKendaraan) && fasilitasSupir == false && getJumlahHariPenyewaan()==1)) { //8
+                        total = (getJumlahHariPenyewaan() * hargaSewa) * jmlKendaraan; //9
+                        //int valueJumlahHariPenyewaan = getJumlahHariPenyewaan();
+                        totalBiayaPembayaran = total;
+                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+                    }
+                    else if ((lamaPenyewaan.equals(durasiPenyewaanKendaraan) && fasilitasSupir == false && getJumlahHariPenyewaan()>1)) { //10
+                        total = (getJumlahHariPenyewaan() * (hargaSewa*2)) * jmlKendaraan; //11
+                        totalBiayaPembayaran = total;
+                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+                    } else { //12
+                        total = (getJumlahHariPenyewaan() * (hargaSewa)) * jmlKendaraan; //13
+                        totalBiayaPembayaran = total;
+                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+                    }
+                } catch (ParseException e) { //14
+                    Toast.makeText(getApplicationContext(), "Terdapat Kesalahan pada Sistem", Toast.LENGTH_LONG).show(); //15
+                    Intent intent = new Intent(RincianPenyewaan.this, MainActivity.class);
+                    startActivity(intent);
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
-        });
+        }); //16
 
-        mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
-                String lamaPenyewaan = kendaraan.getLamaPenyewaan();
-                double hargaSewa = kendaraan.getHargaSewa();
-                String status = "24 Jam";
-                try {
-                    int cekJumlahHariPenyewaan = getJumlahHariPenyewaan();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if (lamaPenyewaan.equals(status)) {
-                    double total = 0;
-                    try {
-                        total = (getJumlahHariPenyewaan() * hargaSewa) * jmlKendaraan;
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    totalBiayaPembayaran = total;
-                    textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
-                } else {
-                    double total = 0;
-                    try {
-                        total = (getJumlahHariPenyewaan() * (hargaSewa*2)) * jmlKendaraan;
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    totalBiayaPembayaran = total;
-                    textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
-                }
-            }
+//                try {
+//                    // stub
+//                    final int stubJumlahHariPenyewaan = 1;
+//
+//                    if ((lamaPenyewaan.equals(durasiPenyewaanKendaraan) && fasilitasSupir == true)) {
+//                        total = (stubJumlahHariPenyewaan * hargaSewa) * jmlKendaraan;
+//                        totalBiayaPembayaran = total;
+//                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+//                    }
+//                    else if ((lamaPenyewaan.equals(durasiPenyewaanKendaraan) && fasilitasSupir == false && stubJumlahHariPenyewaan==1)) {
+//                        total = (stubJumlahHariPenyewaan * hargaSewa) * jmlKendaraan;
+//                        totalBiayaPembayaran = total;
+//                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+//                    }
+//                    else if ((lamaPenyewaan.equals(durasiPenyewaanKendaraan) && fasilitasSupir == false && stubJumlahHariPenyewaan>1)) {
+//                        total = (stubJumlahHariPenyewaan * (hargaSewa*2)) * jmlKendaraan;
+//                        totalBiayaPembayaran = total;
+//                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+//                    } else {
+//                        total = (stubJumlahHariPenyewaan * (hargaSewa)) * jmlKendaraan;
+//                        totalBiayaPembayaran = total;
+//                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+//                    }
+//                } catch (Exception e) {
+//                    Toast.makeText(getApplicationContext(), "Terdapat Kesalahan pada Sistem", Toast.LENGTH_LONG).show();
+//                    Intent intent = new Intent(RincianPenyewaan.this, MainActivity.class);
+//                    startActivity(intent);
+//                }
+//            }
+//
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
 
+
+
+//        mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
+//                String lamaPenyewaan = kendaraan.getLamaPenyewaan();
+//                double hargaSewa = kendaraan.getHargaSewa();
+//                String status = "24 Jam";
+//
+//                if (lamaPenyewaan.equals(status)) {
+//                    double total = 0;
+//                    try {
+//                        total = (getJumlahHariPenyewaan() * hargaSewa) * jmlKendaraan;
+//                        totalBiayaPembayaran = total;
+//                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+//                    } catch (Exception e) {
+//                        Toast.makeText(getApplicationContext(), "Terdapat Kesalahan pada Sistem", Toast.LENGTH_LONG).show();
+//                        Intent intent = new Intent(RincianPenyewaan.this, MainActivity.class);
+//                        startActivity(intent);
+//                    }
+//                } else {
+//                    double total = 0;
+//                    try {
+//                        total = (getJumlahHariPenyewaan() * (hargaSewa*2)) * jmlKendaraan;
+//                        totalBiayaPembayaran = total;
+//                        textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+//                    } catch (Exception e) {
+//                        Toast.makeText(getApplicationContext(), "Terdapat Kesalahan pada Sistem", Toast.LENGTH_LONG).show();
+//                        Intent intent = new Intent(RincianPenyewaan.this, MainActivity.class);
+//                        startActivity(intent);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+//        //stub
+//        final int stubJumlahHariPenyewaan = 1;
+//
+//        mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                KendaraanModel kendaraan = dataSnapshot.getValue(KendaraanModel.class);
+//                String lamaPenyewaan = kendaraan.getLamaPenyewaan();
+//                double hargaSewa = kendaraan.getHargaSewa();
+//                String status = "24 Jam";
+//                if (lamaPenyewaan.equals(status)) {
+//                    double total = 0;
+//                    total = (stubJumlahHariPenyewaan * hargaSewa) * jmlKendaraan;
+//                    totalBiayaPembayaran = total;
+//                    textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+//                } else {
+//                    double total = 0;
+//                    total = (stubJumlahHariPenyewaan * (hargaSewa*2)) * jmlKendaraan;
+//                    totalBiayaPembayaran = total;
+//                    textViewTotalPembayaran.setText("Rp." + BaseActivity.rupiah().format(total));
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
     }
-
-
 
     public int getJumlahHariPenyewaan() throws ParseException {
         jumlahHariPenyewaan = 0;
         final String tglSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
         final String tglKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
-
-        //membuat driver
-//        String driverTglSewaPencarian = "27/12/2017";
-//        String driverTglKembaliPencarian = "29/12/2017";
 
         if (tglSewaPencarian.equals(tglKembaliPencarian)) {
             jumlahHariPenyewaan = 1;

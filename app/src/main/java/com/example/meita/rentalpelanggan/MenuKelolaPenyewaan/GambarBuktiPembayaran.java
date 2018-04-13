@@ -1,7 +1,9 @@
-package com.example.meita.rentalpelanggan.MenuStatusPemesanan;
+package com.example.meita.rentalpelanggan.MenuKelolaPenyewaan;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -33,6 +35,13 @@ public class GambarBuktiPembayaran extends AppCompatActivity {
         progress_circle.setVisibility(View.VISIBLE);
         imageViewBuktiPembayaran.setVisibility(View.GONE);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
         final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
         final String statusPenyewaan = getIntent().getStringExtra("statusPenyewaan");
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -40,10 +49,12 @@ public class GambarBuktiPembayaran extends AppCompatActivity {
             mDatabase.child("penyewaanKendaraan").child(statusPenyewaan).child(idPenyewaan).child("pembayaran").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    progress_circle.setVisibility(View.GONE);
-                    imageViewBuktiPembayaran.setVisibility(View.VISIBLE);
-                    PembayaranModel dataPembayaran = dataSnapshot.getValue(PembayaranModel.class);
-                    Glide.with(getApplication()).load(dataPembayaran.getUriFotoBuktiPembayaran()).into(imageViewBuktiPembayaran);
+                    if (dataSnapshot.exists()) {
+                        progress_circle.setVisibility(View.GONE);
+                        imageViewBuktiPembayaran.setVisibility(View.VISIBLE);
+                        PembayaranModel dataPembayaran = dataSnapshot.getValue(PembayaranModel.class);
+                        Glide.with(getApplication()).load(dataPembayaran.getUriFotoBuktiPembayaran()).into(imageViewBuktiPembayaran);
+                    }
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -53,7 +64,13 @@ public class GambarBuktiPembayaran extends AppCompatActivity {
         } catch (Exception e) {
 
         }
+    }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.meita.rentalpelanggan.MenuStatusPemesanan;
+package com.example.meita.rentalpelanggan.MenuKelolaPenyewaan;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -25,23 +25,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by meita on 2/16/2018.
+ */
 
-public class TabStatus6 extends Fragment {
+public class TabStatus7 extends Fragment {
     private RecyclerView recyclerView;
-    private TabStatus6Adapter adapter;
+    private TabStatus7Adapter adapter;
     private List<PenyewaanModel> penyewaanModel;
     private DatabaseReference mDatabase;
     ProgressBar progressBar;
     private FirebaseAuth auth;
     private String idPelanggan;
-    ImageView ic_noOrder;
+    ImageView imageViewNoOrder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_tab_status6, container, false);
+        View v = inflater.inflate(R.layout.fragment_tab_status7, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.listView);
         recyclerView.setHasFixedSize(true);
-        ic_noOrder = (ImageView)v.findViewById(R.id.ic_noOrder);
+        imageViewNoOrder = (ImageView)v.findViewById(R.id.ic_noOrder);
 
         final FragmentActivity c = getActivity();
         LinearLayoutManager layoutManager = new LinearLayoutManager(c);
@@ -50,7 +53,8 @@ public class TabStatus6 extends Fragment {
         progressBar = (ProgressBar) v.findViewById(R.id.progress_circle);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#FEBD3D"), PorterDuff.Mode.SRC_ATOP);
         progressBar.setVisibility(View.VISIBLE);
-        ic_noOrder.setVisibility(View.GONE);
+        imageViewNoOrder.setVisibility(View.GONE);
+
         penyewaanModel = new ArrayList<>();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -59,29 +63,32 @@ public class TabStatus6 extends Fragment {
         idPelanggan = user.getUid();
         Firebase.setAndroidContext(getActivity());
 
-        getDataPemesanan();
+        getDataPenyewaan();
+
         return v;
     }
 
-    public void getDataPemesanan() {
+    public void getDataPenyewaan() {
         try {
-            String status6 = "batal";
-            mDatabase.child("penyewaanKendaraan").child(status6).orderByChild("idPelanggan").equalTo(idPelanggan).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            String status2 = "menungguSisaPembayaran";
+            mDatabase.child("penyewaanKendaraan").child(status2).orderByChild("idPelanggan").equalTo(idPelanggan).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
                 @Override
                 public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
+                        penyewaanModel.clear();
+                        imageViewNoOrder.setVisibility(View.GONE);
                         for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             PenyewaanModel dataPemesanan = postSnapshot.getValue(PenyewaanModel.class);
                             penyewaanModel.add(dataPemesanan);
-                            adapter = new TabStatus6Adapter(getActivity(), penyewaanModel);
+                            adapter = new TabStatus7Adapter(getActivity(), penyewaanModel);
                             //adding adapter to recyclerview
                             recyclerView.setAdapter(adapter);
-                            ic_noOrder.setVisibility(View.GONE);
                             progressBar.setVisibility(View.GONE);
+
                         }
                     } else {
+                        imageViewNoOrder.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
-                        ic_noOrder.setVisibility(View.VISIBLE);
                     }
                 }
 
@@ -93,7 +100,9 @@ public class TabStatus6 extends Fragment {
 
         } catch (Exception e) {
 
-
         }
+
+
+
     }
 }

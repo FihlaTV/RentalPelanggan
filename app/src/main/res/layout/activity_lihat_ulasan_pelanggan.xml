@@ -102,5 +102,12 @@
                 android:hint="Ulasan Anda.."
                 android:textSize="16dp" />
         </LinearLayout>
+        <TextView
+            android:id="@+id/textViewWaktuUlasan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="waktu ulasan"
+            android:textSize="15dp"/>
     </LinearLayout>
 </RelativeLayout>

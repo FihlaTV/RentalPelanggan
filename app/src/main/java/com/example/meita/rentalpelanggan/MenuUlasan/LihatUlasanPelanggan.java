@@ -17,17 +17,19 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LihatUlasanPelanggan extends AppCompatActivity {
     RatingBar rb_kualitas_pelayanan, rb_kualitas_kendaraan;
-    TextView textViewUlasan;
+    TextView textViewUlasan, textViewWaktuUlasan;
     DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lihat_ulasan_pelanggan);
+        setTitle("Ulasan Anda");
 
         rb_kualitas_pelayanan = (RatingBar)findViewById(R.id.rb_kualitas_pelayanan);
         rb_kualitas_kendaraan = (RatingBar)findViewById(R.id.rb_kualitas_kendaraan);
         textViewUlasan = (TextView) findViewById(R.id.textViewUlasan);
+        textViewWaktuUlasan = (TextView) findViewById(R.id.textViewWaktuUlasan);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         final String idPenyewaan = getIntent().getStringExtra("idPenyewaan");
@@ -56,6 +58,7 @@ public class LihatUlasanPelanggan extends AppCompatActivity {
                         rb_kualitas_kendaraan.setRating(dataUlasan.getRatingKendaraan());
                         rb_kualitas_pelayanan.setRating(dataUlasan.getRatingPelayanan());
                         textViewUlasan.setText(dataUlasan.getUlasan());
+                        textViewWaktuUlasan.setText(dataUlasan.getWaktuUlasan());
                     }catch (Exception e){
 
                     }

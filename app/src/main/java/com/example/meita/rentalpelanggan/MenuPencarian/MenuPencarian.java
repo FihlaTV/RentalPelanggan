@@ -19,8 +19,11 @@ import android.widget.TextView;
 import com.example.meita.rentalpelanggan.R;
 import com.example.meita.rentalpelanggan.Utils.ShowAlertDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MenuPencarian extends Fragment {
     private int tgl, bln, thn;
@@ -31,6 +34,7 @@ public class MenuPencarian extends Fragment {
     private boolean isSpinnerTouched = false;
     String valueTglSewa = null;
     String valueTglKembali = null;
+    private int pickerTglSewa, pickerBlnSewa, pickerThnSewa;
 
 
     @Override
@@ -147,19 +151,19 @@ public class MenuPencarian extends Fragment {
             public void onClick(View view) {
                 final Calendar calendar = Calendar.getInstance();
                 final Calendar cal = Calendar.getInstance();
-                tgl = calendar.get(Calendar.DAY_OF_MONTH);
-                bln = calendar.get(Calendar.MONTH);
-                thn = calendar.get(Calendar.YEAR);
+                pickerTglSewa = calendar.get(Calendar.DAY_OF_MONTH);
+                pickerBlnSewa = calendar.get(Calendar.MONTH);
+                pickerThnSewa = calendar.get(Calendar.YEAR);
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         tglSewa.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                        valueTglSewa = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                        valueTglSewa = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year; // 15/3/2018
 
                     }
                 }
-                        , tgl, bln, thn);
+                        , pickerTglSewa, pickerBlnSewa, pickerThnSewa);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
                 cal.add(Calendar.MONTH, 5);
                 datePickerDialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
@@ -171,25 +175,48 @@ public class MenuPencarian extends Fragment {
         tglKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Calendar calendar = Calendar.getInstance();
-                final Calendar cal = Calendar.getInstance();
-                tgl = calendar.get(Calendar.DAY_OF_MONTH);
-                bln = calendar.get(Calendar.MONTH);
-                thn = calendar.get(Calendar.YEAR);
+                if (valueTglSewa == null) {
+                    ShowAlertDialog.showAlert("Silahkan Pilih Tanggal Sewa Terlebih Dahulu", getContext());
+                } else {
+                    final Calendar calendar = Calendar.getInstance();
+                    final Calendar cal = Calendar.getInstance();
+                    tgl = calendar.get(Calendar.DAY_OF_MONTH);
+                    bln = calendar.get(Calendar.MONTH);
+                    thn = calendar.get(Calendar.YEAR);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        tglKembali.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                        valueTglKembali = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            tglKembali.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            valueTglKembali = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
 
+                        }
+                    }
+                            , pickerTglSewa, pickerBlnSewa, pickerThnSewa);
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    Date convertedDate = new Date();
+                    try {
+                        convertedDate = dateFormat.parse(valueTglSewa);
+                        Long longDate = convertedDate.getTime();
+                        datePickerDialog.getDatePicker().setMinDate(longDate);
+                        datePickerDialog.show();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
                 }
-                        , tgl, bln, thn);
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
-                cal.add(Calendar.MONTH, 5);
-                datePickerDialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
-                datePickerDialog.show();
+
+
+//                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+//                cal.add(Calendar.MONTH, 5);
+//                datePickerDialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
+//                datePickerDialog.show();
+
+//                cal.set(pickerThnSewa, pickerBlnSewa, pickerThnSewa);
+//                Date a = cal.getTime();
+//                Long b = a.getTime();
+//                datePickerDialog.getDatePicker().setMinDate(b);
+//                datePickerDialog.show();
 
             }
         });

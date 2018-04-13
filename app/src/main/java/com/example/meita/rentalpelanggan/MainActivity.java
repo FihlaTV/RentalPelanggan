@@ -2,9 +2,7 @@ package com.example.meita.rentalpelanggan;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -12,25 +10,23 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.meita.rentalpelanggan.Autentifikasi.AutentifikasiTelepon;
 import com.example.meita.rentalpelanggan.Autentifikasi.Login;
 import com.example.meita.rentalpelanggan.Base.DeviceToken;
-import com.example.meita.rentalpelanggan.MenuPemberitahuan.MenuPemberitahuan;
 import com.example.meita.rentalpelanggan.MenuPencarian.MenuPencarian;
-import com.example.meita.rentalpelanggan.MenuStatusPemesanan.MenuStatusPemesanan;
+import com.example.meita.rentalpelanggan.MenuKelolaPenyewaan.MenuStatusPemesanan;
 import com.example.meita.rentalpelanggan.MenuProfilPelanggan.MenuProfil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.onesignal.OneSignal;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -47,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -65,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         idPelanggan = user.getUid();
 
+        OneSignal.sendTag("UID", idPelanggan);
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         if (progressBar != null) {
@@ -73,10 +72,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         String notif1 = getIntent().getStringExtra("notifBerhasil");
         String notif2 = getIntent().getStringExtra("notifSelesai");
-        String notif7 = getIntent().getStringExtra("notifMenungguSisaPembayaran");
+        String notif7 = getIntent().getStringExtra("notifBatal");
+        String notif8 = getIntent().getStringExtra("notifMenungguSisaPembayaran");
 
         int halamanStatusBelumBayar = getIntent().getIntExtra("halamanStatusBelumBayar", -1);
         int halamanStatusMenungguKonfirmasi = getIntent().getIntExtra("halamanStatusMenungguKonfirmasi", 0);
+        int halamanStatusPengajuanPembatan = getIntent().getIntExtra("halamanStatusPengajuanPembatalan", 2);
         int halamanEditProfil = getIntent().getIntExtra("halamanEditProfil", 10);
         int halamanStatusMenungguKonfirmasiSisaPembayaran = getIntent().getIntExtra("halamanStatusMenungguKonfirmasiSisaPembayaran", 11);
 
@@ -92,7 +93,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
             menuStatusPemesanan.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
-        } else if (findViewById(R.id.content_frame) != null && notif7 != null && notif7.equals("menungguSisaPembayaran")) {
+        } else if (findViewById(R.id.content_frame) != null && notif7 != null && notif7.equals("batal")) {
+            Bundle bundle=new Bundle();
+            bundle.putInt("tab6", 6);
+            MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
+            menuStatusPemesanan.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
+        } else if (findViewById(R.id.content_frame) != null && notif8 != null && notif8.equals("menungguSisaPembayaran")) {
             Bundle bundle=new Bundle();
             bundle.putInt("tab7", 7);
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
@@ -116,6 +123,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (findViewById(R.id.content_frame) != null && halamanStatusMenungguKonfirmasiSisaPembayaran != 11) {
             Bundle bundle=new Bundle();
             bundle.putInt("tab8", 8);
+            MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
+            menuStatusPemesanan.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();
+        } else if (findViewById(R.id.content_frame) != null && halamanStatusPengajuanPembatan != 2) {
+            Bundle bundle=new Bundle();
+            bundle.putInt("tab5", 5);
             MenuStatusPemesanan menuStatusPemesanan = new MenuStatusPemesanan();
             menuStatusPemesanan.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, menuStatusPemesanan).commit();

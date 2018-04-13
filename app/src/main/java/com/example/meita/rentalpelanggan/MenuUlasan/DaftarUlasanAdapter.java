@@ -45,6 +45,7 @@ public class DaftarUlasanAdapter extends RecyclerView.Adapter<DaftarUlasanAdapte
         holder.textViewUlasan.setText(dataUlasan.getUlasan());
         holder.rb_kualitas_kendaraan.setRating(dataUlasan.getRatingKendaraan());
         holder.rb_kualitas_pelayanan.setRating(dataUlasan.getRatingPelayanan());
+        holder.textViewUlasan.setText(dataUlasan.getWaktuUlasan());
         mDatabase = FirebaseDatabase.getInstance().getReference();
         String idPelanggan = dataUlasan.getIdPelanggan();
         mDatabase.child("pelanggan").child(idPelanggan).addValueEventListener(new ValueEventListener() {
@@ -82,7 +83,7 @@ public class DaftarUlasanAdapter extends RecyclerView.Adapter<DaftarUlasanAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView textViewNamaPelanggan, textViewTipeKendaraan, textViewUlasan;
+        public TextView textViewNamaPelanggan, textViewTipeKendaraan, textViewUlasan, textViewWaktuUlasan;
         RatingBar rb_kualitas_pelayanan, rb_kualitas_kendaraan;
 
         public ViewHolder(View itemView) {
@@ -91,6 +92,7 @@ public class DaftarUlasanAdapter extends RecyclerView.Adapter<DaftarUlasanAdapte
             textViewTipeKendaraan = (TextView)itemView.findViewById(R.id.textViewTipeKendaraan);
             textViewNamaPelanggan = (TextView)itemView.findViewById(R.id.textViewNamaPelanggan);
             textViewUlasan = (TextView)itemView.findViewById(R.id.textViewUlasan);
+            textViewWaktuUlasan = (TextView)itemView.findViewById(R.id.textViewWaktuUlasan);
             rb_kualitas_pelayanan = (RatingBar)itemView.findViewById(R.id.rb_kualitas_pelayanan);
             rb_kualitas_kendaraan = (RatingBar)itemView.findViewById(R.id.rb_kualitas_kendaraan);
         }

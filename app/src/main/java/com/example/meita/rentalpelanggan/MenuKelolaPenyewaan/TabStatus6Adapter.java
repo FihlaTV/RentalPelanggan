@@ -1,4 +1,4 @@
-package com.example.meita.rentalpelanggan.MenuStatusPemesanan;
+package com.example.meita.rentalpelanggan.MenuKelolaPenyewaan;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,37 +25,33 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-/**
- * Created by meita on 10/28/2017.
- */
-
-public class TabStatus1Adapter extends RecyclerView.Adapter<TabStatus1Adapter.ViewHolder> implements View.OnClickListener {
+public class TabStatus6Adapter extends RecyclerView.Adapter<TabStatus6Adapter.ViewHolder> implements View.OnClickListener {
     private List<PenyewaanModel> penyewaanModel;
     DatabaseReference mDatabase;
     Context context;
 
-    public TabStatus1Adapter(Context context, List<PenyewaanModel> penyewaanModel) {
+    public TabStatus6Adapter(Context context, List<PenyewaanModel> penyewaanModel) {
         this.penyewaanModel = penyewaanModel;
         this.context = context;
     }
 
 
     @Override
-    public TabStatus1Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TabStatus6Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_tab_status1, parent, false);
+                .inflate(R.layout.adapter_tab_status6, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final TabStatus1Adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final TabStatus6Adapter.ViewHolder holder, int position) {
         final PenyewaanModel dataPemesanan = penyewaanModel.get(position);
-        double a = dataPemesanan.getTotalBiayaPembayaran();
         final String kategoriKendaraan = dataPemesanan.getKategoriKendaraan();
         final String idKendaraan = dataPemesanan.getIdKendaraan();
         final String idRental = dataPemesanan.getIdRental();
         final String idPelanggan = dataPemesanan.getIdPelanggan();
+        final String statusPemesanan = dataPemesanan.getstatusPenyewaan();
         holder.textViewStatusPemesanan.setText(dataPemesanan.getstatusPenyewaan());
         holder.textViewTglSewa.setText(dataPemesanan.getTglSewa());
         holder.textViewTglKembali.setText(dataPemesanan.getTglKembali());
@@ -66,22 +62,26 @@ public class TabStatus1Adapter extends RecyclerView.Adapter<TabStatus1Adapter.Vi
             public void onClick(View view, int position, boolean isLongClick) {
                 if (isLongClick) {
                     Bundle bundle = new Bundle();
-                    Intent intent = new Intent(context, DetailPemesananStatus1.class);
+                    Intent intent = new Intent(context, DetailPemesananStatus6.class);
                     bundle.putString("idPenyewaan", dataPemesanan.getidPenyewaan());
                     bundle.putString("idKendaraan", idKendaraan);
                     bundle.putString("idRental", idRental);
                     bundle.putString("idPelanggan", idPelanggan);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);
+                    bundle.putString("statusPemesanan", statusPemesanan);
+                    bundle.putString("statusPenyewaan", "batal");
                     intent.putExtras(bundle);
                     context.startActivity(intent);
                 } else {
                     Bundle bundle = new Bundle();
-                    Intent intent = new Intent(context, DetailPemesananStatus1.class);
+                    Intent intent = new Intent(context, DetailPemesananStatus6.class);
                     bundle.putString("idPenyewaan", dataPemesanan.getidPenyewaan());
                     bundle.putString("idKendaraan", idKendaraan);
                     bundle.putString("idRental", idRental);
                     bundle.putString("idPelanggan", idPelanggan);
                     bundle.putString("kategoriKendaraan", kategoriKendaraan);
+                    bundle.putString("statusPemesanan", statusPemesanan);
+                    bundle.putString("statusPenyewaan", "batal");
                     intent.putExtras(bundle);
                     context.startActivity(intent);
                 }
@@ -91,37 +91,32 @@ public class TabStatus1Adapter extends RecyclerView.Adapter<TabStatus1Adapter.Vi
         mDatabase.child("kendaraan").child(kategoriKendaraan).child(idKendaraan).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                try {
-                    KendaraanModel dataKendaraan = dataSnapshot.getValue(KendaraanModel.class);
-                    holder.textViewTipeKendaraan.setText(dataKendaraan.getTipeKendaraan());
-                    ImageLoader.getInstance().loadImageOther(context, dataKendaraan.getUriFotoKendaraan().get(0), holder.fotoKendaraan);
-                    if (dataKendaraan.isSupir() == true ) {
-                        holder.textViewDenganSupir.setVisibility(View.VISIBLE);
-                        holder.checkListDenganSupir.setVisibility(View.VISIBLE);
-                        holder.textViewTanpaSupir.setVisibility(View.GONE);
-                        holder.checkListTanpaSupir.setVisibility(View.GONE);
-                    } else {
-                        holder.textViewDenganSupir.setVisibility(View.GONE);
-                        holder.checkListDenganSupir.setVisibility(View.GONE);
-                        holder.textViewTanpaSupir.setVisibility(View.VISIBLE);
-                        holder.checkListTanpaSupir.setVisibility(View.VISIBLE);
-                    }
-
-                    if (dataKendaraan.isBahanBakar() == true ) {
-                        holder.textViewDenganBBM.setVisibility(View.VISIBLE);
-                        holder.checkListDenganBBM.setVisibility(View.VISIBLE);
-                        holder.textViewTanpaBBM.setVisibility(View.GONE);
-                        holder.checkListTanpaBBM.setVisibility(View.GONE);
-                    } else {
-                        holder.textViewDenganBBM.setVisibility(View.GONE);
-                        holder.checkListDenganBBM.setVisibility(View.GONE);
-                        holder.textViewTanpaBBM.setVisibility(View.VISIBLE);
-                        holder.checkListTanpaBBM.setVisibility(View.VISIBLE);
-                    }
-                } catch (Exception e) {
-
+                KendaraanModel dataKendaraan = dataSnapshot.getValue(KendaraanModel.class);
+                holder.textViewTipeKendaraan.setText(dataKendaraan.getTipeKendaraan());
+                ImageLoader.getInstance().loadImageOther(context, dataKendaraan.getUriFotoKendaraan().get(0), holder.fotoKendaraan);
+                if (dataKendaraan.isSupir() == true ) {
+                    holder.textViewDenganSupir.setVisibility(View.VISIBLE);
+                    holder.checkListDenganSupir.setVisibility(View.VISIBLE);
+                    holder.textViewTanpaSupir.setVisibility(View.GONE);
+                    holder.checkListTanpaSupir.setVisibility(View.GONE);
+                } else {
+                    holder.textViewDenganSupir.setVisibility(View.GONE);
+                    holder.checkListDenganSupir.setVisibility(View.GONE);
+                    holder.textViewTanpaSupir.setVisibility(View.VISIBLE);
+                    holder.checkListTanpaSupir.setVisibility(View.VISIBLE);
                 }
 
+                if (dataKendaraan.isBahanBakar() == true ) {
+                    holder.textViewDenganBBM.setVisibility(View.VISIBLE);
+                    holder.checkListDenganBBM.setVisibility(View.VISIBLE);
+                    holder.textViewTanpaBBM.setVisibility(View.GONE);
+                    holder.checkListTanpaBBM.setVisibility(View.GONE);
+                } else {
+                    holder.textViewDenganBBM.setVisibility(View.GONE);
+                    holder.checkListDenganBBM.setVisibility(View.GONE);
+                    holder.textViewTanpaBBM.setVisibility(View.VISIBLE);
+                    holder.checkListTanpaBBM.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -134,12 +129,7 @@ public class TabStatus1Adapter extends RecyclerView.Adapter<TabStatus1Adapter.Vi
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 RentalModel dataRental = dataSnapshot.getValue(RentalModel.class);
-                try {
-                    holder.textViewNamaRental.setText(dataRental.getNama_rental());
-                } catch (Exception e) {
-
-                }
-
+                holder.textViewNamaRental.setText(dataRental.getNama_rental());
             }
 
             @Override
@@ -163,7 +153,7 @@ public class TabStatus1Adapter extends RecyclerView.Adapter<TabStatus1Adapter.Vi
         private ItemClickListener clickListener;
         public ImageView fotoKendaraan, checkListDenganSupir, checkListTanpaSupir, checkListDenganBBM, checkListTanpaBBM;
         public TextView textViewStatusPemesanan, textViewTglSewa, textViewTglKembali, textViewTipeKendaraan,
-        textViewNamaRental, textViewDenganSupir, textViewTanpaSupir, textViewDenganBBM,
+                textViewNamaRental, textViewDenganSupir, textViewTanpaSupir, textViewDenganBBM,
                 textViewTanpaBBM, textViewTotalPembayaran, tglBuatPenyewaan;
 
         public ViewHolder(View itemView) {

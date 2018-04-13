@@ -131,7 +131,12 @@ public class MenuHasilPencarian extends AppCompatActivity {
         });
 
         kendaraanModel.clear();
-        getHasilPencarian();
+
+        if (tanggalSewaPencarian.equals(tanggalKembaliPencarian) && kategoriKendaraanPencarian.equals("Mobil")) {
+            getHasilPencarian1hari();
+        } else {
+            getHasilPencarian();
+        }
     }
 
     public void showDialogTerdekat() {
@@ -439,6 +444,170 @@ public class MenuHasilPencarian extends AppCompatActivity {
         jmlKendaraanPencarian = Integer.parseInt(jumlahKendaraanPencarian);
         final LinkedHashSet<KendaraanModel> lhs = new LinkedHashSet<>();
         mDatabase.child("kendaraan").child(kategoriKendaraanPencarian).addValueEventListener(new ValueEventListener() { //2
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) { //3
+                    progressBar.setVisibility(View.GONE);
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) { //4
+                        final KendaraanModel kendaraan = postSnapshot.getValue(KendaraanModel.class);//5
+                        jmlKendaraan = kendaraan.getJumlahKendaraan();
+                        final String id = kendaraan.getIdKendaraan();
+                        final int jmlKendaraanModel = jmlKendaraan;
+
+                        Firebase ref = new Firebase("https://bismillahskripsi-44a73.firebaseio.com/cekSisaKendaraan");
+                        Query query = ref.orderByChild("idKendaraan").equalTo(id);
+                        query.addValueEventListener(new com.firebase.client.ValueEventListener() { //6
+                            @Override
+                            public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) { //7
+                                    for (com.firebase.client.DataSnapshot postSnapshot : dataSnapshot.getChildren()) { //8
+                                        SisaKendaraanModel sisaModel = postSnapshot.getValue(SisaKendaraanModel.class); //9
+                                        idCekSisa = sisaModel.getIdCekSisa();
+                                        final int sisaKendaraan = sisaModel.getSisaKendaraan();
+                                        String tanggalSewaDipesan = sisaModel.getTglSewa();
+                                        String tanggalKembaliDipesan = sisaModel.getTglKembali();
+
+                                        if (cekTanggal(tanggalSewaPencarian, tanggalKembaliPencarian, tanggalSewaDipesan, tanggalKembaliDipesan) == true) {//10
+                                            if (sisaKendaraan >= jmlKendaraanPencarian || sisaKendaraan == jmlKendaraanPencarian) { //11
+                                                kendaraanModel.add(kendaraan); //12
+                                            } else { //13
+                                                kendaraanModel.remove(kendaraan); //14
+                                                break;
+                                            }
+                                        } else { //15
+                                            if (jmlKendaraanModel >= jmlKendaraanPencarian || jmlKendaraanModel == jmlKendaraanPencarian) { //16
+                                                kendaraanModel.add(kendaraan); //17
+                                            } else { //18
+                                                kendaraanModel.remove(kendaraan); //19
+                                                break;
+                                            }
+                                        }
+                                    } // end looping sisa cek //20
+                                } else { //21
+                                    if (jmlKendaraanModel > jmlKendaraanPencarian || jmlKendaraanModel == jmlKendaraanPencarian) { //22
+                                        kendaraanModel.add(kendaraan);//23
+                                    } else { //24
+                                        kendaraanModel.remove(kendaraan);//25
+                                    }
+                                }
+                                lhs.addAll(kendaraanModel); //26
+                                kendaraanModel.clear();
+                                kendaraanModel.addAll(lhs);
+                                adapter = new MenuHasilPencarianAdapter(MenuHasilPencarian.this, kendaraanModel, tanggalSewaPencarian, tanggalKembaliPencarian, jumlahKendaraanPencarian);
+                                recyclerView.setAdapter(adapter);
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+                            }
+                        });
+                    } // end looping kendaraan //27
+                } else { //28
+                    progressBar.setVisibility(View.GONE); //29
+                    linearLayoutListKendaraan.setVisibility(View.GONE);
+                    kendaraanTidakTersedia.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        // pake stub
+//        mDatabase.child("kendaraan").child(kategoriKendaraanPencarian).addValueEventListener(new ValueEventListener() { //2
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) { //3
+//                    progressBar.setVisibility(View.GONE);
+//                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) { //4
+//                        final KendaraanModel kendaraan = postSnapshot.getValue(KendaraanModel.class);//5
+//                        jmlKendaraan = kendaraan.getJumlahKendaraan();
+//                        final String id = kendaraan.getIdKendaraan();
+//                        final int jmlKendaraanModel = jmlKendaraan;
+//
+//                        Firebase ref = new Firebase("https://bismillahskripsi-44a73.firebaseio.com/cekSisaKendaraan");
+//                        Query query = ref.orderByChild("idKendaraan").equalTo(id);
+//                        query.addValueEventListener(new com.firebase.client.ValueEventListener() { //6
+//                            @Override
+//                            public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
+//                                if (dataSnapshot.exists()) { //7
+//                                    for (com.firebase.client.DataSnapshot postSnapshot : dataSnapshot.getChildren()) { //8
+//                                        SisaKendaraanModel sisaModel = postSnapshot.getValue(SisaKendaraanModel.class); //9
+//                                        idCekSisa = sisaModel.getIdCekSisa();
+//                                        final int sisaKendaraan = sisaModel.getSisaKendaraan();
+//
+//                                        boolean stubCekTanggal = true;
+//
+//                                        if (stubCekTanggal) {//10
+//                                            String stubStatus = "Mengeksekusi stub yang mempunyai nilai true";
+//                                            if (sisaKendaraan >= jmlKendaraanPencarian || jmlKendaraanModel == jmlKendaraanPencarian) { //11
+//                                                kendaraanModel.add(kendaraan); //12
+//                                                Toast.makeText(getApplicationContext(), "id " + id + " di add ke adapter", Toast.LENGTH_LONG).show();
+//                                            } else { //13
+//                                                kendaraanModel.remove(kendaraan); //14
+//                                                Toast.makeText(getApplicationContext(), "id " + id + " di remove karna kurang", Toast.LENGTH_LONG).show();
+//                                                break;
+//                                            }
+//                                        } else { //15
+//                                            String stubStatus = "Mengeksekusi stub yang mempunyai nilai false";
+//                                            if (jmlKendaraanModel >= jmlKendaraanPencarian || jmlKendaraanModel == jmlKendaraanPencarian) { //16
+//                                                kendaraanModel.add(kendaraan); //17
+//                                                Toast.makeText(getApplicationContext(), "id " + id + " di add krna tglnya beda sama yang di cek dan tersedia", Toast.LENGTH_LONG).show();
+//                                            } else { //18
+//                                                kendaraanModel.remove(kendaraan); //19
+//                                                Toast.makeText(getApplicationContext(), "id " + id + " tglnya beda sama pencarian tapi diremove krna ga cukup", Toast.LENGTH_LONG).show();
+//                                                break;
+//                                            }
+//                                        }
+//                                    } // end looping sisa cek //20
+//                                } else { //21
+//                                    if (jmlKendaraanModel > jmlKendaraanPencarian || jmlKendaraanModel == jmlKendaraanPencarian) { //22
+//                                        kendaraanModel.add(kendaraan);//23
+//                                        Toast.makeText(getApplicationContext(), "id " + id + " tidak ada di cek sisa dan kendaraan trsedia", Toast.LENGTH_LONG).show();
+//                                    } else { //24
+//                                        kendaraanModel.remove(kendaraan);//25
+//                                        Toast.makeText(getApplicationContext(), "id " + id + " tidak ada di cek sisa tapi di remove karna kendaraan ga cukup", Toast.LENGTH_LONG).show();
+//                                    }
+//                                }
+//                                lhs.addAll(kendaraanModel); //26
+//                                kendaraanModel.clear();
+//                                kendaraanModel.addAll(lhs);
+////                                if (kendaraanModel.isEmpty()) {
+////                                    progressBar.setVisibility(View.GONE);
+////                                    linearLayoutListKendaraan.setVisibility(View.GONE);
+////                                    kendaraanTidakTersedia.setVisibility(View.VISIBLE);
+////                                }
+//                                adapter = new MenuHasilPencarianAdapter(MenuHasilPencarian.this, kendaraanModel, tanggalSewaPencarian, tanggalKembaliPencarian, jumlahKendaraanPencarian);
+//                                recyclerView.setAdapter(adapter);
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(FirebaseError firebaseError) {
+//                            }
+//                        });
+//                    } // end looping kendaraan //27
+//                } else { //28
+//                    progressBar.setVisibility(View.GONE); //29
+//                    linearLayoutListKendaraan.setVisibility(View.GONE);
+//                    kendaraanTidakTersedia.setVisibility(View.VISIBLE);
+//                    Toast.makeText(getApplicationContext(), "ga ada data kendaraan", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//        });
+
+    } //30
+
+    public void getHasilPencarian1hari() {
+        final String kategoriKendaraanPencarian = getIntent().getStringExtra("kategoriKendaraanPencarian"); //1
+        final String jumlahKendaraanPencarian = getIntent().getStringExtra("jumlahKendaraanPencarian");
+        final String tanggalSewaPencarian = getIntent().getStringExtra("tglSewaPencarian");
+        final String tanggalKembaliPencarian = getIntent().getStringExtra("tglKembaliPencarian");
+        jmlKendaraanPencarian = Integer.parseInt(jumlahKendaraanPencarian);
+        final LinkedHashSet<KendaraanModel> lhs = new LinkedHashSet<>();
+        mDatabase.child("kendaraan").child(kategoriKendaraanPencarian).orderByChild("lamaPenyewaan").equalTo("12 Jam").addValueEventListener(new ValueEventListener() { //2
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) { //3
@@ -1190,6 +1359,13 @@ public class MenuHasilPencarian extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MenuHasilPencarian.this, MainActivity.class);
+        startActivity(intent);
+        super.onBackPressed();
     }
 
     // INI YANG PAKE CHILD COUNT

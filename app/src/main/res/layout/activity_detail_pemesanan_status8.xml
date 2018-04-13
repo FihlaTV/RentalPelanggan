@@ -44,12 +44,34 @@
                     android:gravity="center"/>
             </LinearLayout>
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Keterangan Sisa Pembayaran"
+                    android:textSize="17dp"
+                    android:textColor="@color/hitam"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/textViewKeteranganSisaPembayaran"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
+                    android:textSize="13dp"
+                    android:gravity="top"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_border"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="7"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/rectangle_border">
                 <LinearLayout
@@ -397,16 +419,6 @@
                         android:text="Email Pemesan"
                         android:textSize="15dp"
                         android:layout_marginLeft="15dp"></TextView>
-                    <Button
-                        android:id="@+id/btnLihatProfilPelanggan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:text="Lihat Profil Pelanggan"
-                        android:background="@null"
-                        android:textColor="@color/merah"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_gravity="right"></Button>
                 </LinearLayout>
                 <View
                     android:id="@+id/pembatas3"
@@ -652,7 +664,7 @@
                             android:id="@+id/btnLihatBuktiSisaPembayaran"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
-                            android:text="Lihat Bukti Pembayaran"
+                            android:text="Lihat Bukti Sisa Pembayaran"
                             android:background="@null"
                             android:textColor="@color/merah"
                             android:layout_marginTop="5dp"
